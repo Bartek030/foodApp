@@ -11,15 +11,16 @@ CREATE TABLE address
 
 CREATE TABLE food_app_user
 (
-    user_id     SERIAL      NOT NULL,
-    name        VARCHAR(32) NOT NULL,
-    surname     VARCHAR(32) NOT NULL,
-    email       VARCHAR(32) NOT NULL,
-    phone       VARCHAR(32) NOT NULL,
-    address_id  INT         NOT NULL,
-    PRIMARY KEY (user_id),
+    food_app_user_id    SERIAL      NOT NULL,
+    name                VARCHAR(32) NOT NULL,
+    surname             VARCHAR(32) NOT NULL,
+    email               VARCHAR(32) NOT NULL,
+    phone               VARCHAR(32) NOT NULL,
+    address_id          INT         NOT NULL,
+    PRIMARY KEY (food_app_user_id),
     UNIQUE      (email),
     UNIQUE      (phone),
+    UNIQUE      (address_id),
     CONSTRAINT fk_food_app_user_address
         FOREIGN KEY (address_id)
             REFERENCES address (address_id)
@@ -36,18 +37,19 @@ CREATE TABLE delivery_address
 
 CREATE TABLE restaurant
 (
-    restaurant_id SERIAL        NOT NULL,
-    name          VARCHAR(32)   NOT NULL,
-    user_id       INT           NOT NULL,
-    address_id    INT           NOT NULL,
+    restaurant_id       SERIAL        NOT NULL,
+    name                VARCHAR(32)   NOT NULL,
+    food_app_user_id    INT           NOT NULL,
+    address_id          INT           NOT NULL,
     PRIMARY KEY (restaurant_id),
     UNIQUE      (address_id),
+    UNIQUE      (food_app_user_id),
     CONSTRAINT fk_restaurant_address
         FOREIGN KEY (address_id)
             REFERENCES address (address_id),
     CONSTRAINT fk_restaurant_food_app_user
-        FOREIGN KEY (user_id)
-            REFERENCES food_app_user (user_id)
+        FOREIGN KEY (food_app_user_id)
+            REFERENCES food_app_user (food_app_user_id)
 );
 
 CREATE TABLE menu
@@ -57,6 +59,7 @@ CREATE TABLE menu
     category        VARCHAR(16) NOT NULL,
     restaurant_id   INT         NOT NULL,
     PRIMARY KEY (menu_id),
+    UNIQUE      (restaurant_id),
     CONSTRAINT fk_menu_restaurant
         FOREIGN KEY (restaurant_id)
             REFERENCES restaurant (restaurant_id)
@@ -85,15 +88,15 @@ CREATE TABLE app_order
     planned_delivery_time   TIMESTAMP WITH TIME ZONE    NOT NULL,
     additional_information  TEXT,
     restaurant_id           INT                         NOT NULL,
-    user_id                 INT                         NOT NULL,
+    food_app_user_id        INT                         NOT NULL,
     PRIMARY KEY (app_order_id),
     UNIQUE      (number),
     CONSTRAINT fk_app_order_restaurant
         FOREIGN KEY (restaurant_id)
             REFERENCES restaurant (restaurant_id),
     CONSTRAINT fk_app_order_food_app_user
-        FOREIGN KEY (user_id)
-            REFERENCES food_app_user (user_id)
+        FOREIGN KEY (food_app_user_id)
+            REFERENCES food_app_user (food_app_user_id)
 );
 
 CREATE TABLE order_details
