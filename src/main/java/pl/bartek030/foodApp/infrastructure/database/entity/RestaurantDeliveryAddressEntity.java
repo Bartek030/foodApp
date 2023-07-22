@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "restaurant_delivery_address")
-public class RestaurantDeliveryAddress {
+public class RestaurantDeliveryAddressEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,11 @@ public class RestaurantDeliveryAddress {
     @Column(name = "delivery_time", nullable = false)
     private OffsetDateTime deliveryTime;
 
-    @Column(name = "delivery_address_id", nullable = false)
-    private String deliveryAddressId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_address_id")
+    private DeliveryAddressEntity deliveryAddress;
 
-    @Column(name = "restaurant_id", nullable = false)
-    private String restaurantId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
+    private RestaurantEntity restaurant;
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,9 +28,13 @@ public class FoodEntity {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "menu_id", nullable = false)
-    private String menuId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "menu_id",nullable = false)
+    private MenuEntity menu;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "food")
+    private Set<OrderDetailsEntity> orderDetails;
 }

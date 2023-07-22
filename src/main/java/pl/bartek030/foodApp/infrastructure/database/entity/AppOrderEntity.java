@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +23,7 @@ public class AppOrderEntity {
     @Column(name = "app_order_id")
     private Long appOrderId;
 
-    @Column(name = "number", nullable = false)
+    @Column(name = "number", nullable = false, unique = true)
     private String number;
 
     @Column(name = "total_cost", nullable = false)
@@ -37,12 +38,17 @@ public class AppOrderEntity {
     @Column(name = "planned_delivery_time", nullable = false)
     private OffsetDateTime plannedDeliveryTime;
 
-    @Column(name = "additional_information", nullable = false)
+    @Column(name = "additional_information")
     private String additionalInformation;
 
-    @Column(name = "restaurant_id", nullable = false)
-    private String restaurantId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private RestaurantEntity restaurant;
 
-    @Column(name = "food_app_user_id", nullable = false)
-    private String foodAppUserId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_app_user_id", nullable = false)
+    private FoodAppUserEntity foodAppUser;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "appOrder")
+    private Set<OrderDetailsEntity> orderDetails;
 }

@@ -34,9 +34,12 @@ public class FoodAppUserEntity {
     private String phone;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id", nullable = false)
+    @JoinColumn(name = "address_id", nullable = false, unique = true)
     private AddressEntity address;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "foodAppUser")
     private Set<RestaurantEntity> restaurants;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "foodAppUser")
+    private Set<AppOrderEntity> appOrders;
 }

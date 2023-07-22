@@ -3,6 +3,8 @@ package pl.bartek030.foodApp.infrastructure.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @EqualsAndHashCode(of = "menuId")
@@ -13,8 +15,6 @@ import lombok.*;
 @Entity
 @Table(name = "menu")
 public class MenuEntity {
-
-    //TODO: START FROM HERE
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,10 @@ public class MenuEntity {
     @Column(name = "category", nullable = false)
     private String category;
 
-    @Column(name = "restaurant_id", nullable = false)
-    private String restaurantId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private RestaurantEntity restaurant;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    private Set<FoodEntity> foods;
 }

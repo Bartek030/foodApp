@@ -3,6 +3,8 @@ package pl.bartek030.foodApp.infrastructure.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @EqualsAndHashCode(of = "restaurantId")
@@ -23,10 +25,19 @@ public class RestaurantEntity {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_app_user_id")
+    @JoinColumn(name = "food_app_user_id", nullable = false, unique = true)
     private FoodAppUserEntity foodAppUser;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id", nullable = false)
+    @JoinColumn(name = "address_id", nullable = false, unique = true)
     private AddressEntity address;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    private Set<MenuEntity> menus;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    private Set<AppOrderEntity> appOrders;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    private Set<RestaurantDeliveryAddressEntity> restaurantDeliveryAddresses;
 }

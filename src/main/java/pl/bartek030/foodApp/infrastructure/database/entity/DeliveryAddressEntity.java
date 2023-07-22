@@ -3,6 +3,8 @@ package pl.bartek030.foodApp.infrastructure.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @EqualsAndHashCode(of = "deliveryAddressId")
@@ -27,4 +29,7 @@ public class DeliveryAddressEntity {
 
     @Column(name = "street", nullable = false)
     private String street;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "deliveryAddress")
+    private Set<RestaurantDeliveryAddressEntity> restaurantDeliveryAddresses;
 }

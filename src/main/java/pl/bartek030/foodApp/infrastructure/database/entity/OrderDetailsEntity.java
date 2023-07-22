@@ -22,9 +22,11 @@ public class OrderDetailsEntity {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @Column(name = "food_id", nullable = false)
-    private String foodId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_id", nullable = false)
+    private FoodEntity food;
 
-    @Column(name = "app_order_id", nullable = false)
-    private String appOrderId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "app_order_id", nullable = false)
+    private AppOrderEntity appOrder;
 }
