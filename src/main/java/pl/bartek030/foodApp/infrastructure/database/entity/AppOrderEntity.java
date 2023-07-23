@@ -2,6 +2,7 @@ package pl.bartek030.foodApp.infrastructure.database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import pl.bartek030.foodApp.infrastructure.database.enums.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -29,8 +30,9 @@ public class AppOrderEntity {
     @Column(name = "total_cost", nullable = false)
     private BigDecimal totalCost;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
-    private String state;
+    private OrderStatus status;
 
     @Column(name = "ordered_at", nullable = false)
     private OffsetDateTime orderedAt;
