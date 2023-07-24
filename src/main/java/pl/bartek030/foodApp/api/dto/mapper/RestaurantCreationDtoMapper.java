@@ -3,14 +3,14 @@ package pl.bartek030.foodApp.api.dto.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
-import pl.bartek030.foodApp.api.dto.AddressDTO;
-import pl.bartek030.foodApp.business.serviceModel.Address;
+import pl.bartek030.foodApp.api.dto.RestaurantCreationDTO;
+import pl.bartek030.foodApp.business.serviceModel.RestaurantCreation;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface AddressDtoMapper {
+public interface RestaurantCreationDtoMapper {
 
-    Address map(final AddressDTO address);
+    RestaurantCreation map(final RestaurantCreationDTO restaurantCreationDTO);
 }

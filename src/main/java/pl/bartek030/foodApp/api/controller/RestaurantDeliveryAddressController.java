@@ -2,7 +2,7 @@ package pl.bartek030.foodApp.api.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.bartek030.foodApp.api.dto.RestaurantDTO;
+import pl.bartek030.foodApp.api.dto.RestaurantCreationDTO;
 import pl.bartek030.foodApp.api.dto.RestaurantDeliveryAddressDTO;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface RestaurantDeliveryAddressController {
     );
 
     @GetMapping(RESTAURANTS_URL)
-    ResponseEntity<List<RestaurantDTO>> getRestaurantsByAddress(
+    ResponseEntity<List<RestaurantCreationDTO>> getRestaurantsByAddress(
         @RequestParam String country,
         @RequestParam String city,
         @RequestParam String street,

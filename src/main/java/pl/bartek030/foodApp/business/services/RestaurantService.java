@@ -1,8 +1,8 @@
 package pl.bartek030.foodApp.business.services;
 
-import pl.bartek030.foodApp.business.serviceModel.Restaurant;
+import pl.bartek030.foodApp.business.serviceModel.RestaurantCreation;
 
 public interface RestaurantService {
 
-    void addRestaurant(Restaurant restaurant);
+    void addRestaurant(RestaurantCreation restaurantCreation);
 }

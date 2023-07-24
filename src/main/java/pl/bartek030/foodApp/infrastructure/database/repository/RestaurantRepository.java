@@ -11,11 +11,11 @@ import pl.bartek030.foodApp.infrastructure.database.repository.jpa.RestaurantJpa
 @AllArgsConstructor
 public class RestaurantRepository implements RestaurantDAO {
 
-    private final RestaurantJpaRepository repository;
-    private final RestaurantDaoMapper mapper;
+    private final RestaurantJpaRepository restaurantJpaRepository;
+    private final RestaurantDaoMapper restaurantDaoMapper;
 
     @Override
     public void addRestaurant(final Restaurant restaurant) {
-        repository.save(mapper.mapToEntity(restaurant));
+        restaurantJpaRepository.save(restaurantDaoMapper.mapToEntity(restaurant));
     }
 }
