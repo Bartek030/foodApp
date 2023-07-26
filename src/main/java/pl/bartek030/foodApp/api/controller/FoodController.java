@@ -1,16 +1,21 @@
 package pl.bartek030.foodApp.api.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.bartek030.foodApp.api.dto.FoodDTO;
+import pl.bartek030.foodApp.api.dto.MenuCreationDTO;
+
+import java.util.List;
 
 @RequestMapping(FoodController.FOOD_URL)
 public interface FoodController {
 
     String FOOD_URL = "/food";
     String NEW_FOOD_URL = "/new";
+    String MENUS_FOODS_URL = "/{restaurantId}";
+
+    @GetMapping(MENUS_FOODS_URL)
+    ResponseEntity<List<MenuCreationDTO>> getRestaurantsMenus(@PathVariable Long restaurantId);
 
     @PostMapping(FoodController.NEW_FOOD_URL)
     ResponseEntity<FoodDTO> addFood(@RequestBody FoodDTO food);

@@ -1,0 +1,21 @@
+package pl.bartek030.foodApp.infrastructure.database.repository;
+
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
+import pl.bartek030.foodApp.business.dao.MenuDao;
+import pl.bartek030.foodApp.business.serviceModel.Menu;
+import pl.bartek030.foodApp.infrastructure.database.entity.mapper.MenuDaoMapper;
+import pl.bartek030.foodApp.infrastructure.database.repository.jpa.MenuJpaRepository;
+
+@Repository
+@AllArgsConstructor
+public class MenuRepository implements MenuDao {
+
+    private final MenuJpaRepository menuJpaRepository;
+    private final MenuDaoMapper menuDaoMapper;
+
+    @Override
+    public void addMenu(final Menu menu) {
+        menuJpaRepository.save(menuDaoMapper.mapToEntity(menu));
+    }
+}

@@ -24,6 +24,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final AddressService addressService;
 
     @Override
+    public Restaurant findById(final Long restaurantId) {
+        // TODO: Custom exception
+        return restaurantDAO.findById(restaurantId).orElseThrow();
+    }
+
+    @Override
     @Transactional
     public void addRestaurant(final RestaurantCreation restaurantCreation) {
         final FoodAppUser foodAppUser = foodAppUserService.findById(restaurantCreation.getFoodAppUserId());
@@ -43,7 +49,11 @@ public class RestaurantServiceImpl implements RestaurantService {
         return addressOpt.orElseGet(() -> addressService.createAddressFromRestaurant(restaurantCreation));
     }
 
-    private Restaurant buildRestaurant(final RestaurantCreation restaurantCreation, final FoodAppUser foodAppUser, final Address address) {
+    private Restaurant buildRestaurant(
+            final RestaurantCreation restaurantCreation,
+            final FoodAppUser foodAppUser,
+            final Address address
+    ) {
         return Restaurant.builder()
                 .name(restaurantCreation.getName())
                 .foodAppUser(foodAppUser)

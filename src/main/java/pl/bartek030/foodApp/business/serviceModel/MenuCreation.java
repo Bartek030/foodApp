@@ -2,17 +2,14 @@ package pl.bartek030.foodApp.business.serviceModel;
 
 import lombok.*;
 
-import java.util.Set;
-
 @With
 @Value
 @Builder
-@EqualsAndHashCode(of = "menuId")
+@EqualsAndHashCode(of = {"name", "category", "restaurantId"})
 @ToString(of = {"name"})
-public class Menu {
-    Long menuId;
+public class MenuCreation {
     String name;
     String category;
-    Restaurant restaurant;
-    Set<Food> foods;
+
+    Long restaurantId;
 }

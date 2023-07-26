@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import pl.bartek030.foodApp.api.controller.RestaurantController;
 import pl.bartek030.foodApp.api.dto.RestaurantCreationDTO;
+import pl.bartek030.foodApp.api.dto.RestaurantDTO;
 import pl.bartek030.foodApp.api.dto.mapper.RestaurantCreationDtoMapper;
 import pl.bartek030.foodApp.business.services.RestaurantService;
 
@@ -24,7 +25,7 @@ public class RestaurantControllerImpl implements RestaurantController {
     }
 
     @Override
-    public ResponseEntity<RestaurantCreationDTO> addRestaurant(final RestaurantCreationDTO restaurant) {
+    public ResponseEntity<RestaurantDTO> addRestaurant(final RestaurantCreationDTO restaurant) {
         restaurantService.addRestaurant(restaurantDtoMapper.map(restaurant));
         return ResponseEntity
                 .created(URI.create(

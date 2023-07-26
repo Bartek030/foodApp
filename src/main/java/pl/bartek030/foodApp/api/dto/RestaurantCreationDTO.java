@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RestaurantCreationDTO {
-    private Long restaurantId;
     private String name;
 
     private Long foodAppUserId; // TODO: to be replaced after Spring Security implementation

@@ -5,10 +5,9 @@ import lombok.*;
 @With
 @Value
 @Builder
-@EqualsAndHashCode(of = "restaurantId")
+@EqualsAndHashCode(of = {"name", "foodAppUserId"})
 @ToString(of = {"name"})
 public class RestaurantCreation {
-    Long restaurantId;
     String name;
 
     Long foodAppUserId;

@@ -1,7 +1,6 @@
 package pl.bartek030.foodApp.business.serviceModel;
 
 import lombok.*;
-import pl.bartek030.foodApp.infrastructure.database.entity.*;
 
 import java.util.Set;
 
