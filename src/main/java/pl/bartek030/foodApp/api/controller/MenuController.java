@@ -3,6 +3,7 @@ package pl.bartek030.foodApp.api.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.bartek030.foodApp.api.dto.MenuCreationDTO;
+import pl.bartek030.foodApp.api.dto.MenuDTO;
 
 import java.util.List;
 
@@ -15,10 +16,10 @@ public interface MenuController {
     String ID_PLACEHOLDER = "/%s";
 
     @PostMapping(MenuController.NEW_MENU_URL)
-    ResponseEntity<MenuCreationDTO> addMenu(@RequestBody MenuCreationDTO menu);
+    ResponseEntity<MenuDTO> addMenu(@RequestBody MenuCreationDTO menu);
 
     @GetMapping(RESTAURANTS_MENUS_URL)
-    ResponseEntity<List<MenuCreationDTO>> getRestaurantsMenus(
+    ResponseEntity<List<MenuDTO>> getRestaurantsMenus(
             @PathVariable Long restaurantId
     );
 }
