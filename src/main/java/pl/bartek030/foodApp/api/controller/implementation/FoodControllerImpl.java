@@ -27,7 +27,7 @@ public class FoodControllerImpl implements FoodController {
 
     @Override
     public ResponseEntity<FoodDTO> addFood(final FoodCreationDTO food) {
-        foodService.addMenu(foodDtoMapper.map(food));
+        foodService.addFood(foodDtoMapper.map(food));
         return ResponseEntity
                 .created(URI.create(
                         // TODO: magic number to remove after Spring Security implementation

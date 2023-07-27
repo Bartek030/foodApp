@@ -18,6 +18,12 @@ public class MenuServiceImpl implements MenuService {
     private final RestaurantService restaurantService;
 
     @Override
+    public Menu findById(final Long menuId) {
+        // TODO: Custom exception
+        return menuDao.findById(menuId).orElseThrow();
+    }
+
+    @Override
     public void addMenu(final MenuCreation menuCreation) {
         final Restaurant restaurant = restaurantService.findById(menuCreation.getRestaurantId());
         menuDao.addMenu(buildMenu(menuCreation, restaurant));
