@@ -43,7 +43,6 @@ CREATE TABLE restaurant
     address_id          INT           NOT NULL,
     PRIMARY KEY (restaurant_id),
     UNIQUE      (address_id),
-    UNIQUE      (food_app_user_id),
     CONSTRAINT fk_restaurant_address
         FOREIGN KEY (address_id)
             REFERENCES address (address_id),
@@ -59,7 +58,6 @@ CREATE TABLE menu
     category        VARCHAR(16) NOT NULL,
     restaurant_id   INT         NOT NULL,
     PRIMARY KEY (menu_id),
-    UNIQUE      (restaurant_id),
     CONSTRAINT fk_menu_restaurant
         FOREIGN KEY (restaurant_id)
             REFERENCES restaurant (restaurant_id)

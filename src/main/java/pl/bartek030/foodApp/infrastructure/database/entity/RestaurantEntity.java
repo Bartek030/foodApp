@@ -25,7 +25,7 @@ public class RestaurantEntity {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_app_user_id", nullable = false, unique = true)
+    @JoinColumn(name = "food_app_user_id", nullable = false)
     private FoodAppUserEntity foodAppUser;
 
     @OneToOne(fetch = FetchType.LAZY)
