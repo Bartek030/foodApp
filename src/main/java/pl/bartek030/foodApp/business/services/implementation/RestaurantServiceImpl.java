@@ -4,14 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bartek030.foodApp.business.dao.RestaurantDAO;
-import pl.bartek030.foodApp.business.serviceModel.Address;
-import pl.bartek030.foodApp.business.serviceModel.FoodAppUser;
-import pl.bartek030.foodApp.business.serviceModel.Restaurant;
-import pl.bartek030.foodApp.business.serviceModel.RestaurantCreation;
-import pl.bartek030.foodApp.business.services.AddressService;
-import pl.bartek030.foodApp.business.services.FoodAppUserService;
-import pl.bartek030.foodApp.business.services.RestaurantService;
+import pl.bartek030.foodApp.business.serviceModel.*;
+import pl.bartek030.foodApp.business.services.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +18,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     private final FoodAppUserService foodAppUserService;
     private final AddressService addressService;
+    private final DeliveryAddressService deliveryAddressService;
+    private final RestaurantDeliveryAddressService restaurantDeliveryAddressService;
 
     @Override
     public Restaurant findById(final Long restaurantId) {
@@ -47,6 +45,23 @@ public class RestaurantServiceImpl implements RestaurantService {
                 restaurantCreation.getZipCode()
         );
         return addressOpt.orElseGet(() -> addressService.createAddressFromRestaurant(restaurantCreation));
+    }
+
+    @Override
+    public List<Restaurant> getRestaurantsByCountryAndCityAndStreet(
+            final String country,
+            final String city,
+            final String street
+    ) {
+        // TODO: Custom exception
+        DeliveryAddress deliveryAddress = deliveryAddressService.findByCountryAndCityAndStreet(country, city, street)
+                .orElseThrow();
+        List<RestaurantDeliveryAddress> restaurantDeliveryAddresses =
+                restaurantDeliveryAddressService.findByAddress(deliveryAddress);
+        final List<Long> restaurantsIdList = restaurantDeliveryAddresses.stream()
+                .map(address -> address.getRestaurant().getRestaurantId())
+                .toList();
+        return restaurantDAO.findRestaurantsByIdList(restaurantsIdList);
     }
 
     private Restaurant buildRestaurant(

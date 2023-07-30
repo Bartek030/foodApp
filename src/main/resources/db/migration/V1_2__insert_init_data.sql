@@ -1,9 +1,9 @@
 INSERT INTO address (country, city, street, number, zip_code)
 VALUES
-('Polska', 'Kraków', 'Mickiewicza', '2A', '38-300'),
-('Polska', 'Warszawa', 'Długa', '5', '34-300'),
-('Polska', 'Gdańsk', 'Lewa', '1', '32-300'),
-('Polska', 'Wrocław', 'Prawa', '22', '39-300');
+('Polska', 'Krakow', 'Mickiewicza', '2A', '38-300'),
+('Polska', 'Warszawa', 'Dluga', '5', '34-300'),
+('Polska', 'Gdansk', 'Lewa', '1', '32-300'),
+('Polska', 'Wroclaw', 'Prawa', '22', '39-300');
 
 INSERT INTO food_app_user (name, surname, email, phone, address_id)
 VALUES
@@ -11,10 +11,10 @@ VALUES
 
 INSERT INTO delivery_address (country, city, street)
 VALUES
-('Polska', 'Kraków', 'Mickiewicza'),
-('Polska', 'Warszawa', 'Długa'),
-('Polska', 'Gdańsk', 'Lewa'),
-('Polska', 'Wrocław', 'Prawa');
+('Polska', 'Krakow', 'Mickiewicza'),
+('Polska', 'Warszawa', 'Dluga'),
+('Polska', 'Gdansk', 'Lewa'),
+('Polska', 'Wroclaw', 'Prawa');
 
 INSERT INTO restaurant (name, food_app_user_id, address_id)
 VALUES
@@ -28,5 +28,10 @@ VALUES
 
 INSERT INTO food (name, price, description, menu_id)
 VALUES
-('kebab mały', 20.50, 'Malutki kebab z kurczaka', 1),
-('kebab duży', 25.50, 'Duży kebab z kurczaka', 1);
+('kebab maly', 20.50, 'Malutki kebab z kurczaka', 1),
+('kebab duzy', 25.50, 'Duzy kebab z kurczaka', 1);
+
+INSERT INTO restaurant_delivery_address (delivery_time, delivery_address_id, restaurant_id)
+VALUES
+(220, 2, 1),
+(300, 2, 2);

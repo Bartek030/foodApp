@@ -16,5 +16,6 @@ public interface RestaurantDaoMapper {
     RestaurantEntity mapToEntity(Restaurant restaurant);
 
     @Mapping(target = "menus", ignore = true)
+    @Mapping(target = "restaurantDeliveryAddresses", ignore = true)
     Restaurant mapFromEntity(RestaurantEntity restaurantEntity);
 }

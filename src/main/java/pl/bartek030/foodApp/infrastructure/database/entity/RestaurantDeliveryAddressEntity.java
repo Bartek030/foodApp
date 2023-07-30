@@ -22,7 +22,7 @@ public class RestaurantDeliveryAddressEntity {
     private Long restaurantDeliveryAddressId;
 
     @Column(name = "delivery_time", nullable = false)
-    private OffsetDateTime deliveryTime;
+    private Integer deliveryTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_address_id")

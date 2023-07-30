@@ -22,4 +22,11 @@ public interface RestaurantController {
     ResponseEntity<List<RestaurantCreationDTO>> getUsersRestaurants(
             @PathVariable Long userId
     );
+
+    @GetMapping
+    ResponseEntity<List<RestaurantDTO>> getRestaurantsByCountryAndCityAndStreet(
+            @RequestParam String country,
+            @RequestParam String city,
+            @RequestParam String street
+    );
 }

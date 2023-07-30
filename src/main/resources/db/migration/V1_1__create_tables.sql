@@ -114,10 +114,10 @@ CREATE TABLE order_details
 
 CREATE TABLE restaurant_delivery_address
 (
-    restaurant_delivery_address_id  SERIAL                      NOT NULL,
-    delivery_time                   TIMESTAMP WITH TIME ZONE    NOT NULL,
-    delivery_address_id             INT                         NOT NULL,
-    restaurant_id                   INT                         NOT NULL,
+    restaurant_delivery_address_id  SERIAL  NOT NULL,
+    delivery_time                   INT     NOT NULL,
+    delivery_address_id             INT     NOT NULL,
+    restaurant_id                   INT     NOT NULL,
     PRIMARY KEY (restaurant_delivery_address_id),
     CONSTRAINT fk_restaurant_delivery_address_delivery_address
         FOREIGN KEY (delivery_address_id)
