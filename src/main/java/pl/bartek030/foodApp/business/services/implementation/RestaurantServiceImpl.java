@@ -36,17 +36,6 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantDAO.addRestaurant(buildRestaurant(restaurantCreation, foodAppUser, address));
     }
 
-    private Address findOrCreateAddress(final RestaurantCreation restaurantCreation) {
-        Optional<Address> addressOpt = addressService.findAddressByData(
-                restaurantCreation.getCountry(),
-                restaurantCreation.getCity(),
-                restaurantCreation.getStreet(),
-                restaurantCreation.getNumber(),
-                restaurantCreation.getZipCode()
-        );
-        return addressOpt.orElseGet(() -> addressService.createAddressFromRestaurant(restaurantCreation));
-    }
-
     @Override
     public List<Restaurant> getRestaurantsByCountryAndCityAndStreet(
             final String country,
@@ -62,6 +51,17 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .map(address -> address.getRestaurant().getRestaurantId())
                 .toList();
         return restaurantDAO.findRestaurantsByIdList(restaurantsIdList);
+    }
+
+    private Address findOrCreateAddress(final RestaurantCreation restaurantCreation) {
+        Optional<Address> addressOpt = addressService.findAddressByData(
+                restaurantCreation.getCountry(),
+                restaurantCreation.getCity(),
+                restaurantCreation.getStreet(),
+                restaurantCreation.getNumber(),
+                restaurantCreation.getZipCode()
+        );
+        return addressOpt.orElseGet(() -> addressService.createAddressFromRestaurant(restaurantCreation));
     }
 
     private Restaurant buildRestaurant(

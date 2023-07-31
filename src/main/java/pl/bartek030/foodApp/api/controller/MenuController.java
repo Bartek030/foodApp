@@ -16,7 +16,7 @@ public interface MenuController {
     String ID_PLACEHOLDER = "/%s";
 
     @PostMapping(MenuController.NEW_MENU_URL)
-    ResponseEntity<MenuDTO> addMenu(@RequestBody MenuCreationDTO menu);
+    ResponseEntity<MenuCreationDTO> addMenu(@RequestBody MenuCreationDTO menu);
 
     @GetMapping(RESTAURANTS_MENUS_URL)
     ResponseEntity<List<MenuDTO>> getRestaurantsMenus(
