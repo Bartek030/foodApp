@@ -19,6 +19,12 @@ public class FoodServiceImpl implements FoodService {
     private final FoodDao foodDao;
 
     @Override
+    public Food findFoodById(final Long foodId) {
+        // TODO: Custom exception
+        return foodDao.findById(foodId).orElseThrow();
+    }
+
+    @Override
     public void addFood(final FoodCreation foodCreation) {
         final Menu menu = menuService.findById(foodCreation.getMenuId());
         foodDao.addFood(buildFood(foodCreation, menu));

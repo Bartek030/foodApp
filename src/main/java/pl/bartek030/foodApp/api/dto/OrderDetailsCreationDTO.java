@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressDTO {
-    private Long addressId;
-    private String country;
-    private String city;
-    private String street;
-    private String number;
-    private String zipCode;
+public class OrderDetailsCreationDTO {
+
+    Long foodId;
+    Integer quantity;
+    String name;
 }

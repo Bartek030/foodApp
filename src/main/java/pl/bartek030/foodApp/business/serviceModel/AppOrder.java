@@ -24,7 +24,7 @@ public class AppOrder {
     OffsetDateTime orderedAt;
     OffsetDateTime plannedDeliveryTime;
     String additionalInformation;
-    RestaurantEntity restaurant;
-    FoodAppUserEntity foodAppUser;
-    Set<OrderDetailsEntity> orderDetails;
+    Restaurant restaurant;
+    FoodAppUser foodAppUser;
+    Set<OrderDetails> orderDetails;
 }

@@ -3,6 +3,7 @@ package pl.bartek030.foodApp.api.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.bartek030.foodApp.api.dto.AppOrderDTO;
+import pl.bartek030.foodApp.api.dto.OrderDetailsCreationDTO;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface AppOrderController {
     String NEW_APP_ORDER_URL = "/new";
 
     @PostMapping(NEW_APP_ORDER_URL)
-    ResponseEntity<String> addOrder(@RequestBody AppOrderDTO menu);
+    ResponseEntity<AppOrderDTO> addOrder(@RequestBody List<OrderDetailsCreationDTO> orderDetailsCreationDTO);
 
     @DeleteMapping(APP_ORDER_ID_URL)
     ResponseEntity<String> cancelOrder(@PathVariable Long orderId);

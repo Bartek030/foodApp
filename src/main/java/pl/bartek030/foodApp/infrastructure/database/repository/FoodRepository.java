@@ -11,6 +11,7 @@ import pl.bartek030.foodApp.infrastructure.database.entity.mapper.MenuDaoMapper;
 import pl.bartek030.foodApp.infrastructure.database.repository.jpa.FoodJpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
@@ -19,6 +20,12 @@ public class FoodRepository implements FoodDao {
     private final FoodJpaRepository foodJpaRepository;
     private final FoodDaoMapper foodDaoMapper;
     private final MenuDaoMapper menuDaoMapper;
+
+    @Override
+    public Optional<Food> findById(final Long foodId) {
+        return foodJpaRepository.findById(foodId)
+                .map(foodDaoMapper::mapFromEntityWithMenu);
+    }
 
     @Override
     public void addFood(final Food food) {
