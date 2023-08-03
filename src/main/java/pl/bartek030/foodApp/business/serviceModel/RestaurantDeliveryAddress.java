@@ -1,10 +1,6 @@
 package pl.bartek030.foodApp.business.serviceModel;
 
 import lombok.*;
-import pl.bartek030.foodApp.infrastructure.database.entity.DeliveryAddressEntity;
-import pl.bartek030.foodApp.infrastructure.database.entity.RestaurantEntity;
-
-import java.time.OffsetDateTime;
 
 @With
 @Value
@@ -14,7 +10,7 @@ import java.time.OffsetDateTime;
 public class RestaurantDeliveryAddress {
 
     Long restaurantDeliveryAddressId;
-    OffsetDateTime deliveryTime;
-    DeliveryAddressEntity deliveryAddress;
-    RestaurantEntity restaurant;
+    Integer deliveryTime;
+    DeliveryAddress deliveryAddress;
+    Restaurant restaurant;
 }

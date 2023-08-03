@@ -7,6 +7,7 @@ import pl.bartek030.foodApp.api.controller.RestaurantController;
 import pl.bartek030.foodApp.api.dto.RestaurantCreationDTO;
 import pl.bartek030.foodApp.api.dto.RestaurantDTO;
 import pl.bartek030.foodApp.api.dto.mapper.RestaurantCreationDtoMapper;
+import pl.bartek030.foodApp.api.dto.mapper.RestaurantDtoMapper;
 import pl.bartek030.foodApp.business.services.RestaurantService;
 
 import java.net.URI;
@@ -16,7 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 public class RestaurantControllerImpl implements RestaurantController {
 
-    private final RestaurantCreationDtoMapper restaurantDtoMapper;
+    private final RestaurantCreationDtoMapper restaurantCreationDtoMapper;
+    private final RestaurantDtoMapper restaurantDtoMapper;
+
     private final RestaurantService restaurantService;
 
     @Override
@@ -26,7 +29,7 @@ public class RestaurantControllerImpl implements RestaurantController {
 
     @Override
     public ResponseEntity<RestaurantDTO> addRestaurant(final RestaurantCreationDTO restaurant) {
-        restaurantService.addRestaurant(restaurantDtoMapper.map(restaurant));
+        restaurantService.addRestaurant(restaurantCreationDtoMapper.map(restaurant));
         return ResponseEntity
                 .created(URI.create(
                         // TODO: magic number to remove after Spring Security implementation
@@ -34,5 +37,17 @@ public class RestaurantControllerImpl implements RestaurantController {
                 )).build();
     }
 
-
+    @Override
+    public ResponseEntity<List<RestaurantDTO>> getRestaurantsByCountryAndCityAndStreet(
+            final String country,
+            final String city,
+            final String street
+    ) {
+        return ResponseEntity.ok(
+                restaurantService.getRestaurantsByCountryAndCityAndStreet(country, city, street)
+                .stream()
+                .map(restaurantDtoMapper::map)
+                .toList()
+        );
+    }
 }

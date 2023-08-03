@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "appOrderId")
-@ToString(of = {"appOrderId", "number", "totalCost", "state"})
+@ToString(of = {"appOrderId", "number", "totalCost", "status"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

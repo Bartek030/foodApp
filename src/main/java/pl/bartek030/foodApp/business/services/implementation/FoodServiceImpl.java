@@ -9,6 +9,8 @@ import pl.bartek030.foodApp.business.serviceModel.Menu;
 import pl.bartek030.foodApp.business.services.FoodService;
 import pl.bartek030.foodApp.business.services.MenuService;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class FoodServiceImpl implements FoodService {
@@ -17,9 +19,21 @@ public class FoodServiceImpl implements FoodService {
     private final FoodDao foodDao;
 
     @Override
+    public Food findFoodById(final Long foodId) {
+        // TODO: Custom exception
+        return foodDao.findById(foodId).orElseThrow();
+    }
+
+    @Override
     public void addFood(final FoodCreation foodCreation) {
         final Menu menu = menuService.findById(foodCreation.getMenuId());
         foodDao.addFood(buildFood(foodCreation, menu));
+    }
+
+    @Override
+    public List<Food> getFoodsFromMenu(final Long menuId) {
+        final Menu menu = menuService.findById(menuId);
+        return foodDao.findByMenu(menu);
     }
 
     private Food buildFood(final FoodCreation foodCreation, final Menu menu) {

@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.bartek030.foodApp.api.dto.FoodCreationDTO;
 import pl.bartek030.foodApp.api.dto.FoodDTO;
-import pl.bartek030.foodApp.api.dto.MenuCreationDTO;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public interface FoodController {
     String ID_PLACEHOLDER = "/%s";
 
     @GetMapping(MENUS_FOODS_URL)
-    ResponseEntity<List<MenuCreationDTO>> getRestaurantsMenus(@PathVariable Long restaurantId);
+    ResponseEntity<List<FoodDTO>> getFoodFromMenu(@PathVariable Long menuId);
 
     @PostMapping(FoodController.NEW_FOOD_URL)
     ResponseEntity<FoodDTO> addFood(@RequestBody FoodCreationDTO food);

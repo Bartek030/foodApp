@@ -2,6 +2,8 @@ package pl.bartek030.foodApp.infrastructure.database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Set;
 
@@ -28,7 +30,8 @@ public class RestaurantEntity {
     @JoinColumn(name = "food_app_user_id", nullable = false)
     private FoodAppUserEntity foodAppUser;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.JOIN)
     @JoinColumn(name = "address_id", nullable = false, unique = true)
     private AddressEntity address;
 

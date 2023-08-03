@@ -9,6 +9,8 @@ import pl.bartek030.foodApp.business.serviceModel.Restaurant;
 import pl.bartek030.foodApp.business.services.MenuService;
 import pl.bartek030.foodApp.business.services.RestaurantService;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class MenuServiceImpl implements MenuService {
@@ -27,6 +29,12 @@ public class MenuServiceImpl implements MenuService {
     public void addMenu(final MenuCreation menuCreation) {
         final Restaurant restaurant = restaurantService.findById(menuCreation.getRestaurantId());
         menuDao.addMenu(buildMenu(menuCreation, restaurant));
+    }
+
+    @Override
+    public List<Menu> getMenusByRestaurantId(final Long restaurantId) {
+        final Restaurant restaurant = restaurantService.findById(restaurantId);
+        return menuDao.findByRestaurant(restaurant);
     }
 
     private Menu buildMenu(final MenuCreation menuCreation, final Restaurant restaurant) {
