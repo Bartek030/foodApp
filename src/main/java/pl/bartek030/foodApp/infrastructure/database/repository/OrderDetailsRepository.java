@@ -23,12 +23,12 @@ public class OrderDetailsRepository implements OrderDetailsDAO {
     public Set<OrderDetails> addAllOrderDetails(final List<OrderDetails> orderDetailsList) {
         final List<OrderDetailsEntity> orderDetailsEntities = orderDetailsJpaRepository.saveAll(
                 orderDetailsList.stream()
-                        .map(orderDetailsDaoMapper::mapToEntity)
+                        .map(orderDetailsDaoMapper::mapOrderDetailsToEntity)
                         .toList()
         );
 
         return orderDetailsEntities.stream()
-                .map(orderDetailsDaoMapper::mapFromEntity)
+                .map(orderDetailsDaoMapper::mapOrderDetailsFromEntity)
                 .collect(Collectors.toSet());
     }
 }

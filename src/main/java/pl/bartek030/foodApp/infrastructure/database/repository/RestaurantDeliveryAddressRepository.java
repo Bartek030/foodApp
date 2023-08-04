@@ -28,10 +28,10 @@ public class RestaurantDeliveryAddressRepository implements RestaurantDeliveryAd
     public List<RestaurantDeliveryAddress> findByAddress(final DeliveryAddress deliveryAddress) {
         final List<RestaurantDeliveryAddressEntity> addresses =
                 restaurantDeliveryAddressJpaRepository.findByDeliveryAddress(
-                        restaurantDeliveryAddressDaoMapper.mapToEntity(deliveryAddress)
+                        deliveryAddressDaoMapper.mapDeliveryAddressToEntity(deliveryAddress)
                 );
         return addresses.stream()
-                .map(restaurantDeliveryAddressDaoMapper::mapFromEntity)
+                .map(restaurantDeliveryAddressDaoMapper::mapRestaurantDeliveryAddressFromEntity)
                 .toList();
     }
 
@@ -39,9 +39,9 @@ public class RestaurantDeliveryAddressRepository implements RestaurantDeliveryAd
     public Optional<RestaurantDeliveryAddress> findByAddressAndRestaurant(final DeliveryAddress address, final Restaurant restaurant) {
         final Optional<RestaurantDeliveryAddressEntity> deliveryAddress =
                 restaurantDeliveryAddressJpaRepository.findByDeliveryAddressAndRestaurant(
-                        deliveryAddressDaoMapper.mapToEntity(address),
-                        restaurantDaoMapper.mapToEntity(restaurant)
+                        deliveryAddressDaoMapper.mapDeliveryAddressToEntity(address),
+                        restaurantDaoMapper.mapRestaurantToEntity(restaurant)
                 );
-        return deliveryAddress.map(restaurantDeliveryAddressDaoMapper::mapFromEntity);
+        return deliveryAddress.map(restaurantDeliveryAddressDaoMapper::mapRestaurantDeliveryAddressFromEntity);
     }
 }

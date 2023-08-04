@@ -24,20 +24,20 @@ public class MenuRepository implements MenuDao {
     @Override
     public Optional<Menu> findById(final Long menuId) {
         return menuJpaRepository.findById(menuId)
-                .map(menuDaoMapper::mapFromEntity);
+                .map(menuDaoMapper::mapMenuFromEntity);
     }
 
     @Override
     public void addMenu(final Menu menu) {
-        menuJpaRepository.save(menuDaoMapper.mapToEntity(menu));
+        menuJpaRepository.save(menuDaoMapper.mapMenuToEntity(menu));
     }
 
     @Override
     public List<Menu> findByRestaurant(final Restaurant restaurant) {
         final List<MenuEntity> allById =
-                menuJpaRepository.findAllByRestaurant(restaurantDaoMapper.mapToEntity(restaurant));
+                menuJpaRepository.findAllByRestaurant(restaurantDaoMapper.mapRestaurantToEntity(restaurant));
         return allById.stream()
-                .map(menuDaoMapper::mapFromEntity)
+                .map(menuDaoMapper::mapMenuFromEntity)
                 .toList();
     }
 }

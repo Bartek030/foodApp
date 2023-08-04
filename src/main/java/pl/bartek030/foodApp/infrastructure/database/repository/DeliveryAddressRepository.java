@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.bartek030.foodApp.business.dao.DeliveryAddressDao;
 import pl.bartek030.foodApp.business.serviceModel.DeliveryAddress;
-import pl.bartek030.foodApp.infrastructure.database.entity.DeliveryAddressEntity;
 import pl.bartek030.foodApp.infrastructure.database.entity.mapper.DeliveryAddressDaoMapper;
 import pl.bartek030.foodApp.infrastructure.database.repository.jpa.DeliveryAddressJpaRepository;
 
@@ -25,6 +24,6 @@ public class DeliveryAddressRepository implements DeliveryAddressDao {
             final String street
     ) {
         return deliveryAddressJpaRepository.findByCountryAndCityAndStreet(country, city, street)
-                .map(deliveryAddressDaoMapper::mapFromEntity);
+                .map(deliveryAddressDaoMapper::mapDeliveryAddressFromEntity);
     }
 }

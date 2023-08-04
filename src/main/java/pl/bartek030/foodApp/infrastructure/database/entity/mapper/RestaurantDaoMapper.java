@@ -13,10 +13,11 @@ import pl.bartek030.foodApp.infrastructure.database.entity.RestaurantEntity;
 )
 public interface RestaurantDaoMapper {
 
-    RestaurantEntity mapToEntity(Restaurant restaurant);
+    @Mapping(target = "menus", ignore = true)
+    RestaurantEntity mapRestaurantToEntity(Restaurant restaurant);
 
     @Mapping(target = "menus", ignore = true)
     @Mapping(target = "restaurantDeliveryAddresses", ignore = true)
     @Mapping(target = "appOrders", ignore = true)
-    Restaurant mapFromEntity(RestaurantEntity restaurantEntity);
+    Restaurant mapRestaurantFromEntity(RestaurantEntity restaurantEntity);
 }

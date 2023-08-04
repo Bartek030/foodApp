@@ -21,19 +21,19 @@ public class RestaurantRepository implements RestaurantDAO {
     @Override
     public Optional<Restaurant> findById(final Long restaurantId) {
         return restaurantJpaRepository.findById(restaurantId)
-                .map(restaurantDaoMapper::mapFromEntity);
+                .map(restaurantDaoMapper::mapRestaurantFromEntity);
     }
 
     @Override
     public void addRestaurant(final Restaurant restaurant) {
-        restaurantJpaRepository.save(restaurantDaoMapper.mapToEntity(restaurant));
+        restaurantJpaRepository.save(restaurantDaoMapper.mapRestaurantToEntity(restaurant));
     }
 
     @Override
     public List<Restaurant> findRestaurantsByIdList(final List<Long> restaurantsIdList) {
         final List<RestaurantEntity> allById = restaurantJpaRepository.findAllById(restaurantsIdList);
         return allById.stream()
-                .map(restaurantDaoMapper::mapFromEntity)
+                .map(restaurantDaoMapper::mapRestaurantFromEntity)
                 .toList();
     }
 }

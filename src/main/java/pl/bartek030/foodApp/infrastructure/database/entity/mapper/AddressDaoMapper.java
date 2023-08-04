@@ -12,7 +12,7 @@ import pl.bartek030.foodApp.infrastructure.database.entity.AddressEntity;
 )
 public interface AddressDaoMapper {
 
-    Address mapFromEntity(AddressEntity addressEntity);
+    Address mapAddressFromEntity(AddressEntity addressEntity);
 
-    AddressEntity mapToEntity(Address address);
+    AddressEntity mapAddressToEntity(Address address);
 }

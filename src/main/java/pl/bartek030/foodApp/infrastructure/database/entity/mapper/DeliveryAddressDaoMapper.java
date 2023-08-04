@@ -1,7 +1,6 @@
 package pl.bartek030.foodApp.infrastructure.database.entity.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 import pl.bartek030.foodApp.business.serviceModel.DeliveryAddress;
@@ -13,7 +12,7 @@ import pl.bartek030.foodApp.infrastructure.database.entity.DeliveryAddressEntity
 )
 public interface DeliveryAddressDaoMapper {
 
-    DeliveryAddress mapFromEntity(DeliveryAddressEntity deliveryAddress);
+    DeliveryAddress mapDeliveryAddressFromEntity(DeliveryAddressEntity deliveryAddress);
 
-    DeliveryAddressEntity mapToEntity(DeliveryAddress deliveryAddress);
+    DeliveryAddressEntity mapDeliveryAddressToEntity(DeliveryAddress deliveryAddress);
 }
