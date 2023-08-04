@@ -12,7 +12,6 @@ import pl.bartek030.foodApp.business.services.OrderDetailsService;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -22,7 +21,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     private final FoodService foodService;
 
     @Override
-    public Set<OrderDetails> addOrders(final List<OrderDetailsCreation> orderList, final AppOrder appOrder) {
+    public void addOrders(final List<OrderDetailsCreation> orderList, final AppOrder appOrder) {
         final List<OrderDetails> orderDetailsList = orderList.stream()
                 .map(order -> OrderDetails.builder()
                         .quantity(order.getQuantity())
@@ -30,7 +29,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
                         .appOrder(appOrder)
                         .build())
                 .toList();
-        return orderDetailsDAO.addAllOrderDetails(orderDetailsList);
+        orderDetailsDAO.addAllOrderDetails(orderDetailsList);
     }
 
     @Override

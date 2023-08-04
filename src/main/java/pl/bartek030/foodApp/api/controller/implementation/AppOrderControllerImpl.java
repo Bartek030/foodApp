@@ -26,15 +26,17 @@ public class AppOrderControllerImpl implements AppOrderController {
     @Override
     public ResponseEntity<AppOrderDTO> addOrder(final List<OrderDetailsCreationDTO> orderDetailsCreationDTO) {
 
-        final AppOrder appOrder = appOrderService.addOrder(orderDetailsCreationDTO.stream()
+        AppOrder appOrder = appOrderService.addOrder(orderDetailsCreationDTO.stream()
                 .map(orderDetailsCreationDtoMapper::map)
                 .toList());
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(appOrderDtoMapper.map(appOrder));
     }
 
     @Override
-    public ResponseEntity<String> cancelOrder(final Long orderId) {
-        return null;
+    public ResponseEntity<AppOrderDTO> cancelOrder(final Long appOrderId) {
+        AppOrder appOrder = appOrderService.cancelOrder(appOrderId);
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(appOrderDtoMapper.map(appOrder));
     }
 
     @Override

@@ -11,20 +11,21 @@ import java.util.List;
 public interface AppOrderController {
 
     String APP_ORDER_URL = "/app-order";
-    String CANCEL_APP_ORDER_URL = "/cancel/{orderId}";
+    String UPDATE_APP_ORDER_URL = "/cancelled/{appOrderId}";
+    String MARK_DELIVERED_APP_ORDER_URL = "/delivered/{appOrderId}";
     String NEW_APP_ORDER_URL = "/new";
     String USER_APP_ORDER_ID = "/user/{userId}";
 
     @PostMapping(NEW_APP_ORDER_URL)
     ResponseEntity<AppOrderDTO> addOrder(@RequestBody List<OrderDetailsCreationDTO> orderDetailsCreationDTO);
 
-    @DeleteMapping(CANCEL_APP_ORDER_URL)
-    ResponseEntity<String> cancelOrder(@PathVariable Long orderId);
+    @PatchMapping(UPDATE_APP_ORDER_URL)
+    ResponseEntity<AppOrderDTO> cancelOrder(@PathVariable Long appOrderId);
 
     @GetMapping
     ResponseEntity<List<AppOrderDTO>> getOrdersByRestaurant(@PathVariable Long restaurantId);
 
-    @PatchMapping(CANCEL_APP_ORDER_URL)
+    @PatchMapping(MARK_DELIVERED_APP_ORDER_URL)
     ResponseEntity<String> markAsDelivered(@PathVariable Long orderId);
 
     @GetMapping(USER_APP_ORDER_ID)

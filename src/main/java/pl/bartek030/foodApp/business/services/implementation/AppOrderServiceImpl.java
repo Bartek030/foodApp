@@ -11,7 +11,6 @@ import pl.bartek030.foodApp.infrastructure.database.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -29,8 +28,8 @@ public class AppOrderServiceImpl implements AppOrderService {
     @Transactional
     public AppOrder addOrder(final List<OrderDetailsCreation> orderList) {
         final AppOrder newOrder = appOrderDAO.addAppOrder(buildNewAppOrder(orderList));
-        final Set<OrderDetails> orderDetails = orderDetailsService.addOrders(orderList, newOrder);
-        return newOrder.withOrderDetails(orderDetails);
+        orderDetailsService.addOrders(orderList, newOrder);
+        return newOrder;
     }
 
     @Override
@@ -38,6 +37,13 @@ public class AppOrderServiceImpl implements AppOrderService {
     public List<AppOrder> getOrdersByUser(final Long userId) {
         final FoodAppUser foodAppUser = foodAppUserService.findById(userId);
         return appOrderDAO.getAppOrdersByUserId(foodAppUser);
+    }
+
+    @Override
+    @Transactional
+    public AppOrder cancelOrder(final Long appOrderId) {
+        // TODO: Custom exception
+       return appOrderDAO.update(appOrderId, OrderStatus.CANCELLED);
     }
 
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {
