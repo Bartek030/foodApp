@@ -2,6 +2,8 @@ package pl.bartek030.foodApp.business.serviceModel;
 
 import lombok.*;
 
+import java.util.Set;
+
 @With
 @Value
 @Builder
@@ -14,6 +16,6 @@ public class FoodAppUser {
     String email;
     String phone;
     Address address;
-//    Set<RestaurantEntity> restaurants;
-//    Set<AppOrderEntity> appOrders;
+    Set<Restaurant> restaurants;
+    Set<AppOrder> appOrders;
 }

@@ -36,7 +36,7 @@ public class AppOrderRepository implements AppOrderDAO {
         List<AppOrderEntity> appOrderEntities =
                 appOrderJpaRepository.findAllByFoodAppUser(foodAppUserDaoMapper.mapFoodAppUserToEntity(foodAppUser));
         return appOrderEntities.stream()
-                .map(appOrderDaoMapper::mapAppOrderFromEntity)
+                .map(appOrderDaoMapper::mapAppOrderFromEntityWithRestaurantAndOrderDetails)
                 .toList();
     }
 }

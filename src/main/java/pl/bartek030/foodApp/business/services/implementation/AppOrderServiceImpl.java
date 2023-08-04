@@ -33,6 +33,13 @@ public class AppOrderServiceImpl implements AppOrderService {
         return newOrder.withOrderDetails(orderDetails);
     }
 
+    @Override
+    @Transactional
+    public List<AppOrder> getOrdersByUser(final Long userId) {
+        final FoodAppUser foodAppUser = foodAppUserService.findById(userId);
+        return appOrderDAO.getAppOrdersByUserId(foodAppUser);
+    }
+
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {
         Restaurant restaurant = restaurantService.findById(findRestaurantIdWhichServiceFood(orderList).getRestaurantId());
         final FoodAppUser foodAppUser = findFoodAppUser();

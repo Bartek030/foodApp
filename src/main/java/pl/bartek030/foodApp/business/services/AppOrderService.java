@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface AppOrderService {
     AppOrder addOrder(List<OrderDetailsCreation> list);
+
+    List<AppOrder> getOrdersByUser(Long userId);
 }
