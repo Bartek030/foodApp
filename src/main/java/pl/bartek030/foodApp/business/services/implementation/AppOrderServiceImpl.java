@@ -11,7 +11,6 @@ import pl.bartek030.foodApp.infrastructure.database.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -29,8 +28,30 @@ public class AppOrderServiceImpl implements AppOrderService {
     @Transactional
     public AppOrder addOrder(final List<OrderDetailsCreation> orderList) {
         final AppOrder newOrder = appOrderDAO.addAppOrder(buildNewAppOrder(orderList));
-        final Set<OrderDetails> orderDetails = orderDetailsService.addOrders(orderList, newOrder);
-        return newOrder.withOrderDetails(orderDetails);
+        orderDetailsService.addOrders(orderList, newOrder);
+        return newOrder;
+    }
+
+    @Override
+    @Transactional
+    public List<AppOrder> getOrdersByUser(final Long userId) {
+        final FoodAppUser foodAppUser = foodAppUserService.findById(userId);
+        return appOrderDAO.getAppOrdersByUserId(foodAppUser);
+    }
+
+    @Override
+    @Transactional
+    public AppOrder cancelOrder(final Long appOrderId) {
+        // TODO: CUSTOM EXCEPTION
+        final AppOrder appOrder = appOrderDAO.findById(appOrderId).orElseThrow();
+        final OffsetDateTime now = OffsetDateTime.now();
+        final OffsetDateTime orderedAt = appOrder.getOrderedAt();
+        final OffsetDateTime timeToCancel = orderedAt.plusMinutes(20);
+        if(now.isAfter(timeToCancel)) {
+            // TODO: CUSTOM EXCEPTION
+            throw new RuntimeException();
+        }
+        return appOrderDAO.update(appOrderId, OrderStatus.CANCELLED);
     }
 
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {

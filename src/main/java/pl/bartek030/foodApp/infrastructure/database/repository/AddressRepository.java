@@ -28,12 +28,12 @@ public class AddressRepository implements AddressDAO {
     ) {
         return addressJpaRepository
                 .findByCountryAndCityAndStreetAndNumberAndZipCode(country, city, street, number, zipCode)
-                .map(addressDaoMapper::mapFromEntity);
+                .map(addressDaoMapper::mapAddressFromEntity);
     }
 
     @Override
     public Address createAddressFromRestaurant(final Address address) {
-        final AddressEntity savedAddress = addressJpaRepository.save(addressDaoMapper.mapToEntity(address));
-        return addressDaoMapper.mapFromEntity(savedAddress);
+        final AddressEntity savedAddress = addressJpaRepository.save(addressDaoMapper.mapAddressToEntity(address));
+        return addressDaoMapper.mapAddressFromEntity(savedAddress);
     }
 }

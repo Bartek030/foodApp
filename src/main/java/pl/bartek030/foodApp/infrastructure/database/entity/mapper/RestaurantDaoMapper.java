@@ -4,8 +4,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
+import pl.bartek030.foodApp.business.serviceModel.Menu;
 import pl.bartek030.foodApp.business.serviceModel.Restaurant;
 import pl.bartek030.foodApp.infrastructure.database.entity.RestaurantEntity;
+
+import java.util.stream.Collectors;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -13,10 +16,12 @@ import pl.bartek030.foodApp.infrastructure.database.entity.RestaurantEntity;
 )
 public interface RestaurantDaoMapper {
 
-    RestaurantEntity mapToEntity(Restaurant restaurant);
+    @Mapping(target = "menus", ignore = true)
+    RestaurantEntity mapRestaurantToEntity(Restaurant restaurant);
 
     @Mapping(target = "menus", ignore = true)
     @Mapping(target = "restaurantDeliveryAddresses", ignore = true)
     @Mapping(target = "appOrders", ignore = true)
-    Restaurant mapFromEntity(RestaurantEntity restaurantEntity);
+    @Mapping(target = "foodAppUser", ignore = true)
+    Restaurant mapRestaurantFromEntity(RestaurantEntity restaurantEntity);
 }

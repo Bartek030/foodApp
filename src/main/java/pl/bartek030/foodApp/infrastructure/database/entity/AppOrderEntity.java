@@ -37,7 +37,7 @@ public class AppOrderEntity {
     @Column(name = "ordered_at", nullable = false)
     private OffsetDateTime orderedAt;
 
-    @Column(name = "planned_delivery_time", nullable = false)
+    @Column(name = "planned_delivery_time")
     private OffsetDateTime plannedDeliveryTime;
 
     @Column(name = "additional_information")

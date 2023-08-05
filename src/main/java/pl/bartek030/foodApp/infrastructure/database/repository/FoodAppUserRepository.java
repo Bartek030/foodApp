@@ -20,6 +20,6 @@ public class FoodAppUserRepository implements FoodAppUserDAO {
     @Override
     public Optional<FoodAppUser> findById(final Long foodAppUserId) {
         return foodAppUserJpaRepository.findById(foodAppUserId)
-                .map(foodAppUserDaoMapper::mapFromEntity);
+                .map(foodAppUserDaoMapper::mapFoodAppUserFromEntity);
     }
 }

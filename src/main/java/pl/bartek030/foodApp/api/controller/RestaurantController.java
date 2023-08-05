@@ -12,14 +12,14 @@ public interface RestaurantController {
 
     String RESTAURANT_URL = "/restaurants";
     String NEW_RESTAURANT_URL = "/new";
-    String USERS_RESTAURANTS_URL = "/{userId}";
+    String USERS_RESTAURANTS_URL = "/owner/{userId}";
     String ID_PLACEHOLDER = "/%s";
 
     @PostMapping(RestaurantController.NEW_RESTAURANT_URL)
     ResponseEntity<RestaurantDTO> addRestaurant(@RequestBody RestaurantCreationDTO restaurant);
 
     @GetMapping(USERS_RESTAURANTS_URL)
-    ResponseEntity<List<RestaurantCreationDTO>> getUsersRestaurants(
+    ResponseEntity<List<RestaurantDTO>> getOwnersRestaurants(
             @PathVariable Long userId
     );
 
@@ -27,6 +27,7 @@ public interface RestaurantController {
     ResponseEntity<List<RestaurantDTO>> getRestaurantsByCountryAndCityAndStreet(
             @RequestParam String country,
             @RequestParam String city,
-            @RequestParam String street
+            @RequestParam String street,
+            @RequestParam Integer page
     );
 }

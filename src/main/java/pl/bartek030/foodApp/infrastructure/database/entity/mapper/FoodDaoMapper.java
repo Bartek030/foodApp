@@ -15,14 +15,14 @@ import pl.bartek030.foodApp.infrastructure.database.entity.FoodEntity;
 )
 public interface FoodDaoMapper {
 
-    FoodEntity mapToEntity(Food food);
+    FoodEntity mapFoodToEntity(Food food);
 
     @Mapping(target = "menu", ignore = true)
     @Mapping(target = "orderDetails", ignore = true)
-    Food mapFromEntity(FoodEntity foodEntity);
+    Food mapFoodFromEntity(FoodEntity foodEntity);
 
-    default Food mapFromEntityWithMenu(FoodEntity foodEntity) {
-        return mapFromEntity(foodEntity)
+    default Food mapFoodFromEntityWithMenu(FoodEntity foodEntity) {
+        return mapFoodFromEntity(foodEntity)
                 .withMenu(Menu.builder()
                         .menuId(foodEntity.getMenu().getMenuId())
                         .name(foodEntity.getMenu().getName())

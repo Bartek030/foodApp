@@ -83,7 +83,7 @@ CREATE TABLE app_order
     total_cost              NUMERIC(7, 2)               NOT NULL,
     state                   VARCHAR(16)                 NOT NULL,
     ordered_at              TIMESTAMP WITH TIME ZONE    NOT NULL,
-    planned_delivery_time   TIMESTAMP WITH TIME ZONE    NOT NULL,
+    planned_delivery_time   TIMESTAMP WITH TIME ZONE,
     additional_information  TEXT,
     restaurant_id           INT                         NOT NULL,
     food_app_user_id        INT                         NOT NULL,

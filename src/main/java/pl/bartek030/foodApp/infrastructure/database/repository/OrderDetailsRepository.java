@@ -9,7 +9,6 @@ import pl.bartek030.foodApp.infrastructure.database.entity.mapper.OrderDetailsDa
 import pl.bartek030.foodApp.infrastructure.database.repository.jpa.OrderDetailsJpaRepository;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
@@ -20,15 +19,11 @@ public class OrderDetailsRepository implements OrderDetailsDAO {
     private final OrderDetailsDaoMapper orderDetailsDaoMapper;
 
     @Override
-    public Set<OrderDetails> addAllOrderDetails(final List<OrderDetails> orderDetailsList) {
+    public void addAllOrderDetails(final List<OrderDetails> orderDetailsList) {
         final List<OrderDetailsEntity> orderDetailsEntities = orderDetailsJpaRepository.saveAll(
                 orderDetailsList.stream()
-                        .map(orderDetailsDaoMapper::mapToEntity)
+                        .map(orderDetailsDaoMapper::mapOrderDetailsToEntity)
                         .toList()
         );
-
-        return orderDetailsEntities.stream()
-                .map(orderDetailsDaoMapper::mapFromEntity)
-                .collect(Collectors.toSet());
     }
 }

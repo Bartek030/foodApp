@@ -24,19 +24,19 @@ public class FoodRepository implements FoodDao {
     @Override
     public Optional<Food> findById(final Long foodId) {
         return foodJpaRepository.findById(foodId)
-                .map(foodDaoMapper::mapFromEntityWithMenu);
+                .map(foodDaoMapper::mapFoodFromEntityWithMenu);
     }
 
     @Override
     public void addFood(final Food food) {
-        foodJpaRepository.save(foodDaoMapper.mapToEntity(food));
+        foodJpaRepository.save(foodDaoMapper.mapFoodToEntity(food));
     }
 
     @Override
     public List<Food> findByMenu(final Menu menu) {
-        final List<FoodEntity> allByMenu = foodJpaRepository.findAllByMenu(menuDaoMapper.mapToEntity(menu));
+        final List<FoodEntity> allByMenu = foodJpaRepository.findAllByMenu(menuDaoMapper.mapMenuToEntity(menu));
         return allByMenu.stream()
-                .map(foodDaoMapper::mapFromEntity)
+                .map(foodDaoMapper::mapFoodFromEntity)
                 .toList();
     }
 }

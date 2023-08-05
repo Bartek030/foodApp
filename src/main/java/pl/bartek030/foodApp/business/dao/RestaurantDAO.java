@@ -1,5 +1,6 @@
 package pl.bartek030.foodApp.business.dao;
 
+import pl.bartek030.foodApp.business.serviceModel.FoodAppUser;
 import pl.bartek030.foodApp.business.serviceModel.Restaurant;
 
 import java.util.List;
@@ -11,5 +12,7 @@ public interface RestaurantDAO {
 
     Optional<Restaurant> findById(Long restaurantId);
 
-    List<Restaurant> findRestaurantsByIdList(List<Long> restaurantsIdList);
+    List<Restaurant> findRestaurantsByIdList(List<Long> restaurantsIdList, final Integer page);
+
+    List<Restaurant> findByFoodAppUserId(FoodAppUser foodAppUser);
 }

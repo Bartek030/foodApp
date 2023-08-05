@@ -12,7 +12,7 @@ import pl.bartek030.foodApp.infrastructure.database.entity.OrderDetailsEntity;
 )
 public interface OrderDetailsDaoMapper {
 
-    OrderDetailsEntity mapToEntity(OrderDetails orderDetails);
+    OrderDetailsEntity mapOrderDetailsToEntity(OrderDetails orderDetails);
 
-    OrderDetails mapFromEntity(OrderDetailsEntity orderDetailsEntity);
+    OrderDetails mapOrderDetailsFromEntity(OrderDetailsEntity orderDetailsEntity);
 }
