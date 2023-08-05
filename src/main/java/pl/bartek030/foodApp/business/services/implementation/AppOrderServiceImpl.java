@@ -42,8 +42,16 @@ public class AppOrderServiceImpl implements AppOrderService {
     @Override
     @Transactional
     public AppOrder cancelOrder(final Long appOrderId) {
-        // TODO: Custom exception
-       return appOrderDAO.update(appOrderId, OrderStatus.CANCELLED);
+        // TODO: CUSTOM EXCEPTION
+        final AppOrder appOrder = appOrderDAO.findById(appOrderId).orElseThrow();
+        final OffsetDateTime now = OffsetDateTime.now();
+        final OffsetDateTime orderedAt = appOrder.getOrderedAt();
+        final OffsetDateTime timeToCancel = orderedAt.plusMinutes(20);
+        if(now.isAfter(timeToCancel)) {
+            // TODO: CUSTOM EXCEPTION
+            throw new RuntimeException();
+        }
+        return appOrderDAO.update(appOrderId, OrderStatus.CANCELLED);
     }
 
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {
