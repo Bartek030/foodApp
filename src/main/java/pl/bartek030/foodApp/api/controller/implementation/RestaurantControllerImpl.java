@@ -41,10 +41,11 @@ public class RestaurantControllerImpl implements RestaurantController {
     public ResponseEntity<List<RestaurantDTO>> getRestaurantsByCountryAndCityAndStreet(
             final String country,
             final String city,
-            final String street
+            final String street,
+            final Integer page
     ) {
         return ResponseEntity.ok(
-                restaurantService.getRestaurantsByCountryAndCityAndStreet(country, city, street)
+                restaurantService.getRestaurantsByCountryAndCityAndStreet(country, city, street, page)
                 .stream()
                 .map(restaurantDtoMapper::map)
                 .toList()

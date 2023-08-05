@@ -14,6 +14,7 @@ public interface RestaurantService {
     List<Restaurant> getRestaurantsByCountryAndCityAndStreet(
             final String country,
             final String city,
-            final String street
+            final String street,
+            final Integer page
     );
 }

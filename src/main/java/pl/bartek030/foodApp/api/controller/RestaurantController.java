@@ -27,6 +27,7 @@ public interface RestaurantController {
     ResponseEntity<List<RestaurantDTO>> getRestaurantsByCountryAndCityAndStreet(
             @RequestParam String country,
             @RequestParam String city,
-            @RequestParam String street
+            @RequestParam String street,
+            @RequestParam Integer page
     );
 }

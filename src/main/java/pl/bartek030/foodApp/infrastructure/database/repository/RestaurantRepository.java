@@ -1,6 +1,10 @@
 package pl.bartek030.foodApp.infrastructure.database.repository;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import pl.bartek030.foodApp.business.dao.RestaurantDAO;
 import pl.bartek030.foodApp.business.serviceModel.Restaurant;
@@ -30,8 +34,9 @@ public class RestaurantRepository implements RestaurantDAO {
     }
 
     @Override
-    public List<Restaurant> findRestaurantsByIdList(final List<Long> restaurantsIdList) {
-        final List<RestaurantEntity> allById = restaurantJpaRepository.findAllById(restaurantsIdList);
+    public List<Restaurant> findRestaurantsByIdList(final List<Long> restaurantsIdList, final Integer page) {
+        Pageable pageable = PageRequest.of(page - 1, 5, Sort.by("name"));
+        final Page<RestaurantEntity> allById = restaurantJpaRepository.findAllById(restaurantsIdList, pageable);
         return allById.stream()
                 .map(restaurantDaoMapper::mapRestaurantFromEntity)
                 .toList();

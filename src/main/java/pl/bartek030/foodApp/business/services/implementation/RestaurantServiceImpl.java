@@ -40,7 +40,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<Restaurant> getRestaurantsByCountryAndCityAndStreet(
             final String country,
             final String city,
-            final String street
+            final String street,
+            final Integer page
     ) {
         // TODO: Custom exception
         DeliveryAddress deliveryAddress = deliveryAddressService.findByCountryAndCityAndStreet(country, city, street)
@@ -50,7 +51,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         final List<Long> restaurantsIdList = restaurantDeliveryAddresses.stream()
                 .map(address -> address.getRestaurant().getRestaurantId())
                 .toList();
-        return restaurantDAO.findRestaurantsByIdList(restaurantsIdList);
+        return restaurantDAO.findRestaurantsByIdList(restaurantsIdList, page);
     }
 
     private Address findOrCreateAddress(final RestaurantCreation restaurantCreation) {

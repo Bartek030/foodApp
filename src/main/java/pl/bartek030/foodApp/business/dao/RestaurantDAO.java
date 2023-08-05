@@ -11,5 +11,5 @@ public interface RestaurantDAO {
 
     Optional<Restaurant> findById(Long restaurantId);
 
-    List<Restaurant> findRestaurantsByIdList(List<Long> restaurantsIdList);
+    List<Restaurant> findRestaurantsByIdList(List<Long> restaurantsIdList, final Integer page);
 }
