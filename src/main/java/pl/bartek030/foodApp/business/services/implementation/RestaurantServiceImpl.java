@@ -22,9 +22,16 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final RestaurantDeliveryAddressService restaurantDeliveryAddressService;
 
     @Override
+    @Transactional
     public Restaurant findById(final Long restaurantId) {
         // TODO: Custom exception
         return restaurantDAO.findById(restaurantId).orElseThrow();
+    }
+
+    @Override
+    public List<Restaurant> findRestaurantsByFoodAppUserId(final Long userId) {
+        final FoodAppUser foodAppUser = foodAppUserService.findById(userId);
+        return restaurantDAO.findByFoodAppUserId(foodAppUser);
     }
 
     @Override

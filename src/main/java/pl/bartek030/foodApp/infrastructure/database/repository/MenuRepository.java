@@ -37,7 +37,7 @@ public class MenuRepository implements MenuDao {
         final List<MenuEntity> allById =
                 menuJpaRepository.findAllByRestaurant(restaurantDaoMapper.mapRestaurantToEntity(restaurant));
         return allById.stream()
-                .map(menuDaoMapper::mapMenuFromEntity)
+                .map(menuDaoMapper::mapMenuFromEntityWithRestaurant)
                 .toList();
     }
 }

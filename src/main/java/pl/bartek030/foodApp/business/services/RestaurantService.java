@@ -17,4 +17,6 @@ public interface RestaurantService {
             final String street,
             final Integer page
     );
+
+    List<Restaurant> findRestaurantsByFoodAppUserId(final Long userId);
 }

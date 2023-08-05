@@ -8,6 +8,7 @@ import pl.bartek030.foodApp.api.dto.RestaurantCreationDTO;
 import pl.bartek030.foodApp.api.dto.RestaurantDTO;
 import pl.bartek030.foodApp.api.dto.mapper.RestaurantCreationDtoMapper;
 import pl.bartek030.foodApp.api.dto.mapper.RestaurantDtoMapper;
+import pl.bartek030.foodApp.business.serviceModel.Restaurant;
 import pl.bartek030.foodApp.business.services.RestaurantService;
 
 import java.net.URI;
@@ -23,8 +24,12 @@ public class RestaurantControllerImpl implements RestaurantController {
     private final RestaurantService restaurantService;
 
     @Override
-    public ResponseEntity<List<RestaurantCreationDTO>> getUsersRestaurants(final Long userId) {
-        return null;
+    public ResponseEntity<List<RestaurantDTO>> getOwnersRestaurants(final Long userId) {
+        List<Restaurant> restaurantDTOList = restaurantService.findRestaurantsByFoodAppUserId(userId);
+        return ResponseEntity.ok(restaurantDTOList.stream()
+                .map(restaurantDtoMapper::map)
+                .toList()
+        );
     }
 
     @Override
