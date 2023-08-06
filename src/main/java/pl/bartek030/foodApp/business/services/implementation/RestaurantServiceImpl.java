@@ -18,8 +18,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     private final FoodAppUserService foodAppUserService;
     private final AddressService addressService;
-    private final DeliveryAddressService deliveryAddressService;
-    private final RestaurantDeliveryAddressService restaurantDeliveryAddressService;
 
     @Override
     @Transactional
@@ -44,20 +42,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> getRestaurantsByCountryAndCityAndStreet(
-            final String country,
-            final String city,
-            final String street,
-            final Integer page
-    ) {
-        // TODO: Custom exception
-        DeliveryAddress deliveryAddress = deliveryAddressService.findByCountryAndCityAndStreet(country, city, street)
-                .orElseThrow();
-        List<RestaurantDeliveryAddress> restaurantDeliveryAddresses =
-                restaurantDeliveryAddressService.findByAddress(deliveryAddress);
-        final List<Long> restaurantsIdList = restaurantDeliveryAddresses.stream()
-                .map(address -> address.getRestaurant().getRestaurantId())
-                .toList();
+    public List<Restaurant> findRestaurantsByIdList(final List<Long> restaurantsIdList, final Integer page) {
         return restaurantDAO.findRestaurantsByIdList(restaurantsIdList, page);
     }
 

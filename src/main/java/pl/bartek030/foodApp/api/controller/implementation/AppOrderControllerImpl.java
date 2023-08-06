@@ -40,13 +40,20 @@ public class AppOrderControllerImpl implements AppOrderController {
     }
 
     @Override
-    public ResponseEntity<List<AppOrderDTO>> getOrdersByRestaurant(final Long restaurantId) {
-        return null;
+    public ResponseEntity<AppOrderDTO> markAsDelivered(final Long appOrderId) {
+        AppOrder appOrder = appOrderService.markAsDelivered(appOrderId);
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(appOrderDtoMapper.map(appOrder));
     }
 
     @Override
-    public ResponseEntity<String> markAsDelivered(final Long orderId) {
-        return null;
+    public ResponseEntity<List<AppOrderDTO>> getOrdersByRestaurant(final Long restaurantId) {
+        List<AppOrder> appOrders = appOrderService.getOrdersByRestaurant(restaurantId);
+        return ResponseEntity.ok(
+                appOrders.stream()
+                        .map(appOrderDtoMapper::map)
+                        .toList()
+        );
     }
 
     @Override

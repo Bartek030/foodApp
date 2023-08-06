@@ -23,6 +23,7 @@ public class AppOrderServiceImpl implements AppOrderService {
     private final FoodAppUserService foodAppUserService;
     private final RestaurantDeliveryAddressService restaurantDeliveryAddressService;
     private final RestaurantService restaurantService;
+    private final DeliveryAddressService deliveryAddressService;
 
     @Override
     @Transactional
@@ -36,7 +37,14 @@ public class AppOrderServiceImpl implements AppOrderService {
     @Transactional
     public List<AppOrder> getOrdersByUser(final Long userId) {
         final FoodAppUser foodAppUser = foodAppUserService.findById(userId);
-        return appOrderDAO.getAppOrdersByUserId(foodAppUser);
+        return appOrderDAO.getAppOrdersByUser(foodAppUser);
+    }
+
+    @Override
+    @Transactional
+    public List<AppOrder> getOrdersByRestaurant(final Long restaurantId) {
+        final Restaurant restaurant = restaurantService.findById(restaurantId);
+        return appOrderDAO.getAppOrdersByRestaurant(restaurant);
     }
 
     @Override
@@ -52,6 +60,11 @@ public class AppOrderServiceImpl implements AppOrderService {
             throw new RuntimeException();
         }
         return appOrderDAO.update(appOrderId, OrderStatus.CANCELLED);
+    }
+
+    @Override
+    public AppOrder markAsDelivered(final Long appOrderId) {
+        return appOrderDAO.update(appOrderId, OrderStatus.DELIVERED);
     }
 
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {
@@ -84,9 +97,15 @@ public class AppOrderServiceImpl implements AppOrderService {
     }
 
     private OffsetDateTime checkPlannedDeliveryTime(final Restaurant restaurant, final FoodAppUser foodAppUser) {
-        final RestaurantDeliveryAddress deliveryAddress =
-                restaurantDeliveryAddressService.findByAddressAndRestaurant(foodAppUser.getAddress(), restaurant);
-        return OffsetDateTime.now().plusMinutes(deliveryAddress.getDeliveryTime());
+        final DeliveryAddress deliveryAddress = deliveryAddressService.findByCountryAndCityAndStreet(
+                        foodAppUser.getAddress().getCountry(),
+                        foodAppUser.getAddress().getCity(),
+                        foodAppUser.getAddress().getStreet())
+                // TODO: Custom exception
+                .orElseThrow();
+        final RestaurantDeliveryAddress restaurantDeliveryAddress =
+                restaurantDeliveryAddressService.findByAddressAndRestaurant(deliveryAddress, restaurant);
+        return OffsetDateTime.now().plusMinutes(restaurantDeliveryAddress.getDeliveryTime());
     }
 
     private BigDecimal calculateTotalCost(final List<OrderDetailsCreation> orderList) {

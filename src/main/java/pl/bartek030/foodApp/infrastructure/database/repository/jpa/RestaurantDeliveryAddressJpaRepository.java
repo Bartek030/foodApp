@@ -17,4 +17,6 @@ public interface RestaurantDeliveryAddressJpaRepository extends JpaRepository<Re
             DeliveryAddressEntity deliveryAddress,
             RestaurantEntity restaurant
     );
+
+    List<RestaurantDeliveryAddressEntity> findByRestaurant(RestaurantEntity restaurantEntity);
 }

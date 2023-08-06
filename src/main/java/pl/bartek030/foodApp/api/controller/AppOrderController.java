@@ -15,6 +15,7 @@ public interface AppOrderController {
     String MARK_DELIVERED_APP_ORDER_URL = "/delivered/{appOrderId}";
     String NEW_APP_ORDER_URL = "/new";
     String USER_APP_ORDER_ID = "/user/{userId}";
+    String RESTAURANT_APP_ORDER_ID = "/restaurant/{restaurantId}";
 
     @PostMapping(NEW_APP_ORDER_URL)
     ResponseEntity<AppOrderDTO> addOrder(@RequestBody List<OrderDetailsCreationDTO> orderDetailsCreationDTO);
@@ -22,11 +23,11 @@ public interface AppOrderController {
     @PatchMapping(UPDATE_APP_ORDER_URL)
     ResponseEntity<AppOrderDTO> cancelOrder(@PathVariable Long appOrderId);
 
-    @GetMapping
+    @GetMapping(RESTAURANT_APP_ORDER_ID)
     ResponseEntity<List<AppOrderDTO>> getOrdersByRestaurant(@PathVariable Long restaurantId);
 
     @PatchMapping(MARK_DELIVERED_APP_ORDER_URL)
-    ResponseEntity<String> markAsDelivered(@PathVariable Long orderId);
+    ResponseEntity<AppOrderDTO> markAsDelivered(@PathVariable Long orderId);
 
     @GetMapping(USER_APP_ORDER_ID)
     ResponseEntity<List<AppOrderDTO>> getUsersAppOrders(@PathVariable Long userId);

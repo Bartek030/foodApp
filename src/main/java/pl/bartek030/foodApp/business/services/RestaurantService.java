@@ -11,12 +11,7 @@ public interface RestaurantService {
 
     Restaurant findById(final Long restaurantId);
 
-    List<Restaurant> getRestaurantsByCountryAndCityAndStreet(
-            final String country,
-            final String city,
-            final String street,
-            final Integer page
-    );
-
     List<Restaurant> findRestaurantsByFoodAppUserId(final Long userId);
+
+    List<Restaurant> findRestaurantsByIdList(List<Long> restaurantsIdList, Integer page);
 }
