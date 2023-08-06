@@ -34,7 +34,13 @@ public class ImageServiceImpl implements ImageService {
     public Resource getImage(final String filename) {
         try {
             Path imagePath = Paths.get(uploadPath + filename + ".jpg");
-            return new UrlResource(imagePath.toUri());
+            final UrlResource imageResource = new UrlResource(imagePath.toUri());
+            if(imageResource.exists()) {
+                return imageResource;
+            } else {
+                Path defaultImagePath = Paths.get(uploadPath + "logo.jpg");
+                return new UrlResource(defaultImagePath.toUri());
+            }
         } catch (MalformedURLException e) {
             // TODO: CUSTOM EXCEPTION OR LEAVE NULL
             return null;

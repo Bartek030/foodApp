@@ -1,6 +1,7 @@
 package pl.bartek030.foodApp.api.controller;
 
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,6 @@ public interface ImageController {
             @PathVariable Long foodId
     );
 
-    @GetMapping(GET_IMAGE_URL)
+    @GetMapping(value = GET_IMAGE_URL, produces = MediaType.IMAGE_JPEG_VALUE)
     ResponseEntity<Resource> getImage(@PathVariable String foodId);
 }
