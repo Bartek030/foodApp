@@ -18,6 +18,6 @@ public interface FoodController {
     @GetMapping(MENUS_FOODS_URL)
     ResponseEntity<List<FoodDTO>> getFoodFromMenu(@PathVariable Long menuId);
 
-    @PostMapping(FoodController.NEW_FOOD_URL)
+    @PostMapping(NEW_FOOD_URL)
     ResponseEntity<FoodDTO> addFood(@RequestBody FoodCreationDTO food);
 }

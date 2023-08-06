@@ -35,3 +35,4 @@ build/
 ### Other
 src/main/resources/application.yml
 src/main/resources/drop_all_tables.sql
+src/main/resources/static/images/foods/*
