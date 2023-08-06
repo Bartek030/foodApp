@@ -9,6 +9,7 @@ import pl.bartek030.foodApp.api.dto.RestaurantDTO;
 import pl.bartek030.foodApp.api.dto.mapper.RestaurantCreationDtoMapper;
 import pl.bartek030.foodApp.api.dto.mapper.RestaurantDtoMapper;
 import pl.bartek030.foodApp.business.serviceModel.Restaurant;
+import pl.bartek030.foodApp.business.services.RestaurantDeliveryAddressService;
 import pl.bartek030.foodApp.business.services.RestaurantService;
 
 import java.net.URI;
@@ -22,6 +23,7 @@ public class RestaurantControllerImpl implements RestaurantController {
     private final RestaurantDtoMapper restaurantDtoMapper;
 
     private final RestaurantService restaurantService;
+    private final RestaurantDeliveryAddressService restaurantDeliveryAddressService;
 
     @Override
     public ResponseEntity<List<RestaurantDTO>> getOwnersRestaurants(final Long userId) {
@@ -50,7 +52,7 @@ public class RestaurantControllerImpl implements RestaurantController {
             final Integer page
     ) {
         return ResponseEntity.ok(
-                restaurantService.getRestaurantsByCountryAndCityAndStreet(country, city, street, page)
+                restaurantDeliveryAddressService.getRestaurantsByCountryAndCityAndStreet(country, city, street, page)
                 .stream()
                 .map(restaurantDtoMapper::map)
                 .toList()

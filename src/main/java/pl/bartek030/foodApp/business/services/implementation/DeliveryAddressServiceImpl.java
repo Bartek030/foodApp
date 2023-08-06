@@ -6,6 +6,7 @@ import pl.bartek030.foodApp.business.dao.DeliveryAddressDao;
 import pl.bartek030.foodApp.business.serviceModel.DeliveryAddress;
 import pl.bartek030.foodApp.business.services.DeliveryAddressService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,5 +22,15 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
             final String street
     ) {
         return deliveryAddressDao.findByCountryAndCityAndStreet(country, city, street);
+    }
+
+    @Override
+    public List<DeliveryAddress> findDeliveryAddressesByIdList(final List<Long> deliveryAddressIdList) {
+        return deliveryAddressDao.findAllById(deliveryAddressIdList);
+    }
+
+    @Override
+    public DeliveryAddress addDeliveryAddress(final DeliveryAddress deliveryAddress) {
+        return deliveryAddressDao.addDeliveryAddress(deliveryAddress);
     }
 }

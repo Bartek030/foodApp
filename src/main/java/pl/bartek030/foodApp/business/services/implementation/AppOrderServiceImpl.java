@@ -23,6 +23,7 @@ public class AppOrderServiceImpl implements AppOrderService {
     private final FoodAppUserService foodAppUserService;
     private final RestaurantDeliveryAddressService restaurantDeliveryAddressService;
     private final RestaurantService restaurantService;
+    private final DeliveryAddressService deliveryAddressService;
 
     @Override
     @Transactional
@@ -84,9 +85,15 @@ public class AppOrderServiceImpl implements AppOrderService {
     }
 
     private OffsetDateTime checkPlannedDeliveryTime(final Restaurant restaurant, final FoodAppUser foodAppUser) {
-        final RestaurantDeliveryAddress deliveryAddress =
-                restaurantDeliveryAddressService.findByAddressAndRestaurant(foodAppUser.getAddress(), restaurant);
-        return OffsetDateTime.now().plusMinutes(deliveryAddress.getDeliveryTime());
+        final DeliveryAddress deliveryAddress = deliveryAddressService.findByCountryAndCityAndStreet(
+                        foodAppUser.getAddress().getCountry(),
+                        foodAppUser.getAddress().getCity(),
+                        foodAppUser.getAddress().getStreet())
+                // TODO: Custom exception
+                .orElseThrow();
+        final RestaurantDeliveryAddress restaurantDeliveryAddress =
+                restaurantDeliveryAddressService.findByAddressAndRestaurant(deliveryAddress, restaurant);
+        return OffsetDateTime.now().plusMinutes(restaurantDeliveryAddress.getDeliveryTime());
     }
 
     private BigDecimal calculateTotalCost(final List<OrderDetailsCreation> orderList) {

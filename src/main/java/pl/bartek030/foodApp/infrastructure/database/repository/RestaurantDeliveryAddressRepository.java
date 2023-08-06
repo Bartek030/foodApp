@@ -25,7 +25,7 @@ public class RestaurantDeliveryAddressRepository implements RestaurantDeliveryAd
     private final RestaurantDaoMapper restaurantDaoMapper;
 
     @Override
-    public List<RestaurantDeliveryAddress> findByAddress(final DeliveryAddress deliveryAddress) {
+    public List<RestaurantDeliveryAddress> findAllByAddress(final DeliveryAddress deliveryAddress) {
         final List<RestaurantDeliveryAddressEntity> addresses =
                 restaurantDeliveryAddressJpaRepository.findByDeliveryAddress(
                         deliveryAddressDaoMapper.mapDeliveryAddressToEntity(deliveryAddress)
@@ -43,5 +43,34 @@ public class RestaurantDeliveryAddressRepository implements RestaurantDeliveryAd
                         restaurantDaoMapper.mapRestaurantToEntity(restaurant)
                 );
         return deliveryAddress.map(restaurantDeliveryAddressDaoMapper::mapRestaurantDeliveryAddressFromEntity);
+    }
+
+    @Override
+    public List<RestaurantDeliveryAddress> findAllByRestaurant(final Restaurant restaurant) {
+        final List<RestaurantDeliveryAddressEntity> addresses =
+                restaurantDeliveryAddressJpaRepository.findByRestaurant(
+                        restaurantDaoMapper.mapRestaurantToEntity(restaurant)
+                );
+        return addresses.stream()
+                .map(restaurantDeliveryAddressDaoMapper::mapRestaurantDeliveryAddressFromEntity)
+                .toList();
+    }
+
+    @Override
+    public List<RestaurantDeliveryAddress> findByDeliveryAddress(final DeliveryAddress deliveryAddress) {
+        final List<RestaurantDeliveryAddressEntity> byDeliveryAddress =
+                restaurantDeliveryAddressJpaRepository.findByDeliveryAddress(
+                        deliveryAddressDaoMapper.mapDeliveryAddressToEntity(deliveryAddress)
+                );
+        return byDeliveryAddress.stream()
+                .map(restaurantDeliveryAddressDaoMapper::mapRestaurantDeliveryAddressFromEntity)
+                .toList();
+    }
+
+    @Override
+    public void addRestaurantDeliveryAddress(final RestaurantDeliveryAddress restaurantDeliveryAddress) {
+        restaurantDeliveryAddressJpaRepository.save(
+                restaurantDeliveryAddressDaoMapper.mapRestaurantDeliveryAddressToEntity(restaurantDeliveryAddress)
+        );
     }
 }
