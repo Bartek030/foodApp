@@ -2,6 +2,7 @@ package pl.bartek030.foodApp.business.dao;
 
 import pl.bartek030.foodApp.business.serviceModel.AppOrder;
 import pl.bartek030.foodApp.business.serviceModel.FoodAppUser;
+import pl.bartek030.foodApp.business.serviceModel.Restaurant;
 import pl.bartek030.foodApp.infrastructure.database.enums.OrderStatus;
 
 import java.util.List;
@@ -12,9 +13,11 @@ public interface AppOrderDAO {
 
     AppOrder addAppOrder(AppOrder appOrder);
 
-    List<AppOrder> getAppOrdersByUserId(FoodAppUser foodAppUser);
+    List<AppOrder> getAppOrdersByUser(FoodAppUser foodAppUser);
 
     Optional<AppOrder> findById(Long appOrderId);
 
     AppOrder update(Long appOrderId, OrderStatus orderStatus);
+
+    List<AppOrder> getAppOrdersByRestaurant(Restaurant restaurant);
 }

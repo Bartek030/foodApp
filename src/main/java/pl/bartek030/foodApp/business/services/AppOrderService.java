@@ -10,5 +10,9 @@ public interface AppOrderService {
 
     List<AppOrder> getOrdersByUser(Long userId);
 
+    List<AppOrder> getOrdersByRestaurant(Long restaurantId);
+
     AppOrder cancelOrder(Long appOrderId);
+
+    AppOrder markAsDelivered(Long appOrderId);
 }

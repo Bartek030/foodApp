@@ -37,7 +37,14 @@ public class AppOrderServiceImpl implements AppOrderService {
     @Transactional
     public List<AppOrder> getOrdersByUser(final Long userId) {
         final FoodAppUser foodAppUser = foodAppUserService.findById(userId);
-        return appOrderDAO.getAppOrdersByUserId(foodAppUser);
+        return appOrderDAO.getAppOrdersByUser(foodAppUser);
+    }
+
+    @Override
+    @Transactional
+    public List<AppOrder> getOrdersByRestaurant(final Long restaurantId) {
+        final Restaurant restaurant = restaurantService.findById(restaurantId);
+        return appOrderDAO.getAppOrdersByRestaurant(restaurant);
     }
 
     @Override
@@ -53,6 +60,11 @@ public class AppOrderServiceImpl implements AppOrderService {
             throw new RuntimeException();
         }
         return appOrderDAO.update(appOrderId, OrderStatus.CANCELLED);
+    }
+
+    @Override
+    public AppOrder markAsDelivered(final Long appOrderId) {
+        return appOrderDAO.update(appOrderId, OrderStatus.DELIVERED);
     }
 
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {
