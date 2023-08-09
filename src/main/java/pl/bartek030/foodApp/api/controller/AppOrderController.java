@@ -11,7 +11,7 @@ import java.util.List;
 public interface AppOrderController {
 
     String APP_ORDER_URL = "/app-order";
-    String UPDATE_APP_ORDER_URL = "/cancelled/{appOrderId}";
+    String CANCEL_APP_ORDER_URL = "/cancelled/{appOrderId}";
     String MARK_DELIVERED_APP_ORDER_URL = "/delivered/{appOrderId}";
     String NEW_APP_ORDER_URL = "/new";
     String USER_APP_ORDER_ID = "/user/{userId}";
@@ -20,7 +20,7 @@ public interface AppOrderController {
     @PostMapping(NEW_APP_ORDER_URL)
     ResponseEntity<AppOrderDTO> addOrder(@RequestBody List<OrderDetailsCreationDTO> orderDetailsCreationDTO);
 
-    @PatchMapping(UPDATE_APP_ORDER_URL)
+    @PatchMapping(CANCEL_APP_ORDER_URL)
     ResponseEntity<AppOrderDTO> cancelOrder(@PathVariable Long appOrderId);
 
     @GetMapping(RESTAURANT_APP_ORDER_ID)

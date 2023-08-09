@@ -15,7 +15,7 @@ public interface RestaurantController {
     String USERS_RESTAURANTS_URL = "/owner/{userId}";
     String ID_PLACEHOLDER = "/%s";
 
-    @PostMapping(RestaurantController.NEW_RESTAURANT_URL)
+    @PostMapping(NEW_RESTAURANT_URL)
     ResponseEntity<RestaurantDTO> addRestaurant(@RequestBody RestaurantCreationDTO restaurant);
 
     @GetMapping(USERS_RESTAURANTS_URL)
