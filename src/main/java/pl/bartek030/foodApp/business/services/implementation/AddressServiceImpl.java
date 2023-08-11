@@ -38,4 +38,9 @@ public class AddressServiceImpl implements AddressService {
                 .build();
         return addressDAO.createAddressFromRestaurant(address);
     }
+
+    @Override
+    public Address createAddress(final Address address) {
+        return addressDAO.createAddress(address);
+    }
 }

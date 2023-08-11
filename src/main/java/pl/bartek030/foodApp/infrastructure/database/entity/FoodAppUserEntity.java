@@ -2,6 +2,7 @@ package pl.bartek030.foodApp.infrastructure.database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import pl.bartek030.foodApp.infrastructure.security.UserEntity;
 
 import java.util.Set;
 
@@ -42,4 +43,8 @@ public class FoodAppUserEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "foodAppUser")
     private Set<AppOrderEntity> appOrders;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private UserEntity user;
 }

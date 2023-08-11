@@ -20,11 +20,13 @@ import java.util.stream.Collectors;
 public class FoodAppUserDetailsService implements UserDetailsService {
 
     private final UserJpaRepository userJpaRepository;
+    private final UserDaoMapper userDaoMapper;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        UserEntity user = userJpaRepository.findByUserName(username);
+        UserEntity user = userJpaRepository.findByUserName(username)
+                .orElseThrow(() -> new UsernameNotFoundException("not found"));
         List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
         return buildUserForAuthentication(user, authorities);
     }
@@ -46,5 +48,12 @@ public class FoodAppUserDetailsService implements UserDetailsService {
                 true,
                 authorities
         );
+    }
+
+    public pl.bartek030.foodApp.business.serviceModel.User createUser(
+            final pl.bartek030.foodApp.business.serviceModel.User user
+    ) {
+        final UserEntity saved = userJpaRepository.save(userDaoMapper.mapUserToEntity(user));
+        return userDaoMapper.mapUserFromEntity(saved);
     }
 }

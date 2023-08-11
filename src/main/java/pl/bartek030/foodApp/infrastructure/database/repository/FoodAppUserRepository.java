@@ -22,4 +22,9 @@ public class FoodAppUserRepository implements FoodAppUserDAO {
         return foodAppUserJpaRepository.findById(foodAppUserId)
                 .map(foodAppUserDaoMapper::mapFoodAppUserFromEntity);
     }
+
+    @Override
+    public void createFoodAppUser(final FoodAppUser foodAppUser) {
+        foodAppUserJpaRepository.save(foodAppUserDaoMapper.mapFoodAppUserToEntity(foodAppUser));
+    }
 }
