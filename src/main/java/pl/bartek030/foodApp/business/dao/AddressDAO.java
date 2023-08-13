@@ -15,4 +15,6 @@ public interface AddressDAO {
     );
 
     Address createAddressFromRestaurant(Address address);
+
+    Address createAddress(Address address);
 }

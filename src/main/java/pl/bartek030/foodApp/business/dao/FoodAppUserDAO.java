@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface FoodAppUserDAO {
 
     Optional<FoodAppUser> findById(Long foodAppUserId);
+
+    void createFoodAppUser(FoodAppUser foodAppUser);
 }

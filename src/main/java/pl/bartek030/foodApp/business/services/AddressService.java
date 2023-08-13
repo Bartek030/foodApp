@@ -15,4 +15,6 @@ public interface AddressService {
     );
 
     Address createAddressFromRestaurant(RestaurantCreation restaurantCreation);
+
+    Address createAddress(Address address);
 }

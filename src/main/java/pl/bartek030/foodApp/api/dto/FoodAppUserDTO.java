@@ -1,5 +1,12 @@
 package pl.bartek030.foodApp.api.dto;
 
-public class FoodAppUserDTO {
+import lombok.*;
 
+@With
+@Value
+@Builder
+@EqualsAndHashCode(of = {"foodAppUserId"})
+@ToString
+public class FoodAppUserDTO {
+    Long foodAppUserId;
 }

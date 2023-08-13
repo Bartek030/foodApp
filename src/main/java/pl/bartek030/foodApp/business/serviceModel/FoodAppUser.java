@@ -18,4 +18,5 @@ public class FoodAppUser {
     Address address;
     Set<Restaurant> restaurants;
     Set<AppOrder> appOrders;
+    User user;
 }

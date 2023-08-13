@@ -1,5 +1,6 @@
 package pl.bartek030.foodApp.business.services.implementation;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.bartek030.foodApp.business.dao.OrderDetailsDAO;
@@ -21,6 +22,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     private final FoodService foodService;
 
     @Override
+    @Transactional
     public void addOrders(final List<OrderDetailsCreation> orderList, final AppOrder appOrder) {
         final List<OrderDetails> orderDetailsList = orderList.stream()
                 .map(order -> OrderDetails.builder()
@@ -33,6 +35,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
+    @Transactional
     public BigDecimal calculateCost(final OrderDetailsCreation orderDetail) {
         Food food = foodService.findFoodById(orderDetail.getFoodId());
         return BigDecimal.valueOf(orderDetail.getQuantity()).multiply(food.getPrice());

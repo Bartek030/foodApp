@@ -1,5 +1,6 @@
 package pl.bartek030.foodApp.business.services.implementation;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -20,6 +21,7 @@ public class ImageServiceImpl implements ImageService {
     private String uploadPath;
 
     @Override
+    @Transactional
     public void uploadImage(final MultipartFile file, final Long foodId) {
         try {
             Path imagePath = Paths.get(uploadPath + foodId + ".jpg");
@@ -31,6 +33,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    @Transactional
     public Resource getImage(final String filename) {
         try {
             Path imagePath = Paths.get(uploadPath + filename + ".jpg");

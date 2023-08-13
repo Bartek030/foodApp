@@ -1,5 +1,6 @@
 package pl.bartek030.foodApp.business.services.implementation;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.bartek030.foodApp.business.dao.AddressDAO;
@@ -16,6 +17,7 @@ public class AddressServiceImpl implements AddressService {
     private final AddressDAO addressDAO;
 
     @Override
+    @Transactional
     public Optional<Address> findAddressByData(
             final String country,
             final String city,
@@ -28,6 +30,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Transactional
     public Address createAddressFromRestaurant(final RestaurantCreation restaurantCreation) {
         final Address address = Address.builder()
                 .country(restaurantCreation.getCountry())
@@ -37,5 +40,11 @@ public class AddressServiceImpl implements AddressService {
                 .zipCode(restaurantCreation.getZipCode())
                 .build();
         return addressDAO.createAddressFromRestaurant(address);
+    }
+
+    @Override
+    @Transactional
+    public Address createAddress(final Address address) {
+        return addressDAO.createAddress(address);
     }
 }
