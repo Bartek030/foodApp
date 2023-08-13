@@ -1,5 +1,6 @@
 package pl.bartek030.foodApp.api.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,6 @@ public interface FoodAppUserController {
 
     @PostMapping(USER_REGISTER_URL)
     ResponseEntity<FoodAppUserDTO> userRegistration(
-            @RequestBody FoodAppUserCreationDTO foodAppUserCreationDTO
+            @Valid @RequestBody FoodAppUserCreationDTO foodAppUserCreationDTO
     );
 }
