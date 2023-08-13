@@ -31,6 +31,7 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
             final String street
     ) {
         DeliveryAddress deliveryAddress = deliveryAddressService.findByCountryAndCityAndStreet(country, city, street)
+                //TODO: Exception
                 .orElseThrow();
         return restaurantDeliveryAddressDao.findAllByAddress(deliveryAddress);
     }
