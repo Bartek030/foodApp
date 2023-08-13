@@ -1,5 +1,6 @@
 package pl.bartek030.foodApp.business.services.implementation;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.bartek030.foodApp.business.dao.RestaurantDeliveryAddressDao;
@@ -23,6 +24,7 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
     private final RestaurantService restaurantService;
 
     @Override
+    @Transactional
     public List<RestaurantDeliveryAddress> findByAddress(
             final String country,
             final String city,
@@ -34,6 +36,7 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
     }
 
     @Override
+    @Transactional
     public RestaurantDeliveryAddress findByAddressAndRestaurant(
             final DeliveryAddress deliveryAddress,
             final Restaurant restaurant
@@ -42,6 +45,7 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
     }
 
     @Override
+    @Transactional
     public List<DeliveryAddress> findDeliveryAddressByRestaurant(final Long restaurantId) {
         final Restaurant restaurant = restaurantService.findById(restaurantId);
         List<RestaurantDeliveryAddress> restaurantDeliveryAddresses =
@@ -53,6 +57,7 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
     }
 
     @Override
+    @Transactional
     public List<Restaurant> getRestaurantsByCountryAndCityAndStreet(
             final String country,
             final String city,
@@ -71,6 +76,7 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
     }
 
     @Override
+    @Transactional
     public void addDeliveryAddress(final DeliveryAddressCreation deliveryAddressCreation) {
         final Restaurant restaurant = restaurantService.findById(deliveryAddressCreation.getRestaurantId());
         final DeliveryAddress deliveryAddress =

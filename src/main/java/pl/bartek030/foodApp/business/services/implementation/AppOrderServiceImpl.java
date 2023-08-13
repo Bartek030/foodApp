@@ -63,6 +63,7 @@ public class AppOrderServiceImpl implements AppOrderService {
     }
 
     @Override
+    @Transactional
     public AppOrder markAsDelivered(final Long appOrderId) {
         return appOrderDAO.update(appOrderId, OrderStatus.DELIVERED);
     }

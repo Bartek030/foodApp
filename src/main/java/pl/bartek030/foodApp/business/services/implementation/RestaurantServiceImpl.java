@@ -1,11 +1,16 @@
 package pl.bartek030.foodApp.business.services.implementation;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.bartek030.foodApp.business.dao.RestaurantDAO;
-import pl.bartek030.foodApp.business.serviceModel.*;
-import pl.bartek030.foodApp.business.services.*;
+import pl.bartek030.foodApp.business.serviceModel.Address;
+import pl.bartek030.foodApp.business.serviceModel.FoodAppUser;
+import pl.bartek030.foodApp.business.serviceModel.Restaurant;
+import pl.bartek030.foodApp.business.serviceModel.RestaurantCreation;
+import pl.bartek030.foodApp.business.services.AddressService;
+import pl.bartek030.foodApp.business.services.FoodAppUserService;
+import pl.bartek030.foodApp.business.services.RestaurantService;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +32,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @Transactional
     public List<Restaurant> findRestaurantsByFoodAppUserId(final Long userId) {
         final FoodAppUser foodAppUser = foodAppUserService.findById(userId);
         return restaurantDAO.findByFoodAppUserId(foodAppUser);
@@ -42,6 +48,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @Transactional
     public List<Restaurant> findRestaurantsByIdList(final List<Long> restaurantsIdList, final Integer page) {
         return restaurantDAO.findRestaurantsByIdList(restaurantsIdList, page);
     }

@@ -1,5 +1,6 @@
 package pl.bartek030.foodApp.business.services.implementation;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.bartek030.foodApp.business.dao.MenuDao;
@@ -20,18 +21,21 @@ public class MenuServiceImpl implements MenuService {
     private final RestaurantService restaurantService;
 
     @Override
+    @Transactional
     public Menu findById(final Long menuId) {
         // TODO: Custom exception
         return menuDao.findById(menuId).orElseThrow();
     }
 
     @Override
+    @Transactional
     public void addMenu(final MenuCreation menuCreation) {
         final Restaurant restaurant = restaurantService.findById(menuCreation.getRestaurantId());
         menuDao.addMenu(buildMenu(menuCreation, restaurant));
     }
 
     @Override
+    @Transactional
     public List<Menu> getMenusByRestaurantId(final Long restaurantId) {
         final Restaurant restaurant = restaurantService.findById(restaurantId);
         return menuDao.findByRestaurant(restaurant);

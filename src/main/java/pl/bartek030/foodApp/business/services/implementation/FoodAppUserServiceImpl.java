@@ -28,12 +28,14 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public FoodAppUser findById(final Long foodAppUserId) {
         // TODO: Custom exception
         return foodAppUserDao.findById(foodAppUserId).orElseThrow();
     }
 
     @Override
+    @Transactional
     public void authenticateUser(final AppUserLogin appUserLogin) {
         final UserDetails userDetails = foodAppUserDetailsService.loadUserByUsername(appUserLogin.getUsername());
         if(!passwordEncoder.matches(appUserLogin.getPassword(), userDetails.getPassword())) {
