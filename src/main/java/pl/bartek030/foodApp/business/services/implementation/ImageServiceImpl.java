@@ -27,8 +27,7 @@ public class ImageServiceImpl implements ImageService {
             Path imagePath = Paths.get(uploadPath + foodId + ".jpg");
             Files.write(imagePath, file.getBytes());
         } catch (IOException e) {
-            // TODO: CUSTOM EXCEPTION USING ENUM STATUS MESSAGE
-            throw new RuntimeException(e);
+            throw new RuntimeException("Unable to upload image");
         }
     }
 
@@ -45,8 +44,7 @@ public class ImageServiceImpl implements ImageService {
                 return new UrlResource(defaultImagePath.toUri());
             }
         } catch (MalformedURLException e) {
-            // TODO: CUSTOM EXCEPTION OR LEAVE NULL
-            return null;
+            throw new RuntimeException("Unable to get image");
         }
     }
 }

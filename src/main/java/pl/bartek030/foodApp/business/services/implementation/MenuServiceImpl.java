@@ -22,16 +22,16 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional
-    public Menu findById(final Long menuId) {
-        // TODO: Custom exception
-        return menuDao.findById(menuId).orElseThrow();
+    public void addMenu(final MenuCreation menuCreation) {
+        final Restaurant restaurant = restaurantService.findById(menuCreation.getRestaurantId());
+        menuDao.addMenu(buildMenu(menuCreation, restaurant));
     }
 
     @Override
     @Transactional
-    public void addMenu(final MenuCreation menuCreation) {
-        final Restaurant restaurant = restaurantService.findById(menuCreation.getRestaurantId());
-        menuDao.addMenu(buildMenu(menuCreation, restaurant));
+    public Menu findById(final Long menuId) {
+        return menuDao.findById(menuId)
+                .orElseThrow(() -> new RuntimeException("Menu with id: [%s] not found".formatted(menuId)));
     }
 
     @Override

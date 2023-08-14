@@ -191,7 +191,7 @@ class AppOrderServiceImplTest {
         final String expectedExceptionMessage = "AppOrder with id: [%s] has not been found".formatted(appOrderId);
 
         when(appOrderDAO.findById(any(Long.class)))
-                .thenThrow(new RuntimeException("AppOrder with id: [%s] has not been found".formatted(appOrderId)));
+                .thenThrow(new RuntimeException(expectedExceptionMessage));
 
         // when then
         final RuntimeException actualException = assertThrows(

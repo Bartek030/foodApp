@@ -14,4 +14,22 @@ public class MenuExample {
                 .restaurant(RestaurantExample.someRestaurant1())
                 .build();
     }
+
+    public Menu someMenu2() {
+        return Menu.builder()
+                .menuId(2L)
+                .name("Pizza")
+                .category("fastfood")
+                .restaurant(RestaurantExample.someRestaurant1())
+                .build();
+    }
+
+    public Menu someMenu3() {
+        return Menu.builder()
+                .menuId(1L)
+                .name("Zupy")
+                .category("zupy")
+                .restaurant(RestaurantExample.someRestaurant1())
+                .build();
+    }
 }

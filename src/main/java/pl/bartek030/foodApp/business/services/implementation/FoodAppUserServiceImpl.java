@@ -30,8 +30,8 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
     @Override
     @Transactional
     public FoodAppUser findById(final Long foodAppUserId) {
-        // TODO: Custom exception
-        return foodAppUserDao.findById(foodAppUserId).orElseThrow();
+        return foodAppUserDao.findById(foodAppUserId)
+                .orElseThrow(() -> new RuntimeException("User with id: [%s] not found".formatted(foodAppUserId)));
     }
 
     @Override
@@ -39,7 +39,6 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
     public void authenticateUser(final AppUserLogin appUserLogin) {
         final UserDetails userDetails = foodAppUserDetailsService.loadUserByUsername(appUserLogin.getUsername());
         if(!passwordEncoder.matches(appUserLogin.getPassword(), userDetails.getPassword())) {
-            // TODO: EXCEPTION
             throw new RuntimeException("Password does not match");
         }
     }
