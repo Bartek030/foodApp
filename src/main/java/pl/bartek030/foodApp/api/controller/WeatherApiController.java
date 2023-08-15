@@ -12,5 +12,5 @@ public interface WeatherApiController {
     String WEATHER_API_URL = "/api/weather/{cityName}";
 
     @GetMapping
-    ResponseEntity<WeatherDataDTO> getFoodFromMenu(@PathVariable String cityName);
+    ResponseEntity<WeatherDataDTO> getWeatherData(@PathVariable String cityName);
 }

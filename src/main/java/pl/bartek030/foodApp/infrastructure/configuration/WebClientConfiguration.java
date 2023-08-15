@@ -26,9 +26,6 @@ public class WebClientConfiguration {
     @Value("${api.open-weather-map.url}")
     private String apiUrl;
 
-
-
-
     @Bean
     public WebClient webClient(final ObjectMapper objectMapper) {
         final var httpClient = HttpClient.create()

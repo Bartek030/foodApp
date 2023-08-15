@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.bartek030.foodApp.api.controller.DeliveryAddressController;
 import pl.bartek030.foodApp.api.dto.DeliveryAddressCreationDTO;
 import pl.bartek030.foodApp.api.dto.DeliveryAddressDTO;
-import pl.bartek030.foodApp.api.dto.mapper.DeliveryAddressCreationDaoMapper;
+import pl.bartek030.foodApp.api.dto.mapper.DeliveryAddressCreationDtoMapper;
 import pl.bartek030.foodApp.api.dto.mapper.DeliveryAddressDtoMapper;
 import pl.bartek030.foodApp.business.serviceModel.DeliveryAddress;
 import pl.bartek030.foodApp.business.services.RestaurantDeliveryAddressService;
-import pl.bartek030.foodApp.infrastructure.database.entity.mapper.DeliveryAddressDaoMapper;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ import java.util.List;
 public class DeliveryAddressControllerImpl implements DeliveryAddressController {
 
     private final DeliveryAddressDtoMapper deliveryAddressDtoMapper;
-    private final DeliveryAddressCreationDaoMapper deliveryAddressCreationDaoMapper;
+    private final DeliveryAddressCreationDtoMapper deliveryAddressCreationDtoMapper;
 
     private final RestaurantDeliveryAddressService restaurantDeliveryAddressService;
 
@@ -29,7 +28,7 @@ public class DeliveryAddressControllerImpl implements DeliveryAddressController 
             final DeliveryAddressCreationDTO deliveryAddressCreationDTO
     ) {
         restaurantDeliveryAddressService
-                .addDeliveryAddress(deliveryAddressCreationDaoMapper.map(deliveryAddressCreationDTO));
+                .addDeliveryAddress(deliveryAddressCreationDtoMapper.map(deliveryAddressCreationDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

@@ -10,7 +10,7 @@ import pl.bartek030.foodApp.business.serviceModel.DeliveryAddressCreation;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface DeliveryAddressCreationDaoMapper {
+public interface DeliveryAddressCreationDtoMapper {
 
     DeliveryAddressCreation map(DeliveryAddressCreationDTO deliveryAddressCreationDTO);
 }
