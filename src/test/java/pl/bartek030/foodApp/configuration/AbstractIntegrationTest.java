@@ -15,7 +15,7 @@ import pl.bartek030.foodApp.infrastructure.database.repository.jpa.*;
         classes = {FoodAppApplication.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class AbstractIntegrationTest {
+public abstract class AbstractIntegrationTest {
 
     private AddressJpaRepository addressJpaRepository;
     private AppOrderJpaRepository appOrderJpaRepository;
@@ -27,8 +27,6 @@ public class AbstractIntegrationTest {
     private RestaurantDeliveryAddressJpaRepository restaurantDeliveryAddressJpaRepository;
     private RestaurantJpaRepository restaurantJpaRepository;
 
-
-    // TODO: DODAC REPOZYTORIA DO CZYSZCZENIA BAZY PO KAZDYM TESCIE
     @BeforeEach
     public void beforeEach() {
         addressJpaRepository.deleteAll();

@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations="classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class AppOrderControllerImplTest {
+class AppOrderControllerImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;

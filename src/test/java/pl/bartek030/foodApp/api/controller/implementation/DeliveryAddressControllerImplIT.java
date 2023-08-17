@@ -13,7 +13,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.bartek030.foodApp.api.controller.DeliveryAddressController;
 import pl.bartek030.foodApp.api.dto.DeliveryAddressCreationDTO;
-import pl.bartek030.foodApp.api.dto.DeliveryAddressDTO;
 import pl.bartek030.foodApp.api.dto.mapper.DeliveryAddressCreationDtoMapper;
 import pl.bartek030.foodApp.api.dto.mapper.DeliveryAddressDtoMapper;
 import pl.bartek030.foodApp.business.serviceModel.DeliveryAddress;
@@ -37,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations = "classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class DeliveryAddressControllerImplTest {
+class DeliveryAddressControllerImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;

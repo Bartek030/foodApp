@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(PersistenceContainerTestConfiguration.class)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class AppOrderJpaRepositoryTest {
+class AppOrderJpaRepositoryIT {
 
     private AppOrderJpaRepository appOrderJpaRepository;
     private RestaurantJpaRepository restaurantJpaRepository;

@@ -1,7 +1,6 @@
 package pl.bartek030.foodApp.infrastructure.database.repository.jpa;
 
 import lombok.AllArgsConstructor;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -27,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(PersistenceContainerTestConfiguration.class)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class RestaurantDeliveryAddressJpaRepositoryTest {
+class RestaurantDeliveryAddressJpaRepositoryIT {
 
     private RestaurantDeliveryAddressJpaRepository restaurantDeliveryAddressJpaRepository;
     private DeliveryAddressJpaRepository deliveryAddressJpaRepository;

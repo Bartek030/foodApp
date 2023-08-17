@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(PersistenceContainerTestConfiguration.class)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class AddressJpaRepositoryTest {
+class AddressJpaRepositoryIT {
 
     private AddressJpaRepository addressJpaRepository;
 

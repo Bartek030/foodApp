@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations="classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class MenuControllerImplTest {
+class MenuControllerImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;

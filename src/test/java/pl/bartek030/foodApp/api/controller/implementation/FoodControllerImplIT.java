@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import pl.bartek030.foodApp.api.controller.FoodController;
 import pl.bartek030.foodApp.api.dto.FoodCreationDTO;
 import pl.bartek030.foodApp.api.dto.FoodDTO;
-import pl.bartek030.foodApp.api.dto.MenuCreationDTO;
 import pl.bartek030.foodApp.api.dto.mapper.FoodCreationDtoMapper;
 import pl.bartek030.foodApp.api.dto.mapper.FoodDtoMapper;
 import pl.bartek030.foodApp.business.serviceModel.Food;
@@ -38,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations="classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class FoodControllerImplTest {
+class FoodControllerImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
