@@ -10,7 +10,7 @@ public class MenuCreationDTOExample {
         return MenuCreationDTO.builder()
                 .name("KEBAB")
                 .category("fastfood")
-                .restaurantId(1L)
+                .restaurantId(8L)
                 .build();
     }
 }

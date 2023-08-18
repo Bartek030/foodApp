@@ -12,31 +12,48 @@ import pl.bartek030.foodApp.infrastructure.database.repository.jpa.*;
 @ActiveProfiles("test")
 @Import(PersistenceContainerTestConfiguration.class)
 @SpringBootTest(
-        classes = {FoodAppApplication.class},
+        classes = FoodAppApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public abstract class AbstractIntegrationTest {
 
+    @Autowired
     private AddressJpaRepository addressJpaRepository;
+
+    @Autowired
     private AppOrderJpaRepository appOrderJpaRepository;
+
+    @Autowired
     private DeliveryAddressJpaRepository deliveryAddressJpaRepository;
+
+    @Autowired
     private FoodAppUserJpaRepository foodAppUserJpaRepository;
+
+    @Autowired
     private FoodJpaRepository foodJpaRepository;
+
+    @Autowired
     private MenuJpaRepository menuJpaRepository;
+
+    @Autowired
     private OrderDetailsJpaRepository orderDetailsJpaRepository;
+
+    @Autowired
     private RestaurantDeliveryAddressJpaRepository restaurantDeliveryAddressJpaRepository;
+
+    @Autowired
     private RestaurantJpaRepository restaurantJpaRepository;
+
 
     @BeforeEach
     public void beforeEach() {
-        addressJpaRepository.deleteAll();
+        restaurantDeliveryAddressJpaRepository.deleteAll();
+        orderDetailsJpaRepository.deleteAll();
         appOrderJpaRepository.deleteAll();
-        deliveryAddressJpaRepository.deleteAll();
-        foodAppUserJpaRepository.deleteAll();
         foodJpaRepository.deleteAll();
         menuJpaRepository.deleteAll();
-        orderDetailsJpaRepository.deleteAll();
-        restaurantDeliveryAddressJpaRepository.deleteAll();
         restaurantJpaRepository.deleteAll();
+        deliveryAddressJpaRepository.deleteAll();
+        foodAppUserJpaRepository.deleteAll();
+        addressJpaRepository.deleteAll();
     }
 }

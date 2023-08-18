@@ -72,6 +72,7 @@ public class AppOrderServiceImpl implements AppOrderService {
 
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {
         Restaurant restaurant = restaurantService.findById(findRestaurantIdWhichServiceFood(orderList).getRestaurantId());
+        //TODO: TO REPLACE MAGIC NUMBER
         final FoodAppUser foodAppUser = foodAppUserService.findById(1L);;
 
         return AppOrder.builder()

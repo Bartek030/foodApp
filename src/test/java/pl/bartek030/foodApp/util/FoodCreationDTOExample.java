@@ -11,9 +11,27 @@ public class FoodCreationDTOExample {
     public FoodCreationDTO someFoodCreationDTO1() {
         return FoodCreationDTO.builder()
                 .name("PIZZA")
-                .price(BigDecimal.valueOf(30.50))
-                .description("Some description")
-                .menuId(1L)
+                .price(BigDecimal.valueOf(30.00))
+                .description("Mała Hawajska")
+                .menuId(3L)
+                .build();
+    }
+
+    public FoodCreationDTO someFoodCreationDTO2() {
+        return FoodCreationDTO.builder()
+                .name("PIZZA")
+                .price(BigDecimal.valueOf(40.00))
+                .description("Średnia Wiejska")
+                .menuId(3L)
+                .build();
+    }
+
+    public FoodCreationDTO someFoodCreationDTO3() {
+        return FoodCreationDTO.builder()
+                .name("PIZZA")
+                .price(BigDecimal.valueOf(50.00))
+                .description("Duża Rodzinna")
+                .menuId(3L)
                 .build();
     }
 }

@@ -5,8 +5,10 @@ import lombok.*;
 import java.util.Set;
 
 @With
-@Value
+@Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "restaurantId")
 @ToString(of = {"name"})
 public class Restaurant {
