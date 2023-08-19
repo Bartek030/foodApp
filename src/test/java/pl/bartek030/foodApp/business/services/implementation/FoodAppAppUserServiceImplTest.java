@@ -6,9 +6,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.bartek030.foodApp.business.serviceModel.AppUser;
 import pl.bartek030.foodApp.business.serviceModel.FoodAppUser;
 import pl.bartek030.foodApp.business.serviceModel.FoodAppUserCreation;
-import pl.bartek030.foodApp.business.serviceModel.User;
 import pl.bartek030.foodApp.infrastructure.database.repository.FoodAppUserRepository;
 import pl.bartek030.foodApp.infrastructure.security.FoodAppUserDetailsService;
 import pl.bartek030.foodApp.util.AddressExample;
@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class FoodAppUserServiceImplTest {
+class FoodAppAppUserServiceImplTest {
 
     @InjectMocks
     FoodAppUserServiceImpl foodAppUserService;
@@ -81,11 +81,11 @@ class FoodAppUserServiceImplTest {
         // given
         final FoodAppUserCreation foodAppUserCreation = FoodAppUserCreationExample.someFoodAppUserCreation1();
         final FoodAppUser foodAppUser = FoodAppUserExample.someFoodAppUser1();
-        final User user = UserExample.someUser1();
+        final AppUser appUser = UserExample.someUser1();
 
         when(passwordEncoder.encode(anyString()))
                 .thenReturn("$2a$12$nBMvTSYlxYHhytUoO9hHBeocpipNfF20WxkRtqMP.6Am2rsSVKpFa");
-        when(foodAppUserDetailsService.createUser(user)).thenReturn(user);
+        when(foodAppUserDetailsService.createUser(appUser)).thenReturn(appUser);
 //        doNothing().when(foodAppUserDao).createFoodAppUser(foodAppUser);
         when(addressService.findAddressByData(anyString(), anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(Optional.of(AddressExample.someAddress1()));
@@ -94,6 +94,6 @@ class FoodAppUserServiceImplTest {
         foodAppUserService.addUser(foodAppUserCreation);
 
         // then
-        verify(foodAppUserDetailsService, times(1)).createUser(user);
+        verify(foodAppUserDetailsService, times(1)).createUser(appUser);
     }
 }

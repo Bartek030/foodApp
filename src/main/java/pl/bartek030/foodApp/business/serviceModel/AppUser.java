@@ -9,7 +9,7 @@ import java.util.Set;
 @Builder
 @EqualsAndHashCode(of = "userName")
 @ToString(of = {"userName"})
-public class User {
+public class AppUser {
     Long id;
     String userName;
     String password;

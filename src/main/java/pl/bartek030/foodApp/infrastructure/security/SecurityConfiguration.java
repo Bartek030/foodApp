@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -23,7 +25,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration {
+public class SecurityConfiguration{
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -54,10 +56,12 @@ public class SecurityConfiguration {
     @Bean
     @ConditionalOnProperty(value = "spring.security.enabled", havingValue = "true", matchIfMissing = true)
     public SecurityFilterChain securityEnabled(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.cors(Customizer.withDefaults())
+        return httpSecurity
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
+                .securityContext(securityContext -> securityContext.securityContextRepository(new HttpSessionSecurityContextRepository()))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/user/**").permitAll()
+                        .requestMatchers("/", "/user/**").permitAll()
                         .requestMatchers(
                                 "/app-order/restaurant/**",
                                 "/app-order/delivered/**",
@@ -71,9 +75,12 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/user/login-redirect").permitAll())
+                        .defaultSuccessUrl("/user/loginSuccess")
+                        .failureUrl("/user/loginFailure")
+                        .usernameParameter("username")
+                        .permitAll())
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/user/login-redirect")
+                        .logoutSuccessUrl("/user/login")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()

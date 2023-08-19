@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.bartek030.foodApp.business.serviceModel.AppUser;
 
 import java.util.List;
 import java.util.Set;
@@ -25,7 +26,7 @@ public class FoodAppUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        UserEntity user = userJpaRepository.findByUserName(username)
+        AppUserEntity user = userJpaRepository.findByUserName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("not found"));
         List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
         return buildUserForAuthentication(user, authorities);
@@ -38,22 +39,16 @@ public class FoodAppUserDetailsService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    private UserDetails buildUserForAuthentication(final UserEntity user, final List<GrantedAuthority> authorities) {
+    private UserDetails buildUserForAuthentication(final AppUserEntity user, final List<GrantedAuthority> authorities) {
         return new User(
                 user.getUserName(),
                 user.getPassword(),
-                user.getActive(),
-                true,
-                true,
-                true,
                 authorities
         );
     }
 
-    public pl.bartek030.foodApp.business.serviceModel.User createUser(
-            final pl.bartek030.foodApp.business.serviceModel.User user
-    ) {
-        final UserEntity saved = userJpaRepository.save(userDaoMapper.mapUserToEntity(user));
+    public AppUser createUser(final AppUser appUser) {
+        final AppUserEntity saved = userJpaRepository.save(userDaoMapper.mapUserToEntity(appUser));
         return userDaoMapper.mapUserFromEntity(saved);
     }
 }

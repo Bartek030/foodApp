@@ -1,6 +1,9 @@
 package pl.bartek030.foodApp.api.controller.implementation;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,19 +23,20 @@ public class FoodAppUserControllerImpl implements FoodAppUserController {
     private final FoodAppUserCreationDtoMapper foodAppUserCreationDtoMapper;
     private final AppUserLoginDtoMapper appUserLoginDtoMapper;
     private final FoodAppUserService foodAppUserService;
+    private final HttpServletRequest request;
 
     @Override
-    public ResponseEntity<RedirectMessageDTO> redirectToLogin() {
-        return ResponseEntity.status(HttpStatus.FOUND)
-                .body(RedirectMessageDTO.of("true"));
+    public ResponseEntity<FoodAppUserDTO> userLoginSuccess() {
+        final HttpSession session = request.getSession();
+        return ResponseEntity.ok()
+                .body(FoodAppUserDTO.builder().foodAppUserId(23L).build());
     }
 
     @Override
-    public ResponseEntity<FoodAppUserDTO> userLogin(AppUserLoginDTO appUserLoginDTO) {
-        foodAppUserService.authenticateUser(appUserLoginDtoMapper.map(appUserLoginDTO));
+    public ResponseEntity<FoodAppUserDTO> userLoginFailure() {
         return ResponseEntity.ok()
-                .header("Location", "index.html")
-                .build();
+//                .header("Location", "index2.html")
+                .body(FoodAppUserDTO.builder().foodAppUserId(245L).build());
     }
 
     @Override

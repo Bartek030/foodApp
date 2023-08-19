@@ -2,7 +2,7 @@ package pl.bartek030.foodApp.business.services.implementation;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,6 @@ import pl.bartek030.foodApp.business.serviceModel.*;
 import pl.bartek030.foodApp.business.services.AddressService;
 import pl.bartek030.foodApp.business.services.FoodAppUserService;
 import pl.bartek030.foodApp.infrastructure.security.FoodAppUserDetailsService;
-import pl.bartek030.foodApp.infrastructure.security.RoleEntity;
-import pl.bartek030.foodApp.infrastructure.security.UserEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +24,7 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
     private final AddressService addressService;
 
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     @Transactional
@@ -46,18 +45,18 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
     @Override
     @Transactional
     public void addUser(final FoodAppUserCreation foodAppUserCreation) {
-        User user = foodAppUserDetailsService.createUser(buildAppUser(foodAppUserCreation));
-        foodAppUserDao.createFoodAppUser(buildFoodAppUser(foodAppUserCreation, user));
+        AppUser appUser = foodAppUserDetailsService.createUser(buildAppUser(foodAppUserCreation));
+        foodAppUserDao.createFoodAppUser(buildFoodAppUser(foodAppUserCreation, appUser));
     }
 
-    private FoodAppUser buildFoodAppUser(final FoodAppUserCreation foodAppUserCreation, final User user) {
+    private FoodAppUser buildFoodAppUser(final FoodAppUserCreation foodAppUserCreation, final AppUser appUser) {
         return FoodAppUser.builder()
                 .name(foodAppUserCreation.getName())
                 .surname(foodAppUserCreation.getSurname())
                 .email(foodAppUserCreation.getEmail())
                 .phone(foodAppUserCreation.getPhone())
                 .address(buildAddress(foodAppUserCreation))
-                .user(user)
+                .appUser(appUser)
                 .build();
     }
 
@@ -78,8 +77,8 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
         ).orElseGet(() -> addressService.createAddress(address));
     }
 
-    private User buildAppUser(final FoodAppUserCreation foodAppUserCreation) {
-        return User.builder()
+    private AppUser buildAppUser(final FoodAppUserCreation foodAppUserCreation) {
+        return AppUser.builder()
                 .userName(foodAppUserCreation.getEmail())
                 .password(passwordEncoder.encode(foodAppUserCreation.getPassword()))
                 .active(true)
