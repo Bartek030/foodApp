@@ -8,7 +8,6 @@ public class FoodAppUserEntityExample {
 
     public FoodAppUserEntity someFoodAppUserEntity1() {
         return FoodAppUserEntity.builder()
-                .foodAppUserId(1L)
                 .name("NAME1")
                 .surname("SURNAME1")
                 .email("EMAIL1@EMAIL.COM")

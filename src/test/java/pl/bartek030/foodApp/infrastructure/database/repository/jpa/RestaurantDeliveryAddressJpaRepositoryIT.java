@@ -8,12 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import pl.bartek030.foodApp.configuration.PersistenceContainerTestConfiguration;
-import pl.bartek030.foodApp.infrastructure.database.entity.DeliveryAddressEntity;
-import pl.bartek030.foodApp.infrastructure.database.entity.RestaurantDeliveryAddressEntity;
-import pl.bartek030.foodApp.infrastructure.database.entity.RestaurantEntity;
-import pl.bartek030.foodApp.util.DeliveryAddressEntityExample;
-import pl.bartek030.foodApp.util.RestaurantDeliveryAddressEntityExample;
-import pl.bartek030.foodApp.util.RestaurantEntityExample;
+import pl.bartek030.foodApp.infrastructure.database.entity.*;
+import pl.bartek030.foodApp.util.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,18 +27,38 @@ class RestaurantDeliveryAddressJpaRepositoryIT {
     private RestaurantDeliveryAddressJpaRepository restaurantDeliveryAddressJpaRepository;
     private DeliveryAddressJpaRepository deliveryAddressJpaRepository;
     private RestaurantJpaRepository restaurantJpaRepository;
+    private AddressJpaRepository addressJpaRepository;
+    private FoodAppUserJpaRepository foodAppUserJpaRepository;
 
     @Test
     void shouldReturnRestaurantDeliveryAddressListByDeliveryAddress() {
         // given
         final DeliveryAddressEntity deliveryAddressEntity =
                 deliveryAddressJpaRepository.saveAndFlush(DeliveryAddressEntityExample.someDeliveryAddressEntity1());
+
+        final AddressEntity addressEntity = addressJpaRepository.saveAndFlush(AddressEntityExample.someAddressEntity1());
+
+        final FoodAppUserEntity foodAppUserEntity =
+                foodAppUserJpaRepository.saveAndFlush(FoodAppUserEntityExample.someFoodAppUserEntity1()
+                .withAddress(addressEntity));
+
+        final RestaurantEntity restaurantEntity =
+                restaurantJpaRepository.saveAndFlush(RestaurantEntityExample.someRestaurantEntity1()
+                .withAddress(addressEntity)
+                .withFoodAppUser(foodAppUserEntity));
+
         final RestaurantDeliveryAddressEntity entity1 =
-                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity1();
+                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity1()
+                        .withDeliveryAddress(deliveryAddressEntity)
+                        .withRestaurant(restaurantEntity);
         final RestaurantDeliveryAddressEntity entity2 =
-                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity2();
+                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity2()
+                        .withDeliveryAddress(deliveryAddressEntity)
+                        .withRestaurant(restaurantEntity);
         final RestaurantDeliveryAddressEntity entity3 =
-                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity3();
+                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity3()
+                        .withDeliveryAddress(deliveryAddressEntity)
+                        .withRestaurant(restaurantEntity);
 
         restaurantDeliveryAddressJpaRepository.saveAllAndFlush(List.of(entity1, entity2, entity3));
 
@@ -57,12 +73,25 @@ class RestaurantDeliveryAddressJpaRepositoryIT {
     @Test
     void shouldReturnRestaurantDeliveryAddressByDeliveryAddressAndRestaurant() {
         // given
+        final AddressEntity addressEntity = addressJpaRepository.saveAndFlush(AddressEntityExample.someAddressEntity1());
+
+        final FoodAppUserEntity foodAppUserEntity =
+                foodAppUserJpaRepository.saveAndFlush(FoodAppUserEntityExample.someFoodAppUserEntity1()
+                        .withAddress(addressEntity));
+
         final DeliveryAddressEntity deliveryAddressEntity =
                 deliveryAddressJpaRepository.saveAndFlush(DeliveryAddressEntityExample.someDeliveryAddressEntity1());
+
         final RestaurantEntity restaurantEntity =
-                restaurantJpaRepository.saveAndFlush(RestaurantEntityExample.someRestaurantEntity1());
+                restaurantJpaRepository.saveAndFlush(RestaurantEntityExample.someRestaurantEntity1()
+                        .withFoodAppUser(foodAppUserEntity)
+                        .withAddress(addressEntity));
+
         restaurantDeliveryAddressJpaRepository
-                .saveAndFlush(RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity1());
+                .saveAndFlush(RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity1()
+                        .withDeliveryAddress(deliveryAddressEntity)
+                        .withRestaurant(restaurantEntity));
+
         // when
         final Optional<RestaurantDeliveryAddressEntity> result =
                 restaurantDeliveryAddressJpaRepository.findByDeliveryAddressAndRestaurant(
@@ -77,15 +106,34 @@ class RestaurantDeliveryAddressJpaRepositoryIT {
     @Test
     void shouldReturnRestaurantDeliveryAddressesByRestaurant() {
         // given
-        final RestaurantEntity restaurantEntity =
-                restaurantJpaRepository.saveAndFlush(RestaurantEntityExample.someRestaurantEntity1());
-        final RestaurantDeliveryAddressEntity entity1 =
-                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity1();
-        final RestaurantDeliveryAddressEntity entity2 =
-                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity2();
-        final RestaurantDeliveryAddressEntity entity3 =
-                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity3();
+        final AddressEntity addressEntity = addressJpaRepository.saveAndFlush(AddressEntityExample.someAddressEntity1());
 
+        final FoodAppUserEntity foodAppUserEntity =
+                foodAppUserJpaRepository.saveAndFlush(FoodAppUserEntityExample.someFoodAppUserEntity1()
+                .withAddress(addressEntity));
+
+        final RestaurantEntity restaurantEntity =
+                restaurantJpaRepository.saveAndFlush(RestaurantEntityExample.someRestaurantEntity2()
+                        .withFoodAppUser(foodAppUserEntity)
+                        .withAddress(addressEntity));
+
+        final DeliveryAddressEntity deliveryAddressEntity =
+                deliveryAddressJpaRepository.saveAndFlush(DeliveryAddressEntityExample.someDeliveryAddressEntity1());
+
+        final RestaurantDeliveryAddressEntity entity1 =
+                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity1()
+                        .withDeliveryAddress(deliveryAddressEntity)
+                        .withRestaurant(restaurantEntity);
+        final RestaurantDeliveryAddressEntity entity2 =
+                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity2()
+                        .withDeliveryAddress(deliveryAddressEntity)
+                        .withRestaurant(restaurantEntity);
+        final RestaurantDeliveryAddressEntity entity3 =
+                RestaurantDeliveryAddressEntityExample.someRestaurantDeliveryAddressEntity3()
+                        .withDeliveryAddress(deliveryAddressEntity)
+                        .withRestaurant(restaurantEntity);
+
+        deliveryAddressJpaRepository.saveAndFlush(DeliveryAddressEntityExample.someDeliveryAddressEntity1());
         restaurantDeliveryAddressJpaRepository.saveAllAndFlush(List.of(entity1, entity2, entity3));
 
         // when
@@ -93,6 +141,6 @@ class RestaurantDeliveryAddressJpaRepositoryIT {
                 restaurantDeliveryAddressJpaRepository.findByRestaurant(restaurantEntity);
 
         // then
-        assertEquals(3, result.size());
+        assertEquals(2, result.size());
     }
 }

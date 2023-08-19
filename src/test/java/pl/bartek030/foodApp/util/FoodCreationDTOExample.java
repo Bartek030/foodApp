@@ -13,7 +13,7 @@ public class FoodCreationDTOExample {
                 .name("PIZZA")
                 .price(BigDecimal.valueOf(30.00))
                 .description("Mała Hawajska")
-                .menuId(3L)
+                .menuId(1L)
                 .build();
     }
 
@@ -22,7 +22,7 @@ public class FoodCreationDTOExample {
                 .name("PIZZA")
                 .price(BigDecimal.valueOf(40.00))
                 .description("Średnia Wiejska")
-                .menuId(3L)
+                .menuId(1L)
                 .build();
     }
 
@@ -31,7 +31,7 @@ public class FoodCreationDTOExample {
                 .name("PIZZA")
                 .price(BigDecimal.valueOf(50.00))
                 .description("Duża Rodzinna")
-                .menuId(3L)
+                .menuId(1L)
                 .build();
     }
 }

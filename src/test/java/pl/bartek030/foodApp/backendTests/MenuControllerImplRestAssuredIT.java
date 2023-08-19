@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.bartek030.foodApp.api.dto.*;
 import pl.bartek030.foodApp.configuration.RestAssuredIntegrationTestBase;
-import pl.bartek030.foodApp.configuration.support.FoodAppUserTestSupport;
+import pl.bartek030.foodApp.configuration.support.FoodAppUserControllerTestSupport;
 import pl.bartek030.foodApp.configuration.support.MenuControllerTestSupport;
 import pl.bartek030.foodApp.configuration.support.RestaurantControllerTestSupport;
 import pl.bartek030.foodApp.util.*;
@@ -13,7 +13,7 @@ public class MenuControllerImplRestAssuredIT
         extends RestAssuredIntegrationTestBase
         implements MenuControllerTestSupport,
         RestaurantControllerTestSupport,
-        FoodAppUserTestSupport {
+        FoodAppUserControllerTestSupport {
 
     @Test
     void shouldReturnListOfMenusFromRestaurant() {

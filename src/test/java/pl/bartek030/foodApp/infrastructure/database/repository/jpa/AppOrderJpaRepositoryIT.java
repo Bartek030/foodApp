@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import pl.bartek030.foodApp.configuration.PersistenceContainerTestConfiguration;
+import pl.bartek030.foodApp.infrastructure.database.entity.AddressEntity;
 import pl.bartek030.foodApp.infrastructure.database.entity.AppOrderEntity;
 import pl.bartek030.foodApp.infrastructure.database.entity.FoodAppUserEntity;
 import pl.bartek030.foodApp.infrastructure.database.entity.RestaurantEntity;
@@ -35,13 +36,26 @@ class AppOrderJpaRepositoryIT {
     @Test
     void shouldFindAppOrderListByFoodAppUser() {
         // given
-        addressJpaRepository.saveAndFlush(AddressEntityExample.someAddressEntity1());
+        final AddressEntity addressEntity = addressJpaRepository.saveAndFlush(AddressEntityExample.someAddressEntity1());
+
         final FoodAppUserEntity foodAppUserEntity =
-                foodAppUserJpaRepository.saveAndFlush(FoodAppUserEntityExample.someFoodAppUserEntity1());
-        restaurantJpaRepository.saveAndFlush(RestaurantEntityExample.someRestaurantEntity1());
-        final AppOrderEntity entity1 = AppOrderEntityExample.someAppOrderEntity1();
-        final AppOrderEntity entity2 = AppOrderEntityExample.someAppOrderEntity2();
-        final AppOrderEntity entity3 = AppOrderEntityExample.someAppOrderEntity3();
+                foodAppUserJpaRepository.saveAndFlush(FoodAppUserEntityExample.someFoodAppUserEntity1()
+                        .withAddress(addressEntity));
+
+        final RestaurantEntity restaurantEntity =
+                restaurantJpaRepository.saveAndFlush(RestaurantEntityExample.someRestaurantEntity1()
+                .withFoodAppUser(foodAppUserEntity)
+                .withAddress(addressEntity));
+
+        final AppOrderEntity entity1 = AppOrderEntityExample.someAppOrderEntity1()
+                .withRestaurant(restaurantEntity)
+                .withFoodAppUser(foodAppUserEntity);
+        final AppOrderEntity entity2 = AppOrderEntityExample.someAppOrderEntity2()
+                .withRestaurant(restaurantEntity)
+                .withFoodAppUser(foodAppUserEntity);
+        final AppOrderEntity entity3 = AppOrderEntityExample.someAppOrderEntity3()
+                .withRestaurant(restaurantEntity)
+                .withFoodAppUser(foodAppUserEntity);
 
         appOrderJpaRepository.saveAllAndFlush(List.of(entity1, entity2, entity3));
 
@@ -55,13 +69,26 @@ class AppOrderJpaRepositoryIT {
     @Test
     void shouldFindAppOrderListByRestaurant() {
         // given
-        addressJpaRepository.saveAndFlush(AddressEntityExample.someAddressEntity1());
-        foodAppUserJpaRepository.saveAndFlush(FoodAppUserEntityExample.someFoodAppUserEntity1());
+        final AddressEntity addressEntity = addressJpaRepository.saveAndFlush(AddressEntityExample.someAddressEntity1());
+
+        final FoodAppUserEntity foodAppUserEntity =
+                foodAppUserJpaRepository.saveAndFlush(FoodAppUserEntityExample.someFoodAppUserEntity1()
+                .withAddress(addressEntity));
+
         final RestaurantEntity restaurantEntity =
-                restaurantJpaRepository.saveAndFlush(RestaurantEntityExample.someRestaurantEntity1());
-        final AppOrderEntity entity1 = AppOrderEntityExample.someAppOrderEntity1();
-        final AppOrderEntity entity2 = AppOrderEntityExample.someAppOrderEntity2();
-        final AppOrderEntity entity3 = AppOrderEntityExample.someAppOrderEntity3();
+                restaurantJpaRepository.saveAndFlush(RestaurantEntityExample.someRestaurantEntity1()
+                        .withAddress(addressEntity)
+                        .withFoodAppUser(foodAppUserEntity));
+
+        final AppOrderEntity entity1 = AppOrderEntityExample.someAppOrderEntity1()
+                .withRestaurant(restaurantEntity)
+                .withFoodAppUser(foodAppUserEntity);
+        final AppOrderEntity entity2 = AppOrderEntityExample.someAppOrderEntity2()
+                .withRestaurant(restaurantEntity)
+                .withFoodAppUser(foodAppUserEntity);
+        final AppOrderEntity entity3 = AppOrderEntityExample.someAppOrderEntity3()
+                .withRestaurant(restaurantEntity)
+                .withFoodAppUser(foodAppUserEntity);
 
         appOrderJpaRepository.saveAllAndFlush(List.of(entity1, entity2, entity3));
 

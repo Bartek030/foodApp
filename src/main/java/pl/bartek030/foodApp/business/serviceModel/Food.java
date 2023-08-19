@@ -6,8 +6,10 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @With
-@Value
+@Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "foodId")
 @ToString(of = {"name"})
 public class Food {

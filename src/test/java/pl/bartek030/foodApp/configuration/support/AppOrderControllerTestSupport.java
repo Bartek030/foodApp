@@ -14,7 +14,7 @@ public interface AppOrderControllerTestSupport {
 
     default AppOrderDTO[] getAppOrdersByUser() {
         return requestSpecification()
-                .get(AppOrderController.APP_ORDER_URL + AppOrderController.USER_APP_ORDER_ID, 3L)
+                .get(AppOrderController.APP_ORDER_URL + AppOrderController.USER_APP_ORDER_ID, 1L)
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .and()

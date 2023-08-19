@@ -6,6 +6,7 @@ import pl.bartek030.foodApp.infrastructure.security.AppUserEntity;
 
 import java.util.Set;
 
+@With
 @Getter
 @Setter
 @EqualsAndHashCode(of = "foodAppUserId")

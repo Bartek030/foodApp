@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import pl.bartek030.foodApp.api.controller.FoodAppUserController;
 import pl.bartek030.foodApp.api.dto.FoodAppUserCreationDTO;
 
-public interface FoodAppUserTestSupport {
+public interface FoodAppUserControllerTestSupport {
 
     RequestSpecification requestSpecification();
 
