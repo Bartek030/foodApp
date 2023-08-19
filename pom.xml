@@ -26,6 +26,7 @@
 		<maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
 		<rest-assured.version>5.3.1</rest-assured.version>
 		<swagger.version>2.2.0</swagger.version>
+		<wiremock.version>2.27.2</wiremock.version>
 	</properties>
 
 	<dependencies>
@@ -101,6 +102,14 @@
 			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock-standalone</artifactId>
+			<version>${wiremock.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+
 
 		<!-- DOCS -->
 		<dependency>

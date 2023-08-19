@@ -4,3 +4,7 @@ spring:
       ddl-auto: none
   security:
     enabled: false
+
+api:
+  open-weather-map:
+    url: http://localhost:9999
