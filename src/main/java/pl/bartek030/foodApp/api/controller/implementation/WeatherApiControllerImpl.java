@@ -17,7 +17,7 @@ public class WeatherApiControllerImpl implements WeatherApiController {
     private final WeatherApiService weatherApiService;
 
     @Override
-    public ResponseEntity<WeatherDataDTO> getFoodFromMenu(final String cityName) {
+    public ResponseEntity<WeatherDataDTO> getWeatherData(final String cityName) {
         WeatherData weatherData = weatherApiService.getCurrentWeather(cityName);
         return ResponseEntity.ok(weatherDataDtoMapper.map(weatherData));
     }

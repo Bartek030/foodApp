@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.bartek030.foodApp.business.dao.AppOrderDAO;
 import pl.bartek030.foodApp.business.serviceModel.*;
 import pl.bartek030.foodApp.business.services.*;
+import pl.bartek030.foodApp.business.util.OffsetDateTimeWrapper;
 import pl.bartek030.foodApp.infrastructure.database.enums.OrderStatus;
 
 import java.math.BigDecimal;
@@ -24,6 +25,7 @@ public class AppOrderServiceImpl implements AppOrderService {
     private final RestaurantDeliveryAddressService restaurantDeliveryAddressService;
     private final RestaurantService restaurantService;
     private final DeliveryAddressService deliveryAddressService;
+    private final OffsetDateTimeWrapper offsetDateTimeWrapper;
 
     @Override
     @Transactional
@@ -50,14 +52,14 @@ public class AppOrderServiceImpl implements AppOrderService {
     @Override
     @Transactional
     public AppOrder cancelOrder(final Long appOrderId) {
-        // TODO: CUSTOM EXCEPTION
-        final AppOrder appOrder = appOrderDAO.findById(appOrderId).orElseThrow();
-        final OffsetDateTime now = OffsetDateTime.now();
+        final AppOrder appOrder = appOrderDAO.findById(appOrderId).orElseThrow(
+                () -> new RuntimeException("AppOrder with id: [%s] has not been found".formatted(appOrderId))
+        );
+        final OffsetDateTime now = offsetDateTimeWrapper.getCurrentTime();
         final OffsetDateTime orderedAt = appOrder.getOrderedAt();
         final OffsetDateTime timeToCancel = orderedAt.plusMinutes(20);
         if(now.isAfter(timeToCancel)) {
-            // TODO: CUSTOM EXCEPTION
-            throw new RuntimeException();
+            throw new RuntimeException("You can cancel your order before 20 minutes from order time");
         }
         return appOrderDAO.update(appOrderId, OrderStatus.CANCELLED);
     }
@@ -70,7 +72,8 @@ public class AppOrderServiceImpl implements AppOrderService {
 
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {
         Restaurant restaurant = restaurantService.findById(findRestaurantIdWhichServiceFood(orderList).getRestaurantId());
-        final FoodAppUser foodAppUser = findFoodAppUser();
+        //TODO: TO REPLACE MAGIC NUMBER
+        final FoodAppUser foodAppUser = foodAppUserService.findById(1L);;
 
         return AppOrder.builder()
                 .number(generateNewOrderNumber())
@@ -83,18 +86,13 @@ public class AppOrderServiceImpl implements AppOrderService {
                 .build();
     }
 
-    private FoodAppUser findFoodAppUser() {
-        return foodAppUserService.findById(1L);
-    }
-
     private Restaurant findRestaurantIdWhichServiceFood(final List<OrderDetailsCreation> orderList) {
         return orderList.stream()
                 .map(order -> {
                     final Food food = foodService.findFoodById(order.getFoodId());
                     return food.getMenu().getRestaurant();
                 })
-                // TODO: Custom exception
-                .findFirst().orElseThrow();
+                .findFirst().orElseThrow(() -> new RuntimeException("No restaurant has been found!"));
     }
 
     private OffsetDateTime checkPlannedDeliveryTime(final Restaurant restaurant, final FoodAppUser foodAppUser) {
@@ -102,8 +100,7 @@ public class AppOrderServiceImpl implements AppOrderService {
                         foodAppUser.getAddress().getCountry(),
                         foodAppUser.getAddress().getCity(),
                         foodAppUser.getAddress().getStreet())
-                // TODO: Custom exception
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("Delivery Address has not been found"));
         final RestaurantDeliveryAddress restaurantDeliveryAddress =
                 restaurantDeliveryAddressService.findByAddressAndRestaurant(deliveryAddress, restaurant);
         return OffsetDateTime.now().plusMinutes(restaurantDeliveryAddress.getDeliveryTime());

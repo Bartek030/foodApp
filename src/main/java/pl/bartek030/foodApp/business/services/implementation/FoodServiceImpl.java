@@ -22,8 +22,8 @@ public class FoodServiceImpl implements FoodService {
     @Override
     @Transactional
     public Food findFoodById(final Long foodId) {
-        // TODO: Custom exception
-        return foodDao.findById(foodId).orElseThrow();
+        return foodDao.findById(foodId)
+                .orElseThrow(() -> new RuntimeException("Food with id: [%s] not found".formatted(foodId)));
     }
 
     @Override

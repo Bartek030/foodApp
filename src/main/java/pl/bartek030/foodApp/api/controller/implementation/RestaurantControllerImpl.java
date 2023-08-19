@@ -27,8 +27,8 @@ public class RestaurantControllerImpl implements RestaurantController {
 
     @Override
     public ResponseEntity<List<RestaurantDTO>> getOwnersRestaurants(final Long userId) {
-        List<Restaurant> restaurantDTOList = restaurantService.findRestaurantsByFoodAppUserId(userId);
-        return ResponseEntity.ok(restaurantDTOList.stream()
+        List<Restaurant> restaurantList = restaurantService.findRestaurantsByFoodAppUserId(userId);
+        return ResponseEntity.ok(restaurantList.stream()
                 .map(restaurantDtoMapper::map)
                 .toList()
         );
@@ -51,9 +51,10 @@ public class RestaurantControllerImpl implements RestaurantController {
             final String street,
             final Integer page
     ) {
+        final List<Restaurant> restaurants =
+                restaurantDeliveryAddressService.getRestaurantsByCountryAndCityAndStreet(country, city, street, page);
         return ResponseEntity.ok(
-                restaurantDeliveryAddressService.getRestaurantsByCountryAndCityAndStreet(country, city, street, page)
-                .stream()
+                restaurants.stream()
                 .map(restaurantDtoMapper::map)
                 .toList()
         );

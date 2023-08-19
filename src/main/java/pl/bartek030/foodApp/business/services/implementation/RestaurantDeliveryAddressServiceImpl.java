@@ -31,7 +31,7 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
             final String street
     ) {
         DeliveryAddress deliveryAddress = deliveryAddressService.findByCountryAndCityAndStreet(country, city, street)
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("Delivery address not found"));
         return restaurantDeliveryAddressDao.findAllByAddress(deliveryAddress);
     }
 
@@ -41,7 +41,8 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
             final DeliveryAddress deliveryAddress,
             final Restaurant restaurant
     ) {
-        return restaurantDeliveryAddressDao.findByAddressAndRestaurant(deliveryAddress, restaurant).orElseThrow();
+        return restaurantDeliveryAddressDao.findByAddressAndRestaurant(deliveryAddress, restaurant)
+                .orElseThrow(() -> new RuntimeException("Restaurant delivery address not found"));
     }
 
     @Override
@@ -64,9 +65,8 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
             final String street,
             final Integer page
     ) {
-        // TODO: Custom exception
         DeliveryAddress deliveryAddress = deliveryAddressService.findByCountryAndCityAndStreet(country, city, street)
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("Delivery address not found"));
         List<RestaurantDeliveryAddress> restaurantDeliveryAddresses =
                 restaurantDeliveryAddressDao.findByDeliveryAddress(deliveryAddress);
         final List<Long> restaurantsIdList = restaurantDeliveryAddresses.stream()
