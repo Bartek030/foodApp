@@ -1,4 +1,4 @@
-package pl.bartek030.foodApp.api.controller;
+package pl.bartek030.foodApp.api.controller.rest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,8 +7,8 @@ import pl.bartek030.foodApp.api.dto.FoodDTO;
 
 import java.util.List;
 
-@RequestMapping(FoodController.FOOD_URL)
-public interface FoodController {
+@RequestMapping(FoodRestController.FOOD_URL)
+public interface FoodRestController {
 
     String FOOD_URL = "/food";
     String NEW_FOOD_URL = "/new";

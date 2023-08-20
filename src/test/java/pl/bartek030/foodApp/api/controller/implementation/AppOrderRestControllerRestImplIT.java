@@ -12,7 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.bartek030.foodApp.api.controller.AppOrderController;
+import pl.bartek030.foodApp.api.controller.rest.AppOrderRestController;
+import pl.bartek030.foodApp.api.controller.rest.implementation.AppOrderRestControllerRestImpl;
 import pl.bartek030.foodApp.api.dto.OrderDetailsCreationDTO;
 import pl.bartek030.foodApp.api.dto.mapper.AppOrderDtoMapper;
 import pl.bartek030.foodApp.api.dto.mapper.OrderDetailsCreationDtoMapper;
@@ -33,11 +34,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = AppOrderControllerImpl.class)
+@WebMvcTest(controllers = AppOrderRestControllerRestImpl.class)
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations="classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class AppOrderControllerImplIT {
+class AppOrderRestControllerRestImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
@@ -72,7 +73,7 @@ class AppOrderControllerImplIT {
         String requestJson = ow.writeValueAsString(orderDetailsCreationList);
 
         // when then
-        String endpoint = AppOrderController.APP_ORDER_URL + AppOrderController.NEW_APP_ORDER_URL;
+        String endpoint = AppOrderRestController.APP_ORDER_URL + AppOrderRestController.NEW_APP_ORDER_URL;
         mockMvc.perform(post(endpoint)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -91,7 +92,7 @@ class AppOrderControllerImplIT {
         when(appOrderDtoMapper.map(any(AppOrder.class))).thenReturn(AppOrderDTOExample.someAppOrderDto1());
 
         // when then
-        String endpoint = AppOrderController.APP_ORDER_URL + AppOrderController.CANCEL_APP_ORDER_URL;
+        String endpoint = AppOrderRestController.APP_ORDER_URL + AppOrderRestController.CANCEL_APP_ORDER_URL;
         mockMvc.perform(patch(endpoint, appOrderId))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.number", Matchers.is(appOrder.getNumber())))
@@ -108,7 +109,7 @@ class AppOrderControllerImplIT {
         when(appOrderDtoMapper.map(any(AppOrder.class))).thenReturn(AppOrderDTOExample.someAppOrderDto1());
 
         // when then
-        String endpoint = AppOrderController.APP_ORDER_URL + AppOrderController.MARK_DELIVERED_APP_ORDER_URL;
+        String endpoint = AppOrderRestController.APP_ORDER_URL + AppOrderRestController.MARK_DELIVERED_APP_ORDER_URL;
         mockMvc.perform(patch(endpoint, appOrderId))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.number", Matchers.is(appOrder.getNumber())))
@@ -133,7 +134,7 @@ class AppOrderControllerImplIT {
                 .thenReturn(AppOrderDTOExample.someAppOrderDto3());
 
         // when then
-        String endpoint = AppOrderController.APP_ORDER_URL + AppOrderController.RESTAURANT_APP_ORDER_ID;
+        String endpoint = AppOrderRestController.APP_ORDER_URL + AppOrderRestController.RESTAURANT_APP_ORDER_ID;
         mockMvc.perform(get(endpoint, restaurantId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].number", Matchers.is(appOrder.getNumber())))
@@ -158,7 +159,7 @@ class AppOrderControllerImplIT {
                 .thenReturn(AppOrderDTOExample.someAppOrderDto3());
 
         // when then
-        String endpoint = AppOrderController.APP_ORDER_URL + AppOrderController.USER_APP_ORDER_ID;
+        String endpoint = AppOrderRestController.APP_ORDER_URL + AppOrderRestController.USER_APP_ORDER_ID;
         mockMvc.perform(get(endpoint, userId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].number", Matchers.is(appOrder.getNumber())))

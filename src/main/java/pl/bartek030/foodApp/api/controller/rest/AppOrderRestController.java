@@ -1,4 +1,4 @@
-package pl.bartek030.foodApp.api.controller;
+package pl.bartek030.foodApp.api.controller.rest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,8 +7,8 @@ import pl.bartek030.foodApp.api.dto.OrderDetailsCreationDTO;
 
 import java.util.List;
 
-@RequestMapping(AppOrderController.APP_ORDER_URL)
-public interface AppOrderController {
+@RequestMapping(AppOrderRestController.APP_ORDER_URL)
+public interface AppOrderRestController {
 
     String APP_ORDER_URL = "/app-order";
     String CANCEL_APP_ORDER_URL = "/cancelled/{appOrderId}";

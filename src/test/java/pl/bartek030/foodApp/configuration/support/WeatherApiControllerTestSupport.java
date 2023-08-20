@@ -2,7 +2,7 @@ package pl.bartek030.foodApp.configuration.support;
 
 import io.restassured.specification.RequestSpecification;
 import org.springframework.http.HttpStatus;
-import pl.bartek030.foodApp.api.controller.WeatherApiController;
+import pl.bartek030.foodApp.api.controller.rest.WeatherRestApiController;
 import pl.bartek030.foodApp.api.dto.weatherApiDTO.WeatherDataDTO;
 
 public interface WeatherApiControllerTestSupport {
@@ -12,7 +12,7 @@ public interface WeatherApiControllerTestSupport {
     default WeatherDataDTO getWeatherData(final String cityName) {
         return requestSpecification()
                 .pathParam("cityName", cityName)
-                .get(WeatherApiController.WEATHER_API_URL)
+                .get(WeatherRestApiController.WEATHER_API_URL)
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .and()

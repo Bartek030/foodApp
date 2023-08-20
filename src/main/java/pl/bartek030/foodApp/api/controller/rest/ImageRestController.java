@@ -1,4 +1,4 @@
-package pl.bartek030.foodApp.api.controller;
+package pl.bartek030.foodApp.api.controller.rest;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.bartek030.foodApp.api.dto.FileUploadMessage;
 
-@RequestMapping(ImageController.IMAGE_URL)
-public interface ImageController {
+@RequestMapping(ImageRestController.IMAGE_URL)
+public interface ImageRestController {
 
     String IMAGE_URL = "/image";
     String UPLOAD_IMAGE_URL = "/new/{foodId}";

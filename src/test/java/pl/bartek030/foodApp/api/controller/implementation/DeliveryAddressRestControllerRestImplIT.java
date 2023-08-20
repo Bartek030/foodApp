@@ -11,7 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.bartek030.foodApp.api.controller.DeliveryAddressController;
+import pl.bartek030.foodApp.api.controller.rest.DeliveryAddressRestController;
 import pl.bartek030.foodApp.api.dto.DeliveryAddressCreationDTO;
 import pl.bartek030.foodApp.api.dto.mapper.DeliveryAddressCreationDtoMapper;
 import pl.bartek030.foodApp.api.dto.mapper.DeliveryAddressDtoMapper;
@@ -32,11 +32,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = DeliveryAddressController.class)
+@WebMvcTest(controllers = DeliveryAddressRestController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations = "classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class DeliveryAddressControllerImplIT {
+class DeliveryAddressRestControllerRestImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
@@ -63,8 +63,8 @@ class DeliveryAddressControllerImplIT {
         String requestJson = ow.writeValueAsString(address);
 
         // when then
-        String endpoint = DeliveryAddressController.DELIVERY_ADDRESS_URL
-                + DeliveryAddressController.NEW_DELIVERY_ADDRESS_URL;
+        String endpoint = DeliveryAddressRestController.DELIVERY_ADDRESS_URL
+                + DeliveryAddressRestController.NEW_DELIVERY_ADDRESS_URL;
         mockMvc.perform(post(endpoint)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -85,8 +85,8 @@ class DeliveryAddressControllerImplIT {
                 .thenReturn(DeliveryAddressDTOExample.someDeliveryAddressDto1());
 
         // when then
-        String endpoint = DeliveryAddressController.DELIVERY_ADDRESS_URL
-                + DeliveryAddressController.RESTAURANTS_URL;
+        String endpoint = DeliveryAddressRestController.DELIVERY_ADDRESS_URL
+                + DeliveryAddressRestController.RESTAURANTS_URL;
         mockMvc.perform(get(endpoint, restaurantId))
                 .andExpect(status().isOk());
     }

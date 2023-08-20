@@ -8,7 +8,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.bartek030.foodApp.api.controller.WeatherApiController;
+import pl.bartek030.foodApp.api.controller.rest.WeatherRestApiController;
+import pl.bartek030.foodApp.api.controller.rest.implementation.WeatherRestApiControllerRestImpl;
 import pl.bartek030.foodApp.api.dto.mapper.WeatherDataDtoMapper;
 import pl.bartek030.foodApp.business.serviceModel.weatherApi.WeatherData;
 import pl.bartek030.foodApp.business.services.WeatherApiService;
@@ -21,11 +22,11 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = WeatherApiControllerImpl.class)
+@WebMvcTest(controllers = WeatherRestApiControllerRestImpl.class)
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations = "classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class WeatherApiControllerImplIT {
+class WeatherRestApiControllerRestImplIT {
 
     private MockMvc mockMvc;
 
@@ -43,7 +44,7 @@ class WeatherApiControllerImplIT {
         when(weatherDataDtoMapper.map(any(WeatherData.class))).thenReturn(WeatherDataDTOExample.someWeatherDataDTO());
 
         // when then
-        String endpoint = WeatherApiController.WEATHER_API_URL;
+        String endpoint = WeatherRestApiController.WEATHER_API_URL;
         mockMvc.perform(get(endpoint, cityName))
                 .andExpect(status().isOk());
     }

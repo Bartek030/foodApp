@@ -12,7 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.bartek030.foodApp.api.controller.MenuController;
+import pl.bartek030.foodApp.api.controller.rest.MenuRestController;
+import pl.bartek030.foodApp.api.controller.rest.implementation.MenuRestControllerRestImpl;
 import pl.bartek030.foodApp.api.dto.MenuCreationDTO;
 import pl.bartek030.foodApp.api.dto.MenuDTO;
 import pl.bartek030.foodApp.api.dto.mapper.MenuCreationDtoMapper;
@@ -35,11 +36,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = MenuControllerImpl.class)
+@WebMvcTest(controllers = MenuRestControllerRestImpl.class)
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations="classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class MenuControllerImplIT {
+class MenuRestControllerRestImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
@@ -66,7 +67,7 @@ class MenuControllerImplIT {
         when(menuDtoMapper.map(any(Menu.class))).thenReturn(menuDTO);
 
         // when then
-        String endpoint = MenuController.MENU_URL + MenuController.RESTAURANTS_MENUS_URL;
+        String endpoint = MenuRestController.MENU_URL + MenuRestController.RESTAURANTS_MENUS_URL;
         mockMvc.perform(get(endpoint, restaurantId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name", Matchers.is(menuDTO.getName())))
@@ -85,7 +86,7 @@ class MenuControllerImplIT {
         String requestJson = ow.writeValueAsString(menuCreationDTO);
 
         // when then
-        String endpoint = MenuController.MENU_URL + MenuController.NEW_MENU_URL;
+        String endpoint = MenuRestController.MENU_URL + MenuRestController.NEW_MENU_URL;
         mockMvc.perform(post(endpoint)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON))

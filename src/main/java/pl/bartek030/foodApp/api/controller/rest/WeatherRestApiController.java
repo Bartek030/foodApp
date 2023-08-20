@@ -1,4 +1,4 @@
-package pl.bartek030.foodApp.api.controller;
+package pl.bartek030.foodApp.api.controller.rest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bartek030.foodApp.api.dto.weatherApiDTO.WeatherDataDTO;
 
-@RequestMapping(WeatherApiController.WEATHER_API_URL)
-public interface WeatherApiController {
+@RequestMapping(WeatherRestApiController.WEATHER_API_URL)
+public interface WeatherRestApiController {
 
     String WEATHER_API_URL = "/api/weather/{cityName}";
 

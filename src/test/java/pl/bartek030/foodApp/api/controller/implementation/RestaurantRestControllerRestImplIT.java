@@ -13,7 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
-import pl.bartek030.foodApp.api.controller.RestaurantController;
+import pl.bartek030.foodApp.api.controller.rest.RestaurantRestController;
+import pl.bartek030.foodApp.api.controller.rest.implementation.RestaurantRestControllerRestImpl;
 import pl.bartek030.foodApp.api.dto.MenuCreationDTO;
 import pl.bartek030.foodApp.api.dto.RestaurantCreationDTO;
 import pl.bartek030.foodApp.api.dto.mapper.RestaurantCreationDtoMapper;
@@ -38,11 +39,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@WebMvcTest(controllers = RestaurantControllerImpl.class)
+@WebMvcTest(controllers = RestaurantRestControllerRestImpl.class)
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations = "classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class RestaurantControllerImplIT {
+class RestaurantRestControllerRestImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
@@ -73,7 +74,7 @@ class RestaurantControllerImplIT {
                 .thenReturn(RestaurantDTOExample.someRestaurantDTO2());
 
         // when then
-        String endpoint = RestaurantController.RESTAURANT_URL + RestaurantController.USERS_RESTAURANTS_URL;
+        String endpoint = RestaurantRestController.RESTAURANT_URL + RestaurantRestController.USERS_RESTAURANTS_URL;
         mockMvc.perform(get(endpoint, userID))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name", Matchers.is(RestaurantDTOExample.someRestaurantDTO1().getName())))
@@ -93,7 +94,7 @@ class RestaurantControllerImplIT {
         String requestJson = ow.writeValueAsString(menuCreationDTO);
 
         // when then
-        String endpoint = RestaurantController.RESTAURANT_URL + RestaurantController.NEW_RESTAURANT_URL;
+        String endpoint = RestaurantRestController.RESTAURANT_URL + RestaurantRestController.NEW_RESTAURANT_URL;
         mockMvc.perform(post(endpoint)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -120,7 +121,7 @@ class RestaurantControllerImplIT {
                 .thenReturn(RestaurantDTOExample.someRestaurantDTO2());
 
         // when then
-        String endpoint = RestaurantController.RESTAURANT_URL;
+        String endpoint = RestaurantRestController.RESTAURANT_URL;
         mockMvc.perform(get(endpoint).params(parameters))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name", Matchers.is(RestaurantDTOExample.someRestaurantDTO1().getName())))

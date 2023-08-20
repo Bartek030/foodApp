@@ -12,7 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.bartek030.foodApp.api.controller.FoodController;
+import pl.bartek030.foodApp.api.controller.rest.FoodRestController;
+import pl.bartek030.foodApp.api.controller.rest.implementation.FoodRestControllerRestImpl;
 import pl.bartek030.foodApp.api.dto.FoodCreationDTO;
 import pl.bartek030.foodApp.api.dto.FoodDTO;
 import pl.bartek030.foodApp.api.dto.mapper.FoodCreationDtoMapper;
@@ -33,11 +34,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = FoodControllerImpl.class)
+@WebMvcTest(controllers = FoodRestControllerRestImpl.class)
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations="classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class FoodControllerImplIT {
+class FoodRestControllerRestImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
@@ -64,7 +65,7 @@ class FoodControllerImplIT {
         when(foodDtoMapper.map(any(Food.class))).thenReturn(foodDTO);
 
         // when then
-        String endpoint = FoodController.FOOD_URL + FoodController.MENUS_FOODS_URL;
+        String endpoint = FoodRestController.FOOD_URL + FoodRestController.MENUS_FOODS_URL;
         mockMvc.perform(get(endpoint, menuId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name", Matchers.is(foodDTO.getName())))
@@ -83,7 +84,7 @@ class FoodControllerImplIT {
         String requestJson = ow.writeValueAsString(foodCreationDTO);
 
         // when then
-        String endpoint = FoodController.FOOD_URL + FoodController.NEW_FOOD_URL;
+        String endpoint = FoodRestController.FOOD_URL + FoodRestController.NEW_FOOD_URL;
         mockMvc.perform(post(endpoint)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON))

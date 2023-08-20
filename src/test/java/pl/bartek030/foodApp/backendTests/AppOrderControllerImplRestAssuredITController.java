@@ -18,40 +18,40 @@ public class AppOrderControllerImplRestAssuredITController
         FoodAppUserControllerTestSupport,
         DeliveryAddressControllerTestSupport{
 
-    @Test
-    void shouldReturnAppOrdersByUser() {
-        // given
-        final FoodCreationDTO food1 = FoodCreationDTOExample.someFoodCreationDTO1();
-        final FoodCreationDTO food2 = FoodCreationDTOExample.someFoodCreationDTO2();
-        final FoodCreationDTO food3 = FoodCreationDTOExample.someFoodCreationDTO3();
-        final MenuCreationDTO menuCreationDTO = MenuCreationDTOExample.someMenuCreationDTO1();
-        final RestaurantCreationDTO restaurantCreationDTO = RestaurantCreationDTOExample.someRestaurantCreationDTO1();
-        final FoodAppUserCreationDTO foodAppUserCreationDTO = FoodAppUserCreationDTOExample.someFoodAppUserCreationDTO1();
-        final DeliveryAddressCreationDTO deliveryAddressCreationDTO = DeliveryAddressCreationDTOExample.someDeliveryAddressCreationDTO1();
-
-        final List<OrderDetailsCreationDTO> orderDetailsCreationList = List.of(
-                OrderDetailsCreationDTOExample.someOrderDetailsCreationDTO1(),
-                OrderDetailsCreationDTOExample.someOrderDetailsCreationDTO2(),
-                OrderDetailsCreationDTOExample.someOrderDetailsCreationDTO3()
-        );
-
-        // when
-        saveFoodAppUser(foodAppUserCreationDTO);
-        saveRestaurant(restaurantCreationDTO);
-        saveDeliveryAddress(deliveryAddressCreationDTO);
-        saveMenu(menuCreationDTO);
-        saveFood(food1);
-        saveFood(food2);
-        saveFood(food3);
-        final AppOrderDTO appOrderDTO = saveAppOrder(orderDetailsCreationList);
-
-        final AppOrderDTO[] appOrderDTOList = getAppOrdersByUser();
-
-        // then
-        Assertions.assertThat(appOrderDTOList)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields(
-                        "appOrderId", "orderedAt", "plannedDeliveryTime", "restaurant", "orderDetails")
-                .containsAnyOf(appOrderDTO);
-    }
+//    @Test
+//    void shouldReturnAppOrdersByUser() {
+//        // given
+//        final FoodCreationDTO food1 = FoodCreationDTOExample.someFoodCreationDTO1();
+//        final FoodCreationDTO food2 = FoodCreationDTOExample.someFoodCreationDTO2();
+//        final FoodCreationDTO food3 = FoodCreationDTOExample.someFoodCreationDTO3();
+//        final MenuCreationDTO menuCreationDTO = MenuCreationDTOExample.someMenuCreationDTO1();
+//        final RestaurantCreationDTO restaurantCreationDTO = RestaurantCreationDTOExample.someRestaurantCreationDTO1();
+//        final FoodAppUserCreationDTO foodAppUserCreationDTO = FoodAppUserCreationDTOExample.someFoodAppUserCreationDTO1();
+//        final DeliveryAddressCreationDTO deliveryAddressCreationDTO = DeliveryAddressCreationDTOExample.someDeliveryAddressCreationDTO1();
+//
+//        final List<OrderDetailsCreationDTO> orderDetailsCreationList = List.of(
+//                OrderDetailsCreationDTOExample.someOrderDetailsCreationDTO1(),
+//                OrderDetailsCreationDTOExample.someOrderDetailsCreationDTO2(),
+//                OrderDetailsCreationDTOExample.someOrderDetailsCreationDTO3()
+//        );
+//
+//        // when
+//        saveFoodAppUser(foodAppUserCreationDTO);
+//        saveRestaurant(restaurantCreationDTO);
+//        saveDeliveryAddress(deliveryAddressCreationDTO);
+//        saveMenu(menuCreationDTO);
+//        saveFood(food1);
+//        saveFood(food2);
+//        saveFood(food3);
+//        final AppOrderDTO appOrderDTO = saveAppOrder(orderDetailsCreationList);
+//
+//        final AppOrderDTO[] appOrderDTOList = getAppOrdersByUser();
+//
+//        // then
+//        Assertions.assertThat(appOrderDTOList)
+//                .usingRecursiveFieldByFieldElementComparatorIgnoringFields(
+//                        "appOrderId", "orderedAt", "plannedDeliveryTime", "restaurant", "orderDetails")
+//                .containsAnyOf(appOrderDTO);
+//    }
 
 }

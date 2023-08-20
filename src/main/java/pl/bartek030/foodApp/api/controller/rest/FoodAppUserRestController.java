@@ -1,4 +1,4 @@
-package pl.bartek030.foodApp.api.controller;
+package pl.bartek030.foodApp.api.controller.rest;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bartek030.foodApp.api.dto.FoodAppUserCreationDTO;
 import pl.bartek030.foodApp.api.dto.FoodAppUserDTO;
 
-@RequestMapping(FoodAppUserController.FOOD_APP_USER_URL)
-public interface FoodAppUserController {
+@RequestMapping(FoodAppUserRestController.FOOD_APP_USER_URL)
+public interface FoodAppUserRestController {
 
     String FOOD_APP_USER_URL = "/user";
     String USER_LOGIN_SUCCESS_URL = "/loginSuccess";

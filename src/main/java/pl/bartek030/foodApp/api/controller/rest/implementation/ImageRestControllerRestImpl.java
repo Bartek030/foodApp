@@ -1,4 +1,4 @@
-package pl.bartek030.foodApp.api.controller.implementation;
+package pl.bartek030.foodApp.api.controller.rest.implementation;
 
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.Resource;
@@ -7,13 +7,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import pl.bartek030.foodApp.api.controller.ImageController;
+import pl.bartek030.foodApp.api.controller.rest.ImageRestController;
 import pl.bartek030.foodApp.api.dto.FileUploadMessage;
 import pl.bartek030.foodApp.business.services.ImageService;
 
 @RestController
 @AllArgsConstructor
-public class ImageControllerImpl implements ImageController {
+public class ImageRestControllerRestImpl implements ImageRestController {
 
     private final ImageService imageService;
 

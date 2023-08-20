@@ -1,9 +1,9 @@
-package pl.bartek030.foodApp.api.controller.implementation;
+package pl.bartek030.foodApp.api.controller.rest.implementation;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import pl.bartek030.foodApp.api.controller.FoodController;
+import pl.bartek030.foodApp.api.controller.rest.FoodRestController;
 import pl.bartek030.foodApp.api.dto.FoodCreationDTO;
 import pl.bartek030.foodApp.api.dto.FoodDTO;
 import pl.bartek030.foodApp.api.dto.mapper.FoodCreationDtoMapper;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class FoodControllerImpl implements FoodController {
+public class FoodRestControllerRestImpl implements FoodRestController {
 
     private final FoodCreationDtoMapper foodCreationDtoMapper;
     private final FoodDtoMapper foodDtoMapper;

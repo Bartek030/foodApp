@@ -2,7 +2,7 @@ package pl.bartek030.foodApp.configuration.support;
 
 import io.restassured.specification.RequestSpecification;
 import org.springframework.http.HttpStatus;
-import pl.bartek030.foodApp.api.controller.AppOrderController;
+import pl.bartek030.foodApp.api.controller.rest.AppOrderRestController;
 import pl.bartek030.foodApp.api.dto.AppOrderDTO;
 import pl.bartek030.foodApp.api.dto.OrderDetailsCreationDTO;
 
@@ -14,7 +14,7 @@ public interface AppOrderControllerTestSupport {
 
     default AppOrderDTO[] getAppOrdersByUser() {
         return requestSpecification()
-                .get(AppOrderController.APP_ORDER_URL + AppOrderController.USER_APP_ORDER_ID, 1L)
+                .get(AppOrderRestController.APP_ORDER_URL + AppOrderRestController.USER_APP_ORDER_ID, 1L)
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .and()
@@ -25,7 +25,7 @@ public interface AppOrderControllerTestSupport {
     default AppOrderDTO saveAppOrder(final List<OrderDetailsCreationDTO> orderDetailsCreationDTO) {
         return requestSpecification()
                 .body(orderDetailsCreationDTO)
-                .post(AppOrderController.APP_ORDER_URL + AppOrderController.NEW_APP_ORDER_URL)
+                .post(AppOrderRestController.APP_ORDER_URL + AppOrderRestController.NEW_APP_ORDER_URL)
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
                 .and()
