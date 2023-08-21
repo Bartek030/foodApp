@@ -24,7 +24,6 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
     private final AddressService addressService;
 
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
 
     @Override
     @Transactional
@@ -34,12 +33,9 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
     }
 
     @Override
-    @Transactional
-    public void authenticateUser(final AppUserLogin appUserLogin) {
-        final UserDetails userDetails = foodAppUserDetailsService.loadUserByUsername(appUserLogin.getUsername());
-        if(!passwordEncoder.matches(appUserLogin.getPassword(), userDetails.getPassword())) {
-            throw new RuntimeException("Password does not match");
-        }
+    public FoodAppUser findByEmail(final String email) {
+        return foodAppUserDao.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User with email: [%s] not found".formatted(email)));
     }
 
     @Override
@@ -87,6 +83,9 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
     }
 
     private Set<Role> buildUserRoleList(final FoodAppUserCreation foodAppUserCreation) {
+        if(foodAppUserCreation.getIsOwner() == null) {
+            foodAppUserCreation.setIsOwner(true);
+        }
         Set<Role> roles = new HashSet<>();
         if (foodAppUserCreation.getIsOwner()) {
             final Role ownerRole = Role.builder()

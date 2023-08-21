@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping(FoodRestController.FOOD_URL)
 public interface FoodRestController {
 
-    String FOOD_URL = "/food";
+    String FOOD_URL = "/api/food";
     String NEW_FOOD_URL = "/new";
     String MENUS_FOODS_URL = "/{menuId}";
     String ID_PLACEHOLDER = "/%s";

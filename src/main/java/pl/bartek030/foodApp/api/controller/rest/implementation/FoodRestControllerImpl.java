@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class FoodRestControllerRestImpl implements FoodRestController {
+public class FoodRestControllerImpl implements FoodRestController {
 
     private final FoodCreationDtoMapper foodCreationDtoMapper;
     private final FoodDtoMapper foodDtoMapper;

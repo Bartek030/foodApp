@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 public class RestaurantCreationDTO {
     private String name;
 
-    private Long foodAppUserId; // TODO: to be replaced after Spring Security implementation
-
     private String country;
     private String city;
     private String street;

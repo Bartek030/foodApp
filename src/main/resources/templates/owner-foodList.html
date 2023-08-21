@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta
+            name="keywords"
+            content="zamów, jedzenie, posiłek, obiad, dowóz, sprzedaj, wystaw"
+    />
+    <meta
+            name="description"
+            content="Applikacja do sprzedawania i zamawiania posiłków"
+    />
+
+    <title>Food App</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+            crossorigin="anonymous"
+    />
+
+    <!-- Stylesheets -->
+    <link th:href="@{/styles/css/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<nav>
+    <div class="sidebar-top">
+        <img class="logo" th:src="@{/images/foods/logo.jpg}" alt="logo">
+        <h3>Food App</h3>
+    </div>
+
+    <div class="sidebar-links">
+        <ul>
+            <a th:href="@{/restaurants/main}"><li>Znajdź restauracje</li></a>
+            <a th:href="@{/restaurants/owner}"><li>Moje restauracje</li></a>
+            <a href="appOrderDetail.html"><li>Moje zamówienia</li></a>
+            <a href="weather.html"><li>Pogoda</li></a>
+        </ul>
+    </div>
+</nav>
+<main>
+    <div class="mainBox">
+        LISTA DAŃ
+    </div>
+    <div id="orderList"></div>
+    <button
+            type="submit"
+            id="makeOrder"
+            class="btn btn-success mb-5 w-100"
+            hidden
+    >
+        Zamów
+    </button>
+    <div id="mainContext" class="d-flex flex-wrap">
+
+        <div class="card m-3" style="width: 18rem;" th:each="food : ${foods}">
+            <img th:src="@{${'/images/foods/' + food.foodId + '.jpg'}}" class="card-img-top" alt="logo">
+            <div class="card-body text-center">
+                <h5 class="card-title" th:text="${food.name + ' - ' + food.price + 'zł/szt'}"></h5>
+                <p class="card-text" th:text="${food.description}"></p>
+                <button type="button" class="btn btn-primary orderButton" th:value="${food.foodId}">Zmień zdjęcie</button>
+                <input type="hidden" th:id="${'foodName' + food.foodId}" th:value="${food.name}"></input>
+            </div>
+        </div>
+        <button
+                type="submit"
+                id="addRestaurant"
+                class="btn btn-success mb-4 w-100"
+                data-bs-toggle="modal"
+                data-bs-target="#newFoodModal"
+        >
+            Dodaj Pozycje
+        </button>
+
+    </div>
+
+    <footer>
+        <div>
+            2023
+            &copy;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Autor:&ensp;Bartłomiej
+            Święs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kontakt:&ensp;bartlomiejswies@gmail.com
+        </div>
+    </footer>
+</main>
+
+<!-- Add Food Modal -->
+<div
+        class="modal fade"
+        id="newFoodModal"
+        tabindex="-1"
+        aria-labelledby="newFoodModalLabel"
+        aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="newFoodModalLabel">
+                    Dodaj Menu
+                </h1>
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <form
+                        id="newFoodForm"
+                        method="POST"
+                        action="http://localhost:8080/food-app/food/new"
+                >
+                    <div class="form-group mb-4">
+                        <label for="name">Nazwa</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                placeholder="Podaj nazwę"
+                        />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="price">Cena</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="price"
+                                name="price"
+                                placeholder="Podaj cenę"
+                        />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="description">Opis</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="description"
+                                name="description"
+                                placeholder="Opis"
+                        />
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">
+                            Dodaj
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Picture Modal -->
+<div
+        class="modal fade"
+        id="pictureModal"
+        tabindex="-1"
+        aria-labelledby="pictureModalLabel"
+        aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="pictureModalLabel">
+                    Dodaj Zdjęcie
+                </h1>
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <form id="addPictureForm">
+                    <div class="form-group mb-4">
+                        <label for="fileInput">Wybierz plik (.png)</label>
+                        <input
+                                type="file"
+                                class="form-control"
+                                id="fileInput"
+                                name="file"
+                                accept=".png"
+                        />
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">
+                            Dodaj
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS Scripts JQuery and for styles -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"
+></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script th:inline="javascript">
+    let orderList = [];
+    let basicUrl = 'http://localhost:8080';
+    $(".orderButton").click(function() {
+          let foodId = $(this).val();
+          let foodName = $("#foodName" + foodId).val();
+
+          let newOrderObject = {
+                "foodId": foodId,
+                "name": foodName
+            };
+
+            orderList = orderList.filter(order => order.foodId != newOrderObject.foodId);
+            orderList.push(newOrderObject);
+
+            if (orderList.length > 0) {
+                $("#makeOrder").removeAttr("hidden");
+            }
+
+            $("#orderList").html('');
+
+            for (let key in orderList) {
+                let content =
+                    '<div class="input-group mb-2" id="orderFormGroup' + orderList[key].foodId + '">' +
+                    '<div class="input-group-prepend w-50">' +
+                    '<span class="input-group-text">' + orderList[key].name + ' </span>' +
+                    '</div>' +
+                    '<input ' +
+                    'type="number" ' +
+                    'id="quantity' + orderList[key].foodId + '"' +
+                    'class="form-control"' +
+                    'placeholder="ilość" required' +
+                    '/><button ' +
+                    'type="button"' +
+                    'class="btn btn-danger deleteOrder"' +
+                    'value="' + orderList[key].foodId + '"' +
+                    '>Usuń' +
+                    '</button>' +
+                    '</div>';
+
+                $("#orderList").append(content);
+            }
+            $(".deleteOrder").on("click", deleteOrder);
+    });
+
+    deleteOrder = function () {
+        let currentValue = $(this).val();
+        $("#orderFormGroup" + currentValue).remove();
+        orderList = orderList.filter(order => order.foodId != currentValue);
+
+        if (orderList.length <= 0) {
+            $("#makeOrder").attr("hidden", true);
+        }
+
+    }
+
+    $("#makeOrder").click(function() {
+        for (let key in orderList) {
+            let foodId = orderList[key].foodId;
+            orderList[key].quantity = $("#quantity" + foodId).val();
+        }
+
+        let tableToOrder = [];
+
+        orderList.forEach(value => {
+            tableToOrder.push({
+                foodId: value.foodId,
+                quantity: value.quantity
+            });
+        })
+
+        const settings = {
+            url: basicUrl + "/food-app/api/app-order/new",
+            data: JSON.stringify(orderList),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+                alert('Twoje zamówienie: [' + response.number + '] zostało utworzone. Możesz je sprawdzić w sekcji "Moje Zamówienia"');
+            },
+            error: function (error) {
+                alert('Nie udało się utworzyć zamówienia');
+            }
+        };
+        $.post(settings);
+    });
+</script>
+</body>
+</html>

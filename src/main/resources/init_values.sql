@@ -22,9 +22,6 @@ VALUES
 ('Polska', 'Gdansk', 'Lewa'),
 ('Polska', 'Wroclaw', 'Prawa');
 
-INSERT INTO application_role (role_id, role)
-VALUES (1, 'ADMIN'), (2, 'OWNER'), (3, 'DEFAULT');
-
 INSERT INTO application_user (user_name, password, active)
 VALUES ('EMAIL@EMAIL.COM', '$2a$12$13xsHnFNTmmN9kv1M/TRcO5A4/jj6qPRvmJoEqs6dKKmabdjYXCSK', true);
 

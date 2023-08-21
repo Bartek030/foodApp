@@ -14,4 +14,6 @@ public interface RestaurantService {
     List<Restaurant> findRestaurantsByFoodAppUserId(final Long userId);
 
     List<Restaurant> findRestaurantsByIdList(List<Long> restaurantsIdList, Integer page);
+
+    List<Restaurant> findRestaurantsByFoodAppUserEmail(String email);
 }

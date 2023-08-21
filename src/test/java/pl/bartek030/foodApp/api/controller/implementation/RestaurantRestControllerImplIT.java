@@ -14,7 +14,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import pl.bartek030.foodApp.api.controller.rest.RestaurantRestController;
-import pl.bartek030.foodApp.api.controller.rest.implementation.RestaurantRestControllerRestImpl;
+import pl.bartek030.foodApp.api.controller.rest.implementation.RestaurantRestControllerImpl;
 import pl.bartek030.foodApp.api.dto.MenuCreationDTO;
 import pl.bartek030.foodApp.api.dto.RestaurantCreationDTO;
 import pl.bartek030.foodApp.api.dto.mapper.RestaurantCreationDtoMapper;
@@ -39,11 +39,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@WebMvcTest(controllers = RestaurantRestControllerRestImpl.class)
+@WebMvcTest(controllers = RestaurantRestControllerImpl.class)
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations = "classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class RestaurantRestControllerRestImplIT {
+class RestaurantRestControllerImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;

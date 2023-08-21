@@ -59,9 +59,11 @@ public class SecurityConfiguration{
         return httpSecurity
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .securityContext(securityContext -> securityContext.securityContextRepository(new HttpSessionSecurityContextRepository()))
+                .securityContext(securityContext ->
+                        securityContext.securityContextRepository(new HttpSessionSecurityContextRepository()))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/", "/user/**").permitAll()
+                        .requestMatchers("/styles/**", "/js/**","/images/**","/user/**", "/api/**", "/error", "/login")
+                        .permitAll()
                         .requestMatchers(
                                 "/app-order/restaurant/**",
                                 "/app-order/delivered/**",
@@ -75,9 +77,10 @@ public class SecurityConfiguration{
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .defaultSuccessUrl("/user/loginSuccess")
-                        .failureUrl("/user/loginFailure")
-                        .usernameParameter("username")
+                        .loginProcessingUrl("/login")
+                        .loginPage("/user/loginPage")
+                        .defaultSuccessUrl("/")
+                        .failureUrl("/user/login-failure")
                         .permitAll())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/user/login")

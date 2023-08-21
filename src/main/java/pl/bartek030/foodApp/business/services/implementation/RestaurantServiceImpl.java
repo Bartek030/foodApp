@@ -2,6 +2,7 @@ package pl.bartek030.foodApp.business.services.implementation;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.bartek030.foodApp.business.dao.RestaurantDAO;
 import pl.bartek030.foodApp.business.serviceModel.Address;
@@ -27,8 +28,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     @Transactional
     public Restaurant findById(final Long restaurantId) {
-        // TODO: Custom exception
-        return restaurantDAO.findById(restaurantId).orElseThrow();
+        return restaurantDAO.findById(restaurantId)
+                .orElseThrow(() -> new RuntimeException("Restaurant with id: [%s] not found". formatted(restaurantId)));
     }
 
     @Override
@@ -39,9 +40,16 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public List<Restaurant> findRestaurantsByFoodAppUserEmail(final String email) {
+        final FoodAppUser foodAppUser = foodAppUserService.findByEmail(email);
+        return restaurantDAO.findByFoodAppUserId(foodAppUser);
+    }
+
+    @Override
     @Transactional
     public void addRestaurant(final RestaurantCreation restaurantCreation) {
-        final FoodAppUser foodAppUser = foodAppUserService.findById(restaurantCreation.getFoodAppUserId());
+        final String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        final FoodAppUser foodAppUser = foodAppUserService.findByEmail(email);
         final Address address = findOrCreateAddress(restaurantCreation);
 
         restaurantDAO.addRestaurant(buildRestaurant(restaurantCreation, foodAppUser, address));

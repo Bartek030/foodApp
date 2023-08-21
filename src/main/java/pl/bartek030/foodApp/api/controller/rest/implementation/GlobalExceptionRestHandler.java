@@ -1,4 +1,4 @@
-package pl.bartek030.foodApp.api;
+package pl.bartek030.foodApp.api.controller.rest.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -20,8 +20,8 @@ import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
+//@Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice(annotations = RestController.class)
-@Order(Ordered.HIGHEST_PRECEDENCE)
 public class GlobalExceptionRestHandler extends ResponseEntityExceptionHandler {
 
     private static final Map<Class<?>, HttpStatus> EXCEPTION_STATUS = Map.of(

@@ -11,7 +11,7 @@ import pl.bartek030.foodApp.business.services.WeatherApiService;
 
 @RestController
 @AllArgsConstructor
-public class WeatherRestApiControllerRestImpl implements WeatherRestApiController {
+public class WeatherRestApiControllerImpl implements WeatherRestApiController {
 
     private final WeatherDataDtoMapper weatherDataDtoMapper;
     private final WeatherApiService weatherApiService;

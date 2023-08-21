@@ -12,7 +12,7 @@ import pl.bartek030.foodApp.api.dto.FoodAppUserDTO;
 @RequestMapping(FoodAppUserRestController.FOOD_APP_USER_URL)
 public interface FoodAppUserRestController {
 
-    String FOOD_APP_USER_URL = "/user";
+    String FOOD_APP_USER_URL = "/api/user";
     String USER_LOGIN_SUCCESS_URL = "/loginSuccess";
     String USER_LOGIN_FAILURE_URL = "/loginFailure";
     String USER_REGISTER_URL = "/registration";

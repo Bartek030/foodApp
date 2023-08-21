@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class RestaurantRestControllerRestImpl implements RestaurantRestController {
+public class RestaurantRestControllerImpl implements RestaurantRestController {
 
     private final RestaurantCreationDtoMapper restaurantCreationDtoMapper;
     private final RestaurantDtoMapper restaurantDtoMapper;

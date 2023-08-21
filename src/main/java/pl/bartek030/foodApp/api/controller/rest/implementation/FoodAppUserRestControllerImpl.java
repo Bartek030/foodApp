@@ -15,7 +15,7 @@ import pl.bartek030.foodApp.business.services.FoodAppUserService;
 
 @RestController
 @AllArgsConstructor
-public class FoodAppUserRestControllerRestImpl implements FoodAppUserRestController {
+public class FoodAppUserRestControllerImpl implements FoodAppUserRestController {
 
     private final FoodAppUserCreationDtoMapper foodAppUserCreationDtoMapper;
     private final AppUserLoginDtoMapper appUserLoginDtoMapper;

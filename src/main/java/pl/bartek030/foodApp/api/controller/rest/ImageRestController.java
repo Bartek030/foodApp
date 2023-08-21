@@ -10,7 +10,7 @@ import pl.bartek030.foodApp.api.dto.FileUploadMessage;
 @RequestMapping(ImageRestController.IMAGE_URL)
 public interface ImageRestController {
 
-    String IMAGE_URL = "/image";
+    String IMAGE_URL = "/api/image";
     String UPLOAD_IMAGE_URL = "/new/{foodId}";
     String GET_IMAGE_URL = "/{foodId}";
 

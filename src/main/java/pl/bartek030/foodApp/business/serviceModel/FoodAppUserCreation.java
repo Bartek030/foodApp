@@ -3,7 +3,7 @@ package pl.bartek030.foodApp.business.serviceModel;
 import lombok.*;
 
 @With
-@Value
+@Data
 @Builder
 @EqualsAndHashCode(of = {"email"})
 @ToString(of = {"name", "surname"})

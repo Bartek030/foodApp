@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping(AppOrderRestController.APP_ORDER_URL)
 public interface AppOrderRestController {
 
-    String APP_ORDER_URL = "/app-order";
+    String APP_ORDER_URL = "/api/app-order";
     String CANCEL_APP_ORDER_URL = "/cancelled/{appOrderId}";
     String MARK_DELIVERED_APP_ORDER_URL = "/delivered/{appOrderId}";
     String NEW_APP_ORDER_URL = "/new";

@@ -13,7 +13,7 @@ import pl.bartek030.foodApp.business.services.ImageService;
 
 @RestController
 @AllArgsConstructor
-public class ImageRestControllerRestImpl implements ImageRestController {
+public class ImageRestControllerImpl implements ImageRestController {
 
     private final ImageService imageService;
 

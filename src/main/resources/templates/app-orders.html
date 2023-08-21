@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta
+            name="keywords"
+            content="zamów, jedzenie, posiłek, obiad, dowóz, sprzedaj, wystaw"
+    />
+    <meta
+            name="description"
+            content="Applikacja do sprzedawania i zamawiania posiłków"
+    />
+
+    <title>Food App</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+            crossorigin="anonymous"
+    />
+
+    <!-- Stylesheets -->
+    <link th:href="@{/styles/css/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<nav>
+    <div class="sidebar-top">
+        <img class="logo" th:src="@{/images/foods/logo.jpg}" alt="logo">
+        <h3>Food App</h3>
+    </div>
+
+    <div class="sidebar-links">
+        <ul>
+            <a th:href="@{/restaurants/main}">
+                <li>Znajdź restauracje</li>
+            </a>
+            <a th:href="@{/restaurants/owner}">
+                <li>Moje restauracje</li>
+            </a>
+            <a href="appOrderDetail.html">
+                <li>Moje zamówienia</li>
+            </a>
+            <a href="weather.html">
+                <li>Pogoda</li>
+            </a>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="mainBox ">
+        <div class="w-100 text-center h2">Złożone zamówienia</div>
+        <div id="orderListContent">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Number</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Planned Delivery Time</th>
+                    <th scope="col">Total cost</th>
+                    <th scope="col">Restaurant</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="appOrder : ${appOrders}">
+                    <th scope="col" th:text="${appOrder.number}"></th>
+                    <th scope="col" th:text="${appOrder.status}"></th>
+                    <th scope="col" th:text="${appOrder.plannedDeliveryTime}"></th>
+                    <th scope="col" th:text="${appOrder.totalCost}"></th>
+                    <th scope="col" th:text="${appOrder.restaurant.name}"></th>
+                    <th scope="col">
+                        <button type="button" class="btn btn-danger cancelButton"
+                                th:value="${appOrder.appOrderId}">Anuluj</button>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <div>
+            2023
+            &copy;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Autor:&ensp;Bartłomiej
+            Święs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kontakt:&ensp;bartlomiejswies@gmail.com
+        </div>
+    </footer>
+</main>
+
+
+<!-- JS Scripts JQuery and for styles -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"
+></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script th:inline="javascript">
+    let basicUrl = 'http://localhost:8080';
+    $(".cancelButton").click(function() {
+        let orderId = $(this).val();
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: basicUrl + "/food-app/api/app-order/cancelled/" + orderId,
+            type: 'PATCH'
+        }).done(function (data) {
+            window.location.reload();
+        }).fail(function () {
+            window.location.reload();
+        });
+    });
+</script>
+</body>
+</html>

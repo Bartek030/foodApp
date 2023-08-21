@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class AppOrderRestControllerRestImpl implements AppOrderRestController {
+public class AppOrderRestControllerImpl implements AppOrderRestController {
 
     private final OrderDetailsCreationDtoMapper orderDetailsCreationDtoMapper;
     private final AppOrderDtoMapper appOrderDtoMapper;

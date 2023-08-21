@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping(DeliveryAddressRestController.DELIVERY_ADDRESS_URL)
 public interface DeliveryAddressRestController {
 
-    String DELIVERY_ADDRESS_URL = "/delivery-address";
+    String DELIVERY_ADDRESS_URL = "/api/delivery-address";
     String NEW_DELIVERY_ADDRESS_URL = "/new";
     String RESTAURANTS_URL = "/restaurants/{restaurantId}";
 

@@ -109,7 +109,11 @@
 			<scope>test</scope>
 		</dependency>
 
-
+		<!-- FRONT -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 
 		<!-- DOCS -->
 		<dependency>

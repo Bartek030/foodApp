@@ -13,7 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.bartek030.foodApp.api.controller.rest.FoodRestController;
-import pl.bartek030.foodApp.api.controller.rest.implementation.FoodRestControllerRestImpl;
+import pl.bartek030.foodApp.api.controller.rest.implementation.FoodRestControllerImpl;
 import pl.bartek030.foodApp.api.dto.FoodCreationDTO;
 import pl.bartek030.foodApp.api.dto.FoodDTO;
 import pl.bartek030.foodApp.api.dto.mapper.FoodCreationDtoMapper;
@@ -34,11 +34,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = FoodRestControllerRestImpl.class)
+@WebMvcTest(controllers = FoodRestControllerImpl.class)
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations="classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class FoodRestControllerRestImplIT {
+class FoodRestControllerImplIT {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;

@@ -9,7 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.bartek030.foodApp.api.controller.rest.WeatherRestApiController;
-import pl.bartek030.foodApp.api.controller.rest.implementation.WeatherRestApiControllerRestImpl;
+import pl.bartek030.foodApp.api.controller.rest.implementation.WeatherRestApiControllerImpl;
 import pl.bartek030.foodApp.api.dto.mapper.WeatherDataDtoMapper;
 import pl.bartek030.foodApp.business.serviceModel.weatherApi.WeatherData;
 import pl.bartek030.foodApp.business.services.WeatherApiService;
@@ -22,11 +22,11 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = WeatherRestApiControllerRestImpl.class)
+@WebMvcTest(controllers = WeatherRestApiControllerImpl.class)
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(locations = "classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class WeatherRestApiControllerRestImplIT {
+class WeatherRestApiControllerImplIT {
 
     private MockMvc mockMvc;
 
