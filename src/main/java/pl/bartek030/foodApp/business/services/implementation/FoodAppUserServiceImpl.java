@@ -96,7 +96,7 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
         } else {
             final Role defaultRole = Role.builder()
                     .id(3L)
-                    .role("DEFAULT")
+                    .role("USER")
                     .build();
             roles.add(defaultRole);
         }

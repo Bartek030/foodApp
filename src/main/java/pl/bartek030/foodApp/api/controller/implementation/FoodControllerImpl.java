@@ -1,6 +1,7 @@
 package pl.bartek030.foodApp.api.controller.implementation;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import pl.bartek030.foodApp.api.controller.FoodController;
@@ -10,6 +11,7 @@ import pl.bartek030.foodApp.api.dto.mapper.FoodCreationDtoMapper;
 import pl.bartek030.foodApp.api.dto.mapper.FoodDtoMapper;
 import pl.bartek030.foodApp.business.services.FoodService;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +40,13 @@ public class FoodControllerImpl implements FoodController {
                 .map(foodDtoMapper::map)
                 .toList();
         model.addAllAttributes(Map.of("foods", foodDTOList));
+        model.addAttribute("menuId", menuId);
         return "owner-foodList";
+    }
+
+    @Override
+    public String addFood(final FoodCreationDTO food) {
+        foodService.addFood(foodCreationDtoMapper.map(food));
+        return "food-success";
     }
 }
