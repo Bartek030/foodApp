@@ -25,14 +25,6 @@ public class AppOrderControllerImpl implements AppOrderController {
     private final AppOrderService appOrderService;
 
     @Override
-    public String addOrder(final List<OrderDetailsCreationDTO> orderDetailsCreationDTO) {
-        AppOrder appOrder = appOrderService.addOrder(orderDetailsCreationDTO.stream()
-                .map(orderDetailsCreationDtoMapper::map)
-                .toList());
-        return null;
-    }
-
-    @Override
     public String getOrdersByRestaurant(final Long restaurantId, final Model model) {
         List<AppOrder> appOrders = appOrderService.getOrdersByRestaurant(restaurantId);
 
@@ -42,12 +34,6 @@ public class AppOrderControllerImpl implements AppOrderController {
 
         model.addAllAttributes(Map.of("appOrders", appOrderDTOList));
         return "restaurant-app-orders";
-    }
-
-    @Override
-    public String markAsDelivered(final Long orderId) {
-//        AppOrder appOrder = appOrderService.markAsDelivered(appOrderId);
-        return null;
     }
 
     @Override

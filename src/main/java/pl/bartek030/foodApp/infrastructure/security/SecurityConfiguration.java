@@ -62,7 +62,7 @@ public class SecurityConfiguration{
                 .securityContext(securityContext ->
                         securityContext.securityContextRepository(new HttpSessionSecurityContextRepository()))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/styles/**", "/js/**","/images/**","/user/**", "/api/**", "/error", "/login")
+                        .requestMatchers("/styles/**", "/js/**","/images/**","/user/**", "/api/**", "/error", "/login", "/weather")
                         .permitAll()
                         .requestMatchers(
                                 "/app-order/restaurant/**",
@@ -73,7 +73,7 @@ public class SecurityConfiguration{
                                 "/menu/new/**",
                                 "/restaurants/new/**",
                                 "/restaurants/owner/**"
-                        ).hasAnyAuthority("OWNER")
+                        ).hasAnyAuthority("OWNER", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin

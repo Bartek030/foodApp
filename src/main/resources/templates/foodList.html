@@ -52,7 +52,7 @@
         <ul>
             <a th:href="@{/restaurants/main}"><li>Znajdź restauracje</li></a>
             <a th:href="@{/restaurants/owner}"><li>Moje restauracje</li></a>
-            <a href="appOrderDetail.html"><li>Moje zamówienia</li></a>
+            <a th:href="@{/app-order/user}"><li>Moje zamówienia</li></a>
             <a href="weather.html"><li>Pogoda</li></a>
         </ul>
     </div>
@@ -181,7 +181,7 @@
                 alert('Twoje zamówienie: [' + response.number + '] zostało utworzone. Możesz je sprawdzić w sekcji "Moje Zamówienia"');
             },
             error: function (error) {
-                alert('Nie udało się utworzyć zamówienia');
+                alert('Nie udało się utworzyć zamówienia. Restauracja nie dowozi posiłków do Twojego miesjca zamieszkania');
             }
         };
         $.post(settings);

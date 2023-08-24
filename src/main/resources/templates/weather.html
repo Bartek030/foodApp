@@ -50,9 +50,15 @@
 
     <div class="sidebar-links">
         <ul>
-            <a th:href="@{/restaurants/main}"><li>Znajdź restauracje</li></a>
-            <a th:href="@{/restaurants/owner}"><li>Moje restauracje</li></a>
-            <a th:href="@{/app-order/user}"><li>Moje zamówienia</li></a>
+            <a th:href="@{/restaurants/main}">
+                <li>Znajdź restauracje</li>
+            </a>
+            <a th:href="@{/restaurants/owner}">
+                <li>Moje restauracje</li>
+            </a>
+            <a th:href="@{/app-order/user}">
+                <li>Moje zamówienia</li>
+            </a>
             <a href="weather.html">
                 <li>Pogoda</li>
             </a>
@@ -61,37 +67,26 @@
 </nav>
 
 <main>
-    <div class="mainBox ">
-        <div class="mainBox h3 text-center">
-            ZŁOŻONE ZAMÓWIENIA
+    <div class="mainBox">
+        <div class="input-group mb-5">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Podaj miasto</span>
+            </div>
+            <input
+                    type="text"
+                    id="cityName"
+                    class="form-control"
+                    placeholder="Miasto"
+            />
+            <button
+                    type="button"
+                    id="weatherInfo"
+                    class="btn btn-primary"
+            >
+                Szukaj
+            </button>
         </div>
-        <div id="orderListContent">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Number</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Planned Delivery Time</th>
-                    <th scope="col">Total cost</th>
-                    <th scope="col">Restaurant</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="appOrder : ${appOrders}">
-                    <th scope="col" th:text="${appOrder.number}"></th>
-                    <th scope="col" th:text="${appOrder.status}"></th>
-                    <th scope="col" th:text="${appOrder.plannedDeliveryTime}"></th>
-                    <th scope="col" th:text="${appOrder.totalCost}"></th>
-                    <th scope="col" th:text="${appOrder.restaurant.name}"></th>
-                    <th scope="col">
-                        <button type="button" class="btn btn-danger deliveredButton"
-                                th:if="${appOrder.status.name() == 'ORDERED'}" th:value="${appOrder.appOrderId}">Dostarczono</button>
-                    </th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <div class="mainContext"></div>
     </div>
 
     <footer>
@@ -112,23 +107,35 @@
 ></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script th:inline="javascript">
+    $(document).ready(function () {
     let basicUrl = 'http://localhost:8080';
-    $(".deliveredButton").click(function() {
-        let orderId = $(this).val();
+    $("#weatherInfo").on("click", function () {
+        let cityName = $("#cityName").val();
 
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            url: basicUrl + "/food-app/api/app-order/delivered/" + orderId,
-            type: 'PATCH'
+        $.get({
+            url: basicUrl + '/food-app/api/weather/' + cityName
         }).done(function (data) {
-            window.location.reload();
+            generateWeatherCard(data);
         }).fail(function () {
-            window.location.reload();
+            alert("cos poszlo nie tak");
         });
     });
+});
+
+generateWeatherCard = function (data) {
+    let htmlToInsert = '<div class="card mx-3" style="width: 18rem;">' +
+        '<img src="https://openweathermap.org/img/wn/' + data.weather[0].icon + '.png" class="card-img-top h-75 mx-auto" alt="Nie znaleziono obrazka">' +
+        '<div class="card-body text-center">' +
+        '<h5 class="card-title">' + data.weather[0].description + '</h5>' +
+        '<p class="card-text">Temperatura: ' + data.main.temp + ' &deg;C</p>' +
+        '<p class="card-text">Wiatr: ' + data.wind.speed + ' m/s</p>' +
+        '<p class="card-text">Ciśnienie: ' + data.main.pressure + ' hPa</p>' +
+        '<p class="card-text">Wilgotność: ' + data.main.humidity + ' %</p>' +
+        '</div>' +
+        '</div>';
+
+    $(".mainContext").html(htmlToInsert);
+};
 </script>
 </body>
 </html>
