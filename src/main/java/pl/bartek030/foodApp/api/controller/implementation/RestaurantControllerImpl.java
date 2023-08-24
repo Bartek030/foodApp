@@ -66,6 +66,10 @@ public class RestaurantControllerImpl implements RestaurantController {
                 .toList();
 
         model.addAllAttributes(Map.of("restaurants", restaurantDTOList));
+        model.addAttribute("country", country);
+        model.addAttribute("city", city);
+        model.addAttribute("street", street);
+        model.addAttribute("page", page);
         return "restaurantsList";
     }
 }

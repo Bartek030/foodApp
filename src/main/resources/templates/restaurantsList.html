@@ -50,10 +50,18 @@
 
     <div class="sidebar-links">
         <ul>
-            <a th:href="@{/restaurants/main}"><li>Znajdź restauracje</li></a>
-            <a th:href="@{/restaurants/owner}"><li>Moje restauracje</li></a>
-            <a th:href="@{/app-order/user}"><li>Moje zamówienia</li></a>
-            <a href="weather.html"><li>Pogoda</li></a>
+            <a th:href="@{/restaurants/main}">
+                <li>Znajdź restauracje</li>
+            </a>
+            <a th:href="@{/restaurants/owner}">
+                <li>Moje restauracje</li>
+            </a>
+            <a th:href="@{/app-order/user}">
+                <li>Moje zamówienia</li>
+            </a>
+            <a href="weather.html">
+                <li>Pogoda</li>
+            </a>
         </ul>
     </div>
 </nav>
@@ -70,6 +78,7 @@
                         th:name="country"
                         class="form-control"
                         placeholder="Kraj"
+                        th:value="${country}"
                 />
                 <input
                         type="text"
@@ -77,6 +86,7 @@
                         th:name="city"
                         class="form-control"
                         placeholder="Miasto"
+                        th:value="${city}"
                 />
                 <input
                         type="text"
@@ -84,12 +94,13 @@
                         th:name="street"
                         class="form-control"
                         placeholder="Ulica"
+                        th:value="${street}"
                 />
                 <input
                         type="hidden"
                         id="page"
                         th:name="page"
-                        value="1"
+                        th:value="${page}"
                 />
                 <button
                         type="submit"
@@ -123,7 +134,25 @@
                 </div>
             </li>
         </ul>
-
+        <ul class="pagination justify-content-center mt-3" id="restaurantPagination">
+            <li class="page-item" id="previousPage">
+                <a
+                        class="page-link"
+                        id="previousLink"
+                        th:href="@{/restaurants/list(country=${country}, city=${city}, street=${street}, page=${page - 1})}"
+                        th:if="${page > 1}"
+                        tabindex="-1"
+                        aria-disabled="true"
+                >Previous</a
+                >
+            </li>
+            <li class="page-item" id="nextPage">
+                <a class="page-link" id="nextLink"
+                   th:href="@{/restaurants/list(country=${country}, city=${city}, street=${street}, page=${page + 1})}"
+                   th:if="${#lists.size(restaurants) == 5}"
+                >Next</a>
+            </li>
+        </ul>
     </div>
 
     <footer>
