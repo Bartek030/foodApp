@@ -58,7 +58,7 @@
     </div>
 </nav>
 <main>
-    <div class="mainBox">
+    <div class="mainBox h3 text-center">
         LISTA DAŃ
     </div>
 
@@ -195,7 +195,7 @@
                 ></button>
             </div>
             <div class="modal-body">
-                <form id="addPictureForm" method="post" th:action="@{${'/api/image/new/' + }}" enctype="multipart/form-data">
+                <form id="addPictureForm" method="post" enctype="multipart/form-data">
                     <div class="form-group mb-4">
                         <label for="fileInput">Wybierz plik (.png)</label>
                         <input

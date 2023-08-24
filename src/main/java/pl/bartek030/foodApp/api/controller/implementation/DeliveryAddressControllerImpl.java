@@ -27,7 +27,7 @@ public class DeliveryAddressControllerImpl implements DeliveryAddressController 
     public String addDeliveryAddress(final DeliveryAddressCreationDTO deliveryAddressCreationDTO) {
         restaurantDeliveryAddressService
                 .addDeliveryAddress(deliveryAddressCreationDtoMapper.map(deliveryAddressCreationDTO));
-        return "delivery-address-list";
+        return "delivery-address-success";
     }
 
     @Override
