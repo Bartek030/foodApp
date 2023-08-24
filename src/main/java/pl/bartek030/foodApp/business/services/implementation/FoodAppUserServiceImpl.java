@@ -84,7 +84,7 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
 
     private Set<Role> buildUserRoleList(final FoodAppUserCreation foodAppUserCreation) {
         if(foodAppUserCreation.getIsOwner() == null) {
-            foodAppUserCreation.setIsOwner(true);
+            foodAppUserCreation.setIsOwner(false);
         }
         Set<Role> roles = new HashSet<>();
         if (foodAppUserCreation.getIsOwner()) {
