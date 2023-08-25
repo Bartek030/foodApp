@@ -25,9 +25,6 @@ VALUES
 INSERT INTO application_user (user_name, password, active)
 VALUES ('EMAIL@EMAIL.COM', '$2a$12$13xsHnFNTmmN9kv1M/TRcO5A4/jj6qPRvmJoEqs6dKKmabdjYXCSK', true);
 
-INSERT INTO application_user_role (user_id, role_id)
-VALUES (1, 2);
-
 INSERT INTO food_app_user (name, surname, email, phone, address_id, user_id)
 VALUES
 ('TEST1', 'TEST2', 'EMAIL@EMAIL.COM', '+48 555545555', 2, 1);

@@ -126,3 +126,11 @@ CREATE TABLE restaurant_delivery_address
         FOREIGN KEY (restaurant_id)
             REFERENCES restaurant (restaurant_id)
 );
+
+CREATE TABLE image
+(
+    id          SERIAL      NOT NULL,
+    content     TEXT,
+    name        VARCHAR(32) NOT NULL,
+    PRIMARY KEY (id)
+);

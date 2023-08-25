@@ -53,7 +53,7 @@
             <a th:href="@{/restaurants/main}"><li>Znajdź restauracje</li></a>
             <a th:href="@{/restaurants/owner}"><li>Moje restauracje</li></a>
             <a th:href="@{/app-order/user}"><li>Moje zamówienia</li></a>
-            <a href="weather.html"><li>Pogoda</li></a>
+            <a th:href="@{/weather}"><li>Pogoda</li></a>
         </ul>
     </div>
 </nav>
@@ -64,8 +64,8 @@
 
     <div id="mainContext" class="d-flex flex-wrap">
 
-        <div class="card m-3" style="width: 18rem;" th:each="food : ${foods}">
-            <img th:src="@{${'/images/foods/' + food.foodId + '.jpg'}}" class="card-img-top h-75 mx-auto">
+        <div class="card m-3" style="width: 18rem; height: 28rem;" th:each="food : ${foods}">
+            <img th:src="@{${'/api/image/' + food.foodId}}" class="card-img-top h-75 mx-auto">
             <div class="card-body text-center">
                 <h5 class="card-title" th:text="${food.name + ' - ' + food.price + ' zł/szt'}"></h5>
                 <p class="card-text" th:text="${food.description}"></p>
@@ -195,15 +195,21 @@
                 ></button>
             </div>
             <div class="modal-body">
-                <form id="addPictureForm" method="post" enctype="multipart/form-data">
+                <form method="post" th:action="@{/image/new}" enctype="multipart/form-data">
                     <div class="form-group mb-4">
                         <label for="fileInput">Wybierz plik (.png)</label>
                         <input
                                 type="file"
                                 class="form-control"
                                 id="fileInput"
-                                name="file"
-                                accept=".png"
+                                th:name="file"
+                                accept="image/*"
+                        />
+                        <input
+                                type="hidden"
+                                class="form-control"
+                                id="foodId"
+                                th:name="foodId"
                         />
                     </div>
                     <div class="d-flex justify-content-center">
@@ -224,5 +230,11 @@
         crossorigin="anonymous"
 ></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script th:inline="javascript">
+    $(".addPictureButton").on('click', function (e) {
+        let foodIdValue = $(this).val();
+        $("#foodId").attr("value", foodIdValue);
+    });
+</script>
 </body>
 </html>

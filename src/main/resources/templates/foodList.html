@@ -53,7 +53,7 @@
             <a th:href="@{/restaurants/main}"><li>Znajdź restauracje</li></a>
             <a th:href="@{/restaurants/owner}"><li>Moje restauracje</li></a>
             <a th:href="@{/app-order/user}"><li>Moje zamówienia</li></a>
-            <a href="weather.html"><li>Pogoda</li></a>
+            <a th:href="@{/weather}"><li>Pogoda</li></a>
         </ul>
     </div>
 </nav>
@@ -73,7 +73,7 @@
     <div id="mainContext" class="d-flex flex-wrap">
 
         <div class="card m-3" style="width: 18rem;" th:each="food : ${foods}">
-            <img th:src="@{${'/images/foods/' + food.foodId + '.jpg'}}" class="card-img-top" alt="logo">
+            <img th:src="@{${'/api/image/' + food.foodId}}" class="card-img-top h-75 mx-auto">
             <div class="card-body text-center">
                 <h5 class="card-title" th:text="${food.name + ' - ' + food.price + 'zł/szt'}"></h5>
                 <p class="card-text" th:text="${food.description}"></p>

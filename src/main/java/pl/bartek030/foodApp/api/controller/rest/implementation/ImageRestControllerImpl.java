@@ -25,7 +25,7 @@ public class ImageRestControllerImpl implements ImageRestController {
     }
 
     @Override
-    public ResponseEntity<Resource> getImage(final String foodId) {
+    public ResponseEntity<Resource> getImage(final Long foodId) {
         Resource resource = imageService.getImage(foodId);
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG)
