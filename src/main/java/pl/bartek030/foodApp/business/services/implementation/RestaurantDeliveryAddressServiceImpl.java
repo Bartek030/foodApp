@@ -79,11 +79,18 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
     @Transactional
     public void addDeliveryAddress(final DeliveryAddressCreation deliveryAddressCreation) {
         final Restaurant restaurant = restaurantService.findById(deliveryAddressCreation.getRestaurantId());
-        final DeliveryAddress deliveryAddress =
-                deliveryAddressService.addDeliveryAddress(buildDeliveryAddress(deliveryAddressCreation));
+        final DeliveryAddress deliveryAddress = findOrCreateDeliveryAddress(deliveryAddressCreation);
         final RestaurantDeliveryAddress restaurantDeliveryAddress =
                 buildRestaurantDeliveryAddress(deliveryAddressCreation, restaurant, deliveryAddress);
         restaurantDeliveryAddressDao.addRestaurantDeliveryAddress(restaurantDeliveryAddress);
+    }
+
+    private DeliveryAddress findOrCreateDeliveryAddress(final DeliveryAddressCreation deliveryAddressCreation) {
+        return deliveryAddressService.findByCountryAndCityAndStreet(
+                deliveryAddressCreation.getCountry(),
+                deliveryAddressCreation.getCity(),
+                deliveryAddressCreation.getStreet()
+        ).orElseGet(() -> deliveryAddressService.addDeliveryAddress(buildDeliveryAddress(deliveryAddressCreation)));
     }
 
     private RestaurantDeliveryAddress buildRestaurantDeliveryAddress(
