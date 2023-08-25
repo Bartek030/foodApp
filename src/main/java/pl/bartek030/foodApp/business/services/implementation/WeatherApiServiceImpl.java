@@ -26,13 +26,12 @@ public class WeatherApiServiceImpl implements WeatherApiService {
     public WeatherData getCurrentWeather(final String cityName) {
         try {
             return webClient.get()
-                    .uri("?appid=" + apiKey + "&lang=" + apiLanguage + "&units=" + units + "&q=" + cityName)
+                    .uri("/data/2.5/weather?appid=" + apiKey + "&lang=" + apiLanguage + "&units=" + units + "&q=" + cityName)
                     .retrieve()
                     .bodyToMono(WeatherData.class)
                     .block();
         } catch (Exception e) {
-            // TODO: Custom exception
-            throw new RuntimeException();
+            throw new RuntimeException("Weather data cannot be retrieved");
         }
     }
 }

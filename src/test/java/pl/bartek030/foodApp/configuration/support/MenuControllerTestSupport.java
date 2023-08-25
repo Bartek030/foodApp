@@ -4,9 +4,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.springframework.http.HttpStatus;
-import pl.bartek030.foodApp.api.controller.FoodController;
-import pl.bartek030.foodApp.api.controller.MenuController;
-import pl.bartek030.foodApp.api.dto.FoodDTO;
+import pl.bartek030.foodApp.api.controller.rest.MenuRestController;
 import pl.bartek030.foodApp.api.dto.MenuCreationDTO;
 import pl.bartek030.foodApp.api.dto.MenuDTO;
 
@@ -14,9 +12,9 @@ public interface MenuControllerTestSupport {
 
     RequestSpecification requestSpecification();
 
-    default MenuDTO[] getMenuFromRestaurant() {
+    default MenuDTO[] getMenuFromRestaurant(final Long restaurantId) {
         return requestSpecification()
-                .get(MenuController.MENU_URL + MenuController.RESTAURANTS_MENUS_URL, 8L)
+                .get(MenuRestController.MENU_URL + MenuRestController.RESTAURANTS_MENUS_URL, restaurantId)
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .and()
@@ -27,7 +25,7 @@ public interface MenuControllerTestSupport {
     default ExtractableResponse<Response> saveMenu(final MenuCreationDTO menuCreationDTO) {
         return requestSpecification()
                 .body(menuCreationDTO)
-                .post(MenuController.MENU_URL + MenuController.NEW_MENU_URL)
+                .post(MenuRestController.MENU_URL + MenuRestController.NEW_MENU_URL)
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
                 .and()

@@ -2,7 +2,8 @@ package pl.bartek030.foodApp.api.controller.implementation;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import pl.bartek030.foodApp.api.controller.FoodController;
 import pl.bartek030.foodApp.api.dto.FoodCreationDTO;
 import pl.bartek030.foodApp.api.dto.FoodDTO;
@@ -12,8 +13,9 @@ import pl.bartek030.foodApp.business.services.FoodService;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
 @AllArgsConstructor
 public class FoodControllerImpl implements FoodController {
 
@@ -22,23 +24,29 @@ public class FoodControllerImpl implements FoodController {
     private final FoodService foodService;
 
     @Override
-    public ResponseEntity<List<FoodDTO>> getFoodFromMenu(final Long menuId) {
-        final List<FoodDTO> list = foodService.getFoodsFromMenu(menuId)
+    public String getFoodFromMenu(final Long menuId, final Model model) {
+        final List<FoodDTO> foodDTOList = foodService.getFoodsFromMenu(menuId)
                 .stream()
                 .map(foodDtoMapper::map)
                 .toList();
-        return ResponseEntity.ok(
-                list
-        );
+        model.addAllAttributes(Map.of("foods", foodDTOList));
+        return "foodList";
     }
 
     @Override
-    public ResponseEntity<FoodDTO> addFood(final FoodCreationDTO food) {
+    public String getOwnersFoodFromMenu(final Long menuId, final Model model) {
+        final List<FoodDTO> foodDTOList = foodService.getFoodsFromMenu(menuId)
+                .stream()
+                .map(foodDtoMapper::map)
+                .toList();
+        model.addAllAttributes(Map.of("foods", foodDTOList));
+        model.addAttribute("menuId", menuId);
+        return "owner-foodList";
+    }
+
+    @Override
+    public String addFood(final FoodCreationDTO food) {
         foodService.addFood(foodCreationDtoMapper.map(food));
-        return ResponseEntity
-                .created(URI.create(
-                        // TODO: magic number to remove after Spring Security implementation
-                        FOOD_URL + ID_PLACEHOLDER.formatted(1)
-                )).build();
+        return "food-success";
     }
 }

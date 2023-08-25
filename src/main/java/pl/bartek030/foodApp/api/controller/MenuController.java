@@ -1,11 +1,8 @@
 package pl.bartek030.foodApp.api.controller;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.bartek030.foodApp.api.dto.MenuCreationDTO;
-import pl.bartek030.foodApp.api.dto.MenuDTO;
-
-import java.util.List;
 
 @RequestMapping(MenuController.MENU_URL)
 public interface MenuController {
@@ -13,13 +10,20 @@ public interface MenuController {
     String MENU_URL = "/menu";
     String NEW_MENU_URL = "/new";
     String RESTAURANTS_MENUS_URL = "/{restaurantId}";
-    String ID_PLACEHOLDER = "/%s";
+    String OWNER_RESTAURANTS_MENUS_URL = "/owner/{restaurantId}";
 
     @PostMapping(MenuController.NEW_MENU_URL)
-    ResponseEntity<MenuCreationDTO> addMenu(@RequestBody MenuCreationDTO menu);
+    String addMenu(@ModelAttribute MenuCreationDTO menu);
 
     @GetMapping(RESTAURANTS_MENUS_URL)
-    ResponseEntity<List<MenuDTO>> getRestaurantsMenus(
-            @PathVariable Long restaurantId
+    String getRestaurantsMenus(
+            @PathVariable Long restaurantId,
+            final Model model
+    );
+
+    @GetMapping(OWNER_RESTAURANTS_MENUS_URL)
+    String getOwnersRestaurantsMenus(
+            @PathVariable Long restaurantId,
+            final Model model
     );
 }

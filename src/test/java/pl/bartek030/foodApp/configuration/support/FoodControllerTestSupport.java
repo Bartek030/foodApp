@@ -4,7 +4,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.springframework.http.HttpStatus;
-import pl.bartek030.foodApp.api.controller.FoodController;
+import pl.bartek030.foodApp.api.controller.rest.FoodRestController;
 import pl.bartek030.foodApp.api.dto.FoodCreationDTO;
 import pl.bartek030.foodApp.api.dto.FoodDTO;
 
@@ -14,7 +14,7 @@ public interface FoodControllerTestSupport {
 
     default FoodDTO[] getFoodFromMenu() {
         return requestSpecification()
-                .get(FoodController.FOOD_URL + FoodController.MENUS_FOODS_URL, 3L)
+                .get(FoodRestController.FOOD_URL + FoodRestController.MENUS_FOODS_URL, 3L)
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .and()
@@ -25,7 +25,7 @@ public interface FoodControllerTestSupport {
     default ExtractableResponse<Response> saveFood(final FoodCreationDTO foodCreationDTO) {
         return requestSpecification()
                 .body(foodCreationDTO)
-                .post(FoodController.FOOD_URL + FoodController.NEW_FOOD_URL)
+                .post(FoodRestController.FOOD_URL + FoodRestController.NEW_FOOD_URL)
                 .then()
                 .statusCode(HttpStatus.CREATED.value())
                 .and()

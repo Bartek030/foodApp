@@ -18,4 +18,5 @@ public interface FoodAppUserDaoMapper {
     FoodAppUser mapFoodAppUserFromEntity(FoodAppUserEntity foodAppUserEntity);
 
     FoodAppUserEntity mapFoodAppUserToEntity(FoodAppUser foodAppUser);
+
 }

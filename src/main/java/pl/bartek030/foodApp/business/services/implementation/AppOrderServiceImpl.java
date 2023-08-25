@@ -2,6 +2,7 @@ package pl.bartek030.foodApp.business.services.implementation;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.bartek030.foodApp.business.dao.AppOrderDAO;
 import pl.bartek030.foodApp.business.serviceModel.*;
@@ -12,6 +13,7 @@ import pl.bartek030.foodApp.infrastructure.database.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -44,6 +46,13 @@ public class AppOrderServiceImpl implements AppOrderService {
 
     @Override
     @Transactional
+    public List<AppOrder> getOrdersByUser(final String email) {
+        final FoodAppUser foodAppUser = foodAppUserService.findByEmail(email);
+        return appOrderDAO.getAppOrdersByUser(foodAppUser);
+    }
+
+    @Override
+    @Transactional
     public List<AppOrder> getOrdersByRestaurant(final Long restaurantId) {
         final Restaurant restaurant = restaurantService.findById(restaurantId);
         return appOrderDAO.getAppOrdersByRestaurant(restaurant);
@@ -67,13 +76,18 @@ public class AppOrderServiceImpl implements AppOrderService {
     @Override
     @Transactional
     public AppOrder markAsDelivered(final Long appOrderId) {
+        final AppOrder appOrder = appOrderDAO.findById(appOrderId)
+                .orElseThrow(() -> new RuntimeException("Order with id: [%s] not found".formatted(appOrderId)));
+        if(!OrderStatus.ORDERED.equals(appOrder.getStatus())) {
+            throw new RuntimeException("Unable to change order status");
+        }
         return appOrderDAO.update(appOrderId, OrderStatus.DELIVERED);
     }
 
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {
         Restaurant restaurant = restaurantService.findById(findRestaurantIdWhichServiceFood(orderList).getRestaurantId());
-        //TODO: TO REPLACE MAGIC NUMBER
-        final FoodAppUser foodAppUser = foodAppUserService.findById(1L);;
+        final String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        final FoodAppUser foodAppUser = foodAppUserService.findByEmail(email);;
 
         return AppOrder.builder()
                 .number(generateNewOrderNumber())

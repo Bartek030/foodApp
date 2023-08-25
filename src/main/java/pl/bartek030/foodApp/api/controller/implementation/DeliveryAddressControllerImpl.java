@@ -1,9 +1,8 @@
 package pl.bartek030.foodApp.api.controller.implementation;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import pl.bartek030.foodApp.api.controller.DeliveryAddressController;
 import pl.bartek030.foodApp.api.dto.DeliveryAddressCreationDTO;
 import pl.bartek030.foodApp.api.dto.DeliveryAddressDTO;
@@ -13,8 +12,9 @@ import pl.bartek030.foodApp.business.serviceModel.DeliveryAddress;
 import pl.bartek030.foodApp.business.services.RestaurantDeliveryAddressService;
 
 import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
 @AllArgsConstructor
 public class DeliveryAddressControllerImpl implements DeliveryAddressController {
 
@@ -24,21 +24,23 @@ public class DeliveryAddressControllerImpl implements DeliveryAddressController 
     private final RestaurantDeliveryAddressService restaurantDeliveryAddressService;
 
     @Override
-    public ResponseEntity<DeliveryAddressDTO> addDeliveryAddress(
-            final DeliveryAddressCreationDTO deliveryAddressCreationDTO
-    ) {
+    public String addDeliveryAddress(final DeliveryAddressCreationDTO deliveryAddressCreationDTO) {
         restaurantDeliveryAddressService
                 .addDeliveryAddress(deliveryAddressCreationDtoMapper.map(deliveryAddressCreationDTO));
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return "delivery-address-success";
     }
 
     @Override
-    public ResponseEntity<List<DeliveryAddressDTO>> getAddressesByRestaurant(final Long restaurantId) {
+    public String getAddressesByRestaurant(final Long restaurantId, final Model model) {
         List<DeliveryAddress> deliveryAddressList =
                 restaurantDeliveryAddressService.findDeliveryAddressByRestaurant(restaurantId);
-        return ResponseEntity.ok(deliveryAddressList.stream()
+
+        final List<DeliveryAddressDTO> deliveryAddressDTOList = deliveryAddressList.stream()
                 .map(deliveryAddressDtoMapper::map)
-                .toList()
-        );
+                .toList();
+
+        model.addAllAttributes(Map.of("deliveryAddresses", deliveryAddressDTOList));
+        model.addAttribute("restaurantId", restaurantId);
+        return "delivery-address-list";
     }
 }

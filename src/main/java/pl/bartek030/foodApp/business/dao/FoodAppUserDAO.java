@@ -9,4 +9,6 @@ public interface FoodAppUserDAO {
     Optional<FoodAppUser> findById(Long foodAppUserId);
 
     void createFoodAppUser(FoodAppUser foodAppUser);
+
+    Optional<FoodAppUser> findByEmail(String email);
 }

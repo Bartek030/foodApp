@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Set;
 
+@With
 @Getter
 @Setter
 @EqualsAndHashCode(of = "appOrderId")

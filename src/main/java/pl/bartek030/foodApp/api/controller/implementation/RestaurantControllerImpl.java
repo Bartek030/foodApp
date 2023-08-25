@@ -2,7 +2,9 @@ package pl.bartek030.foodApp.api.controller.implementation;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import pl.bartek030.foodApp.api.controller.RestaurantController;
 import pl.bartek030.foodApp.api.dto.RestaurantCreationDTO;
 import pl.bartek030.foodApp.api.dto.RestaurantDTO;
@@ -12,10 +14,10 @@ import pl.bartek030.foodApp.business.serviceModel.Restaurant;
 import pl.bartek030.foodApp.business.services.RestaurantDeliveryAddressService;
 import pl.bartek030.foodApp.business.services.RestaurantService;
 
-import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
 @AllArgsConstructor
 public class RestaurantControllerImpl implements RestaurantController {
 
@@ -26,37 +28,48 @@ public class RestaurantControllerImpl implements RestaurantController {
     private final RestaurantDeliveryAddressService restaurantDeliveryAddressService;
 
     @Override
-    public ResponseEntity<List<RestaurantDTO>> getOwnersRestaurants(final Long userId) {
-        List<Restaurant> restaurantList = restaurantService.findRestaurantsByFoodAppUserId(userId);
-        return ResponseEntity.ok(restaurantList.stream()
-                .map(restaurantDtoMapper::map)
-                .toList()
-        );
-    }
-
-    @Override
-    public ResponseEntity<RestaurantDTO> addRestaurant(final RestaurantCreationDTO restaurant) {
+    public String addRestaurant(final RestaurantCreationDTO restaurant) {
         restaurantService.addRestaurant(restaurantCreationDtoMapper.map(restaurant));
-        return ResponseEntity
-                .created(URI.create(
-                        // TODO: magic number to remove after Spring Security implementation
-                        RESTAURANT_URL + ID_PLACEHOLDER.formatted(1)
-                )).build();
+        return "restaurant-success";
     }
 
     @Override
-    public ResponseEntity<List<RestaurantDTO>> getRestaurantsByCountryAndCityAndStreet(
+    public String getRestaurantPage() {
+        return "restaurants";
+    }
+
+    @Override
+    public String getOwnersRestaurants(final Model model) {
+        final String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<Restaurant> restaurants = restaurantService.findRestaurantsByFoodAppUserEmail(email);
+        final List<RestaurantDTO> restaurantDTOList = restaurants.stream()
+                .map(restaurantDtoMapper::map)
+                .toList();
+
+        model.addAllAttributes(Map.of("restaurants", restaurantDTOList));
+        return "restaurantsOwnerList";
+    }
+
+    @Override
+    public String getRestaurantsByCountryAndCityAndStreet(
             final String country,
             final String city,
             final String street,
-            final Integer page
+            final Integer page,
+            final Model model
     ) {
+
         final List<Restaurant> restaurants =
                 restaurantDeliveryAddressService.getRestaurantsByCountryAndCityAndStreet(country, city, street, page);
-        return ResponseEntity.ok(
-                restaurants.stream()
+        final List<RestaurantDTO> restaurantDTOList = restaurants.stream()
                 .map(restaurantDtoMapper::map)
-                .toList()
-        );
+                .toList();
+
+        model.addAllAttributes(Map.of("restaurants", restaurantDTOList));
+        model.addAttribute("country", country);
+        model.addAttribute("city", city);
+        model.addAttribute("street", street);
+        model.addAttribute("page", page);
+        return "restaurantsList";
     }
 }

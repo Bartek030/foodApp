@@ -1,11 +1,8 @@
 package pl.bartek030.foodApp.api.controller;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.bartek030.foodApp.api.dto.DeliveryAddressCreationDTO;
-import pl.bartek030.foodApp.api.dto.DeliveryAddressDTO;
-
-import java.util.List;
 
 @RequestMapping(DeliveryAddressController.DELIVERY_ADDRESS_URL)
 public interface DeliveryAddressController {
@@ -15,12 +12,13 @@ public interface DeliveryAddressController {
     String RESTAURANTS_URL = "/restaurants/{restaurantId}";
 
     @PostMapping(NEW_DELIVERY_ADDRESS_URL)
-    ResponseEntity<DeliveryAddressDTO> addDeliveryAddress(
-            @RequestBody DeliveryAddressCreationDTO deliveryAddressCreationDTO
+    String addDeliveryAddress(
+            @ModelAttribute DeliveryAddressCreationDTO deliveryAddressCreationDTO
     );
 
     @GetMapping(RESTAURANTS_URL)
-    ResponseEntity<List<DeliveryAddressDTO>> getAddressesByRestaurant(
-        @PathVariable Long restaurantId
+    String getAddressesByRestaurant(
+            @PathVariable Long restaurantId,
+            final Model model
     );
 }

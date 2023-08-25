@@ -8,7 +8,6 @@ public class DeliveryAddressEntityExample {
 
     public DeliveryAddressEntity someDeliveryAddressEntity1() {
         return DeliveryAddressEntity.builder()
-                .deliveryAddressId(1L)
                 .country("COUNTRY1")
                 .city("CITY1")
                 .street("STREET1")

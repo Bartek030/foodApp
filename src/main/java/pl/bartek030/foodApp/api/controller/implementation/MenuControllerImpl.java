@@ -1,8 +1,8 @@
 package pl.bartek030.foodApp.api.controller.implementation;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import pl.bartek030.foodApp.api.controller.MenuController;
 import pl.bartek030.foodApp.api.dto.MenuCreationDTO;
 import pl.bartek030.foodApp.api.dto.MenuDTO;
@@ -10,10 +10,10 @@ import pl.bartek030.foodApp.api.dto.mapper.MenuCreationDtoMapper;
 import pl.bartek030.foodApp.api.dto.mapper.MenuDtoMapper;
 import pl.bartek030.foodApp.business.services.MenuService;
 
-import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
 @AllArgsConstructor
 public class MenuControllerImpl implements MenuController {
 
@@ -22,22 +22,31 @@ public class MenuControllerImpl implements MenuController {
     private final MenuService menuService;
 
     @Override
-    public ResponseEntity<MenuCreationDTO> addMenu(final MenuCreationDTO menu) {
+    public String addMenu(final MenuCreationDTO menu) {
         menuService.addMenu(menuCreationDtoMapper.map(menu));
-        return ResponseEntity
-                .created(URI.create(
-                        // TODO: magic number to remove after Spring Security implementation
-                        MENU_URL + ID_PLACEHOLDER.formatted(1)
-                )).build();
+        return "menu-success";
     }
 
     @Override
-    public ResponseEntity<List<MenuDTO>> getRestaurantsMenus(final Long restaurantId) {
-        return ResponseEntity.ok(
-                menuService.getMenusByRestaurantId(restaurantId)
-                        .stream()
-                        .map(menuDtoMapper::map)
-                        .toList()
-        );
+    public String getRestaurantsMenus(final Long restaurantId, final Model model) {
+        final List<MenuDTO> menuDTOList = menuService.getMenusByRestaurantId(restaurantId)
+                .stream()
+                .map(menuDtoMapper::map)
+                .toList();
+
+        model.addAllAttributes(Map.of("menus", menuDTOList));
+        return "menuList";
+    }
+
+    @Override
+    public String getOwnersRestaurantsMenus(final Long restaurantId, final Model model) {
+        final List<MenuDTO> menuDTOList = menuService.getMenusByRestaurantId(restaurantId)
+                .stream()
+                .map(menuDtoMapper::map)
+                .toList();
+
+        model.addAllAttributes(Map.of("menus", menuDTOList));
+        model.addAttribute("restaurantId", restaurantId);
+        return "owner-menuList";
     }
 }
