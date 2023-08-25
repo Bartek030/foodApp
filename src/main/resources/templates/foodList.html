@@ -72,7 +72,7 @@
     </button>
     <div id="mainContext" class="d-flex flex-wrap">
 
-        <div class="card m-3" style="width: 18rem;" th:each="food : ${foods}">
+        <div class="card m-3" style="width: 18rem; height: 28rem;" th:each="food : ${foods}">
             <img th:src="@{${'/api/image/' + food.foodId}}" class="card-img-top h-75 mx-auto">
             <div class="card-body text-center">
                 <h5 class="card-title" th:text="${food.name + ' - ' + food.price + 'zł/szt'}"></h5>

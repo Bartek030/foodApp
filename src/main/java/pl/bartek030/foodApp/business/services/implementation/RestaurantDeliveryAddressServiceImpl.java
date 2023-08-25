@@ -66,7 +66,7 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
             final Integer page
     ) {
         DeliveryAddress deliveryAddress = deliveryAddressService.findByCountryAndCityAndStreet(country, city, street)
-                .orElseThrow(() -> new RuntimeException("Delivery address not found"));
+                .orElseThrow(() -> new RuntimeException("There is no restaurant that deliver food to the given address"));
         List<RestaurantDeliveryAddress> restaurantDeliveryAddresses =
                 restaurantDeliveryAddressDao.findByDeliveryAddress(deliveryAddress);
         final List<Long> restaurantsIdList = restaurantDeliveryAddresses.stream()

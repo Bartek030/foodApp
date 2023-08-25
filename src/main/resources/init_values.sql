@@ -66,13 +66,13 @@ VALUES
 
 INSERT INTO restaurant_delivery_address (delivery_time, delivery_address_id, restaurant_id)
 VALUES
-(60, 1, 1),
-(45, 1, 2),
-(40, 1, 3),
-(50, 1, 4),
-(60, 1, 5),
-(60, 1, 6),
-(55, 1, 7),
+(60, 2, 1),
+(45, 2, 2),
+(40, 2, 3),
+(50, 2, 4),
+(60, 2, 5),
+(60, 2, 6),
+(55, 2, 7),
 (60, 1, 8),
 (45, 1, 9),
 (40, 1, 10),
