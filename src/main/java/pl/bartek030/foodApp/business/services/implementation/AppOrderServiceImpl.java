@@ -87,7 +87,7 @@ public class AppOrderServiceImpl implements AppOrderService {
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {
         Restaurant restaurant = restaurantService.findById(findRestaurantIdWhichServiceFood(orderList).getRestaurantId());
         final String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        final FoodAppUser foodAppUser = foodAppUserService.findByEmail(email);;
+        final FoodAppUser foodAppUser = foodAppUserService.findByEmail(email);
 
         return AppOrder.builder()
                 .number(generateNewOrderNumber())
