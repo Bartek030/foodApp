@@ -14,7 +14,6 @@ public class RestaurantCreationDTOExample {
                 .street("Dluga")
                 .number("22")
                 .zipCode("30-300")
-                .foodAppUserId(1L)
                 .build();
     }
 }
