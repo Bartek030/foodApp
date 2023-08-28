@@ -79,7 +79,7 @@ class AddressServiceImplTest {
         RestaurantCreation restaurantCreation = RestaurantCreationExample.someRestaurantCreation1();
         Address address = AddressExample.someAddress1();
 
-        when(addressDAO.createAddressFromRestaurant(any(Address.class))).thenReturn(AddressExample.someAddress1());
+        when(addressDAO.createAddress(any(Address.class))).thenReturn(AddressExample.someAddress1());
 
         // when
         final Address result = addressService.createAddressFromRestaurant(restaurantCreation);

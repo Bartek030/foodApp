@@ -86,7 +86,6 @@ class FoodAppAppUserServiceImplTest {
         when(passwordEncoder.encode(anyString()))
                 .thenReturn("$2a$12$nBMvTSYlxYHhytUoO9hHBeocpipNfF20WxkRtqMP.6Am2rsSVKpFa");
         when(foodAppUserDetailsService.createUser(appUser)).thenReturn(appUser);
-//        doNothing().when(foodAppUserDao).createFoodAppUser(foodAppUser);
         when(addressService.findAddressByData(anyString(), anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(Optional.of(AddressExample.someAddress1()));
 

@@ -32,12 +32,6 @@ public class AddressRepository implements AddressDAO {
     }
 
     @Override
-    public Address createAddressFromRestaurant(final Address address) {
-        final AddressEntity savedAddress = addressJpaRepository.save(addressDaoMapper.mapAddressToEntity(address));
-        return addressDaoMapper.mapAddressFromEntity(savedAddress);
-    }
-
-    @Override
     public Address createAddress(final Address address) {
         final AddressEntity saved = addressJpaRepository.save(addressDaoMapper.mapAddressToEntity(address));
         return addressDaoMapper.mapAddressFromEntity(saved);
