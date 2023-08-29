@@ -47,7 +47,7 @@ public class RestaurantRepository implements RestaurantDAO {
     }
 
     @Override
-    public List<Restaurant> findByFoodAppUserId(final FoodAppUser foodAppUser) {
+    public List<Restaurant> findByFoodAppUser(final FoodAppUser foodAppUser) {
         List<RestaurantEntity> restaurantEntityList =
                 restaurantJpaRepository.findAllByFoodAppUser(foodAppUserDaoMapper.mapFoodAppUserToEntity(foodAppUser));
         return restaurantEntityList.stream()

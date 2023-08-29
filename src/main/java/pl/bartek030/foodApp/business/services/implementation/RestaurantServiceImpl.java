@@ -36,13 +36,13 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Transactional
     public List<Restaurant> findRestaurantsByFoodAppUserId(final Long userId) {
         final FoodAppUser foodAppUser = foodAppUserService.findById(userId);
-        return restaurantDAO.findByFoodAppUserId(foodAppUser);
+        return restaurantDAO.findByFoodAppUser(foodAppUser);
     }
 
     @Override
     public List<Restaurant> findRestaurantsByFoodAppUserEmail(final String email) {
         final FoodAppUser foodAppUser = foodAppUserService.findByEmail(email);
-        return restaurantDAO.findByFoodAppUserId(foodAppUser);
+        return restaurantDAO.findByFoodAppUser(foodAppUser);
     }
 
     @Override
