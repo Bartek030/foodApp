@@ -166,4 +166,23 @@ class AppOrderRepositoryTest {
         // then
         assertEquals(OrderStatus.DELIVERED, result.getStatus());
     }
+
+    @Test
+    void shouldThrownExceptionDuringUpdate() {
+        // given
+        Long id = 1L;
+        String expectedExceptionMessage = "App order with id: [%s] not found".formatted(id);
+
+        when(appOrderJpaRepository.findById(any(Long.class)))
+                .thenReturn(Optional.of(AppOrderEntityExample.someAppOrderEntity1()));
+        when(appOrderJpaRepository.save(any(AppOrderEntity.class)))
+                .thenThrow(new RuntimeException("App order with id: [%s] not found".formatted(id)));
+
+        // when, then
+        final RuntimeException actualException = assertThrows(
+                RuntimeException.class,
+                () -> appOrderRepository.update(id, OrderStatus.DELIVERED)
+        );
+        assertEquals(expectedExceptionMessage, actualException.getMessage());
+    }
 }
