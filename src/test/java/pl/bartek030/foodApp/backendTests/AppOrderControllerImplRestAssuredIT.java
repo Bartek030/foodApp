@@ -2,25 +2,25 @@ package pl.bartek030.foodApp.backendTests;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.test.context.support.WithMockUser;
 import pl.bartek030.foodApp.api.dto.*;
 import pl.bartek030.foodApp.configuration.RestAssuredIntegrationTestBase;
 import pl.bartek030.foodApp.configuration.support.*;
 import pl.bartek030.foodApp.util.*;
 
-import java.util.List;
-
-public class AppOrderControllerImplRestAssuredITController
+public class AppOrderControllerImplRestAssuredIT
         extends RestAssuredIntegrationTestBase
         implements AppOrderControllerTestSupport,
         FoodControllerTestSupport,
         RestaurantControllerTestSupport,
         MenuControllerTestSupport,
         FoodAppUserControllerTestSupport,
-        DeliveryAddressControllerTestSupport{
+        DeliveryAddressControllerTestSupport {
 
 //    @Test
+//    @WithMockUser(username = "SOMEEMAIL1@EMAIL.COM")
 //    void shouldReturnAppOrdersByUser() {
-//        // given
+        // given
 //        final FoodCreationDTO food1 = FoodCreationDTOExample.someFoodCreationDTO1();
 //        final FoodCreationDTO food2 = FoodCreationDTOExample.someFoodCreationDTO2();
 //        final FoodCreationDTO food3 = FoodCreationDTOExample.someFoodCreationDTO3();

@@ -1,16 +1,12 @@
 package pl.bartek030.foodApp.backendTests;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
-import pl.bartek030.foodApp.api.dto.*;
 import pl.bartek030.foodApp.configuration.RestAssuredIntegrationTestBase;
 import pl.bartek030.foodApp.configuration.support.FoodAppUserControllerTestSupport;
 import pl.bartek030.foodApp.configuration.support.FoodControllerTestSupport;
 import pl.bartek030.foodApp.configuration.support.MenuControllerTestSupport;
 import pl.bartek030.foodApp.configuration.support.RestaurantControllerTestSupport;
-import pl.bartek030.foodApp.util.*;
 
-public class FoodControllerImplRestAssuredITController
+public class FoodControllerImplRestAssuredIT
         extends RestAssuredIntegrationTestBase
         implements FoodControllerTestSupport,
         MenuControllerTestSupport,
