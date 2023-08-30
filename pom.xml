@@ -222,7 +222,8 @@
 						<exclude>pl/bartek030/foodApp/infrastructure/configuration/**</exclude>
 						<exclude>pl/bartek030/foodApp/infrastructure/database/entity/**</exclude>
 						<exclude>pl/bartek030/foodApp/infrastructure/security/**</exclude>
-						<exclude>pl/bartek030/foodApp/business/util/OffsetDateTimeWrapper.java</exclude>
+						<exclude>pl/bartek030/foodApp/business/util/**</exclude>
+						<exclude>pl/bartek030/foodApp/FoodAppApplication.java</exclude>
 					</excludes>
 				</configuration>
 				<executions>
