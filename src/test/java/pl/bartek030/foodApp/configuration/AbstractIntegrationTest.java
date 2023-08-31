@@ -3,7 +3,9 @@ package pl.bartek030.foodApp.configuration;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import pl.bartek030.foodApp.FoodAppApplication;
@@ -42,6 +44,12 @@ public abstract class AbstractIntegrationTest {
 
     @Autowired
     private RestaurantJpaRepository restaurantJpaRepository;
+
+    @LocalServerPort
+    protected int port;
+
+    @Value("${server.servlet.context-path}")
+    protected String basePath;
 
 
     @BeforeEach

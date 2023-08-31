@@ -4,7 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import pl.bartek030.foodApp.business.serviceModel.*;
 import pl.bartek030.foodApp.business.util.OffsetDateTimeWrapper;
 import pl.bartek030.foodApp.infrastructure.database.enums.OrderStatus;
@@ -21,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -53,6 +58,12 @@ class AppOrderServiceImplTest {
     @Mock
     OffsetDateTimeWrapper offsetDateTimeWrapper;
 
+    @Mock
+    SecurityContext securityContext;
+
+    @Mock
+    Authentication authentication;
+
     @Test
     void givenOrderDetailsListShouldCreateNewAppOrder() {
         // given
@@ -69,21 +80,30 @@ class AppOrderServiceImplTest {
 
         when(appOrderDAO.addAppOrder(any(AppOrder.class))).thenReturn(AppOrderExample.someAppOrder1());
         when(restaurantService.findById(any(Long.class))).thenReturn(RestaurantExample.someRestaurant1());
+
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication().getName()).thenReturn("TEST");
+
         when(foodService.findFoodById(any(Long.class)))
                 .thenReturn(FoodExample.someFood1())
                 .thenReturn(FoodExample.someFood2())
                 .thenReturn(FoodExample.someFood3());
-        when(foodAppUserService.findById(any(Long.class))).thenReturn(FoodAppUserExample.someFoodAppUser1());
+
+        when(foodAppUserService.findByEmail(any(String.class))).thenReturn(FoodAppUserExample.someFoodAppUser1());
+
         when(appOrderDAO.countAllRecords()).thenReturn(appOrderNumber);
+
         when(orderDetailsService.calculateCost(any(OrderDetailsCreation.class)))
                 .thenReturn(BigDecimal.valueOf(60))
                 .thenReturn(BigDecimal.valueOf(160))
                 .thenReturn(BigDecimal.valueOf(50));
+
         when(deliveryAddressService.findByCountryAndCityAndStreet(anyString(), anyString(), anyString()))
                 .thenReturn(Optional.of(DeliveryAddressExample.someDeliveryAddress1()));
+
         when(restaurantDeliveryAddressService.findByAddressAndRestaurant(any(DeliveryAddress.class), any(Restaurant.class)))
                 .thenReturn(RestaurantDeliveryAddressExample.someRestaurantDeliveryAddress1());
-
 
         // when
         final AppOrder result = appOrderService.addOrder(orderDetailsCreationList);
@@ -225,6 +245,7 @@ class AppOrderServiceImplTest {
         final Long appOrderId = 1L;
         final AppOrder expected = AppOrderExample.someAppOrder1().withStatus(OrderStatus.DELIVERED);
 
+        when(appOrderDAO.findById(any(Long.class))).thenReturn(Optional.of(expected.withStatus(OrderStatus.ORDERED)));
         when(appOrderDAO.update(any(Long.class), any(OrderStatus.class)))
                 .thenReturn(AppOrderExample.someAppOrder1().withStatus(OrderStatus.DELIVERED));
 

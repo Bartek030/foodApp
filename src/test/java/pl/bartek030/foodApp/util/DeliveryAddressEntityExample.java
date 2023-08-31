@@ -13,4 +13,20 @@ public class DeliveryAddressEntityExample {
                 .street("STREET1")
                 .build();
     }
+
+    public DeliveryAddressEntity someDeliveryAddressEntity2() {
+        return DeliveryAddressEntity.builder()
+                .country("COUNTRY2")
+                .city("CITY2")
+                .street("STREET2")
+                .build();
+    }
+
+    public DeliveryAddressEntity someDeliveryAddressEntity3() {
+        return DeliveryAddressEntity.builder()
+                .country("COUNTRY3")
+                .city("CITY3")
+                .street("STREET3")
+                .build();
+    }
 }

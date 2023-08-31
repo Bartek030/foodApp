@@ -6,9 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import pl.bartek030.foodApp.api.controller.AppOrderController;
 import pl.bartek030.foodApp.api.dto.AppOrderDTO;
-import pl.bartek030.foodApp.api.dto.OrderDetailsCreationDTO;
 import pl.bartek030.foodApp.api.dto.mapper.AppOrderDtoMapper;
-import pl.bartek030.foodApp.api.dto.mapper.OrderDetailsCreationDtoMapper;
 import pl.bartek030.foodApp.business.serviceModel.AppOrder;
 import pl.bartek030.foodApp.business.services.AppOrderService;
 
@@ -19,7 +17,6 @@ import java.util.Map;
 @AllArgsConstructor
 public class AppOrderControllerImpl implements AppOrderController {
 
-    private final OrderDetailsCreationDtoMapper orderDetailsCreationDtoMapper;
     private final AppOrderDtoMapper appOrderDtoMapper;
 
     private final AppOrderService appOrderService;

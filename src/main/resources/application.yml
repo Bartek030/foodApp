@@ -1,0 +1,54 @@
+server:
+  servlet:
+    context-path: /food-app
+  port: 8080
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/food_app
+    username: postgres
+    password: password
+    hikari:
+      idle-timeout: 10000
+      connectionTimeout: 20000
+      minimumIdle: 10
+      maximumPoolSize: 20
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 10
+        order_inserts: true
+  security:
+    enabled: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  thymeleaf: # Thymeleaf
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: file:src/main/resources/templates/
+    resources: # Static resources
+      static-locations: file:src/main/resources/static/
+      cache:
+        period: 0
+
+api:
+  open-weather-map:
+    url: https://api.openweathermap.org
+    apiKey: ???
+    language: pl
+    units: metric
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

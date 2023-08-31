@@ -39,7 +39,7 @@ public class AddressServiceImpl implements AddressService {
                 .number(restaurantCreation.getNumber())
                 .zipCode(restaurantCreation.getZipCode())
                 .build();
-        return addressDAO.createAddressFromRestaurant(address);
+        return addressDAO.createAddress(address);
     }
 
     @Override

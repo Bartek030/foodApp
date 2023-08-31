@@ -14,7 +14,5 @@ public interface AddressDAO {
             final String zipCode
     );
 
-    Address createAddressFromRestaurant(Address address);
-
     Address createAddress(Address address);
 }

@@ -12,8 +12,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import pl.bartek030.foodApp.configuration.support.ControllerTestSupport;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
@@ -24,12 +22,6 @@ public class RestAssuredIntegrationTestBase extends AbstractIntegrationTest impl
 
     @Autowired
     protected ObjectMapper objectMapper;
-
-    @LocalServerPort
-    private int serverPort;
-
-    @Value("${server.servlet.context-path}")
-    private String basePath;
 
     @BeforeAll
     static void beforeAll() {
@@ -47,7 +39,7 @@ public class RestAssuredIntegrationTestBase extends AbstractIntegrationTest impl
     }
 
     @Override
-    public ObjectMapper objectMapper() {
+    public ObjectMapper getObjectMapper() {
         return objectMapper;
     }
 
@@ -56,7 +48,7 @@ public class RestAssuredIntegrationTestBase extends AbstractIntegrationTest impl
                 .given()
                 .config(getConfig())
                 .basePath(basePath)
-                .port(serverPort)
+                .port(port)
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON);
     }

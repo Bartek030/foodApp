@@ -20,7 +20,7 @@ public class OrderDetailsRepository implements OrderDetailsDAO {
 
     @Override
     public void addAllOrderDetails(final List<OrderDetails> orderDetailsList) {
-        final List<OrderDetailsEntity> orderDetailsEntities = orderDetailsJpaRepository.saveAll(
+        orderDetailsJpaRepository.saveAll(
                 orderDetailsList.stream()
                         .map(orderDetailsDaoMapper::mapOrderDetailsToEntity)
                         .toList()

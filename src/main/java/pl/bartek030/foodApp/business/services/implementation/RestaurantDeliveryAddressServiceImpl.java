@@ -66,7 +66,7 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
             final Integer page
     ) {
         DeliveryAddress deliveryAddress = deliveryAddressService.findByCountryAndCityAndStreet(country, city, street)
-                .orElseThrow(() -> new RuntimeException("Delivery address not found"));
+                .orElseThrow(() -> new RuntimeException("There is no restaurant that deliver food to the given address"));
         List<RestaurantDeliveryAddress> restaurantDeliveryAddresses =
                 restaurantDeliveryAddressDao.findByDeliveryAddress(deliveryAddress);
         final List<Long> restaurantsIdList = restaurantDeliveryAddresses.stream()
@@ -79,11 +79,18 @@ public class RestaurantDeliveryAddressServiceImpl implements RestaurantDeliveryA
     @Transactional
     public void addDeliveryAddress(final DeliveryAddressCreation deliveryAddressCreation) {
         final Restaurant restaurant = restaurantService.findById(deliveryAddressCreation.getRestaurantId());
-        final DeliveryAddress deliveryAddress =
-                deliveryAddressService.addDeliveryAddress(buildDeliveryAddress(deliveryAddressCreation));
+        final DeliveryAddress deliveryAddress = findOrCreateDeliveryAddress(deliveryAddressCreation);
         final RestaurantDeliveryAddress restaurantDeliveryAddress =
                 buildRestaurantDeliveryAddress(deliveryAddressCreation, restaurant, deliveryAddress);
         restaurantDeliveryAddressDao.addRestaurantDeliveryAddress(restaurantDeliveryAddress);
+    }
+
+    private DeliveryAddress findOrCreateDeliveryAddress(final DeliveryAddressCreation deliveryAddressCreation) {
+        return deliveryAddressService.findByCountryAndCityAndStreet(
+                deliveryAddressCreation.getCountry(),
+                deliveryAddressCreation.getCity(),
+                deliveryAddressCreation.getStreet()
+        ).orElseGet(() -> deliveryAddressService.addDeliveryAddress(buildDeliveryAddress(deliveryAddressCreation)));
     }
 
     private RestaurantDeliveryAddress buildRestaurantDeliveryAddress(

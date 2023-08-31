@@ -87,7 +87,7 @@ public class AppOrderServiceImpl implements AppOrderService {
     private AppOrder buildNewAppOrder(final List<OrderDetailsCreation> orderList) {
         Restaurant restaurant = restaurantService.findById(findRestaurantIdWhichServiceFood(orderList).getRestaurantId());
         final String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        final FoodAppUser foodAppUser = foodAppUserService.findByEmail(email);;
+        final FoodAppUser foodAppUser = foodAppUserService.findByEmail(email);
 
         return AppOrder.builder()
                 .number(generateNewOrderNumber())
@@ -114,7 +114,7 @@ public class AppOrderServiceImpl implements AppOrderService {
                         foodAppUser.getAddress().getCountry(),
                         foodAppUser.getAddress().getCity(),
                         foodAppUser.getAddress().getStreet())
-                .orElseThrow(() -> new RuntimeException("Delivery Address has not been found"));
+                .orElseThrow(() -> new RuntimeException("Restaurant does not deliver food to your address"));
         final RestaurantDeliveryAddress restaurantDeliveryAddress =
                 restaurantDeliveryAddressService.findByAddressAndRestaurant(deliveryAddress, restaurant);
         return OffsetDateTime.now().plusMinutes(restaurantDeliveryAddress.getDeliveryTime());

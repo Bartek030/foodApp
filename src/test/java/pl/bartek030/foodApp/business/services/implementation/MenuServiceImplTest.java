@@ -49,7 +49,7 @@ class MenuServiceImplTest {
     }
 
     @Test
-    void givenFoodIdShouldThrownException() {
+    void givenMenuIdShouldThrownException() {
         // given
         Long menuId = 1L;
         final String expectedExceptionMessage = "Menu with id: [%s] not found".formatted(menuId);

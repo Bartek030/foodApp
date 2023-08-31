@@ -62,7 +62,8 @@ public class AppOrderRepository implements AppOrderDAO {
 
     @Override
     public AppOrder update(final Long appOrderId, final OrderStatus orderStatus) {
-        final AppOrderEntity appOrderEntity = appOrderJpaRepository.findById(appOrderId).orElseThrow();
+        final AppOrderEntity appOrderEntity = appOrderJpaRepository.findById(appOrderId)
+                .orElseThrow(() -> new RuntimeException("App order with id: [%s] not found".formatted(appOrderId)));
         appOrderEntity.setStatus(orderStatus);
         return appOrderDaoMapper.mapAppOrderFromEntity(appOrderJpaRepository.save(appOrderEntity));
     }

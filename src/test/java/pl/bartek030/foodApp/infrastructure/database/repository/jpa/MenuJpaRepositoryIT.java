@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import pl.bartek030.foodApp.configuration.PersistenceContainerTestConfiguration;
 import pl.bartek030.foodApp.infrastructure.database.entity.AddressEntity;
@@ -26,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(PersistenceContainerTestConfiguration.class)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 class MenuJpaRepositoryIT {
 
     private MenuJpaRepository menuJpaRepository;
@@ -36,7 +38,6 @@ class MenuJpaRepositoryIT {
     @Test
     void shouldReturnMenuListFromRestaurant() {
         // given
-
         final AddressEntity addressEntity = addressJpaRepository.saveAndFlush(AddressEntityExample.someAddressEntity1());
 
         final FoodAppUserEntity foodAppUserEntity =
@@ -60,6 +61,6 @@ class MenuJpaRepositoryIT {
         final List<MenuEntity> result = menuJpaRepository.findAllByRestaurant(restaurantEntity);
 
         // then
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
     }
 }

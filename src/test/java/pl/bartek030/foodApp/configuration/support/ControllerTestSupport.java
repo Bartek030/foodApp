@@ -4,5 +4,5 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public interface ControllerTestSupport {
 
-    ObjectMapper objectMapper();
+    ObjectMapper getObjectMapper();
 }

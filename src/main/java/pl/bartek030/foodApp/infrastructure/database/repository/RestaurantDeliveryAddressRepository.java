@@ -36,7 +36,10 @@ public class RestaurantDeliveryAddressRepository implements RestaurantDeliveryAd
     }
 
     @Override
-    public Optional<RestaurantDeliveryAddress> findByAddressAndRestaurant(final DeliveryAddress address, final Restaurant restaurant) {
+    public Optional<RestaurantDeliveryAddress> findByAddressAndRestaurant(
+            final DeliveryAddress address,
+            final Restaurant restaurant
+    ) {
         final Optional<RestaurantDeliveryAddressEntity> deliveryAddress =
                 restaurantDeliveryAddressJpaRepository.findByDeliveryAddressAndRestaurant(
                         deliveryAddressDaoMapper.mapDeliveryAddressToEntity(address),
