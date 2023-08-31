@@ -31,7 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Other
-src/main/resources/application.yml
-src/main/resources/drop_all_tables.sql
