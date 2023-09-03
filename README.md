@@ -30,7 +30,7 @@ is performed through dedicated service.
 
 Application and database structure has been drawn using Draw.io tool. Files can be found under
 following links:
-https://github.com/Bartek030/foodApp/blob/master/src/main/resources/app_structure.drawio
+https://github.com/Bartek030/foodApp/blob/master/src/main/resources/app_structure.drawio  
 https://github.com/Bartek030/foodApp/blob/master/src/main/resources/db_schema.drawio
 
 
@@ -80,7 +80,7 @@ but you will need to prepare Postgre database on your computer. Additional confi
 might be required.
 
 ## Project Status
-Project is _in progress_.
+Project is _in progress_.  
 Next steps:
 - JWT implementation
 - User profile info implementation
