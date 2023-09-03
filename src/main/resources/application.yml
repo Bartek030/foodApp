@@ -2,6 +2,7 @@ server:
   servlet:
     context-path: /food-app
   port: 8080
+  address: 0.0.0.0
 
 spring:
   datasource:
@@ -34,9 +35,9 @@ spring:
     cache: false
     mode: HTML
     encoding: UTF-8
-    prefix: file:src/main/resources/templates/
+    prefix: classpath:/templates/
     resources: # Static resources
-      static-locations: file:src/main/resources/static/
+      static-locations: classpath:/static/
       cache:
         period: 0
 
