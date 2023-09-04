@@ -80,7 +80,7 @@ but you will need to prepare Postgre database on your computer. Additional confi
 might be required.
 
 ## Project Status
-Project is _in progress_.  
+Project status: _in progress_.  
 Next steps:
 - JWT implementation
 - User profile info implementation
