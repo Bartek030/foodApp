@@ -1,9 +1,6 @@
 package pl.bartek030.foodApp.business.serviceModel;
 
 import lombok.*;
-import pl.bartek030.foodApp.infrastructure.database.entity.FoodAppUserEntity;
-import pl.bartek030.foodApp.infrastructure.database.entity.OrderDetailsEntity;
-import pl.bartek030.foodApp.infrastructure.database.entity.RestaurantEntity;
 import pl.bartek030.foodApp.infrastructure.database.enums.OrderStatus;
 
 import java.math.BigDecimal;

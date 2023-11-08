@@ -1,184 +1,184 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta
             name="keywords"
             content="zamów, jedzenie, posiłek, obiad, dowóz, sprzedaj, wystaw"
-        />
-        <meta
+    />
+    <meta
             name="description"
             content="Applikacja do sprzedawania i zamawiania posiłków"
-        />
+    />
 
-        <title>Food App</title>
+    <title>Food App</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap"
             rel="stylesheet"
-        />
+    />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
             href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap"
             rel="stylesheet"
-        />
+    />
 
-        <link
+    <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
             crossorigin="anonymous"
-        />
+    />
 
-        <!-- Stylesheets -->
-        <link th:href="@{/styles/css/style.css}" rel="stylesheet" />
-    </head>
+    <!-- Stylesheets -->
+    <link th:href="@{/styles/css/style.css}" rel="stylesheet"/>
+</head>
 
-    <body>
-        <main>
-            <div class="mainBox">
-                <div class="mainTitle text-center">Rejestracja</div>
-                <div class="my-4 d-flex justify-content-center mx-auto">
-                    <form th:action="@{/user/registration}" method="POST">
-                        <div class="form-group mb-4">
-                            <label for="userName">Imie</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="userName"
-                                    name="name"
-                                    placeholder="Podaj imie"
-                            />
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="userSurname">Nazwisko</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="userSurname"
-                                    name="surname"
-                                    placeholder="Podaj nazwisko"
-                            />
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="userEmail">Email</label>
-                            <input
-                                    type="email"
-                                    class="form-control"
-                                    id="userEmail"
-                                    name="email"
-                                    placeholder="Podaj email"
-                            />
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="userPassword">Hasło</label>
-                            <input
-                                    type="password"
-                                    class="form-control"
-                                    id="userPassword"
-                                    name="password"
-                                    placeholder="Podaj hasło"
-                            />
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="userPhone">Telefon</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="userPhone"
-                                    name="phone"
-                                    placeholder="Podaj telefon"
-                            />
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="userCountry">Kraj</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="userCountry"
-                                    name="country"
-                                    placeholder="Podaj kraj"
-                            />
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="userCity">Miasto</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="userCity"
-                                    name="city"
-                                    placeholder="Podaj miasto"
-                            />
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="userStreet">Ulica</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="userStreet"
-                                    name="street"
-                                    placeholder="Podaj ulice"
-                            />
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="userNumber">Numer ulicy</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="userNumber"
-                                    name="number"
-                                    placeholder="Podaj ulice"
-                            />
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="userZipCode">Kod pocztowy</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="userZipCode"
-                                    name="zipCode"
-                                    placeholder="Podaj kod pocztowy"
-                            />
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="userZipCode">Prowadzisz restauracje?</label>
-                            <input
-                                    type="checkbox"
-                                    id="isOwner"
-                                    name="isOwner"
-                            />
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button id="registrationButton" type="submit" class="btn btn-primary">
-                                Zarejestruj
-                            </button>
-                        </div>
-                    </form>
+<body>
+<main>
+    <div class="mainBox">
+        <div class="mainTitle text-center">Rejestracja</div>
+        <div class="my-4 d-flex justify-content-center mx-auto">
+            <form th:action="@{/user/registration}" method="POST">
+                <div class="form-group mb-4">
+                    <label for="userName">Imie</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="userName"
+                            name="name"
+                            placeholder="Podaj imie"
+                    />
                 </div>
-            </div>
-
-            <footer>
-                <div>
-                    2023
-                    &copy;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Autor:&ensp;Bartłomiej
-                    Święs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kontakt:&ensp;bartlomiejswies@gmail.com
+                <div class="form-group mb-4">
+                    <label for="userSurname">Nazwisko</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="userSurname"
+                            name="surname"
+                            placeholder="Podaj nazwisko"
+                    />
                 </div>
-            </footer>
-        </main>
+                <div class="form-group mb-4">
+                    <label for="userEmail">Email</label>
+                    <input
+                            type="email"
+                            class="form-control"
+                            id="userEmail"
+                            name="email"
+                            placeholder="Podaj email"
+                    />
+                </div>
+                <div class="form-group mb-4">
+                    <label for="userPassword">Hasło</label>
+                    <input
+                            type="password"
+                            class="form-control"
+                            id="userPassword"
+                            name="password"
+                            placeholder="Podaj hasło"
+                    />
+                </div>
+                <div class="form-group mb-4">
+                    <label for="userPhone">Telefon</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="userPhone"
+                            name="phone"
+                            placeholder="Podaj telefon"
+                    />
+                </div>
+                <div class="form-group mb-4">
+                    <label for="userCountry">Kraj</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="userCountry"
+                            name="country"
+                            placeholder="Podaj kraj"
+                    />
+                </div>
+                <div class="form-group mb-4">
+                    <label for="userCity">Miasto</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="userCity"
+                            name="city"
+                            placeholder="Podaj miasto"
+                    />
+                </div>
+                <div class="form-group mb-4">
+                    <label for="userStreet">Ulica</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="userStreet"
+                            name="street"
+                            placeholder="Podaj ulice"
+                    />
+                </div>
+                <div class="form-group mb-4">
+                    <label for="userNumber">Numer ulicy</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="userNumber"
+                            name="number"
+                            placeholder="Podaj ulice"
+                    />
+                </div>
+                <div class="form-group mb-4">
+                    <label for="userZipCode">Kod pocztowy</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="userZipCode"
+                            name="zipCode"
+                            placeholder="Podaj kod pocztowy"
+                    />
+                </div>
+                <div class="form-group mb-4">
+                    <label for="userZipCode">Prowadzisz restauracje?</label>
+                    <input
+                            type="checkbox"
+                            id="isOwner"
+                            name="isOwner"
+                    />
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button id="registrationButton" type="submit" class="btn btn-primary">
+                        Zarejestruj
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-        <!-- JS Scripts JQuery and for styles -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-            crossorigin="anonymous"
-        ></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    </body>
+    <footer>
+        <div>
+            2023
+            &copy;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Autor:&ensp;Bartłomiej
+            Święs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kontakt:&ensp;bartlomiejswies@gmail.com
+        </div>
+    </footer>
+</main>
+
+<!-- JS Scripts JQuery and for styles -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"
+></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</body>
 </html>

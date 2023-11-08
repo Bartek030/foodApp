@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.bartek030.foodApp.business.serviceModel.FoodAppUser;
 import pl.bartek030.foodApp.business.serviceModel.OrderDetails;
 import pl.bartek030.foodApp.business.serviceModel.Restaurant;
 import pl.bartek030.foodApp.infrastructure.database.enums.OrderStatus;

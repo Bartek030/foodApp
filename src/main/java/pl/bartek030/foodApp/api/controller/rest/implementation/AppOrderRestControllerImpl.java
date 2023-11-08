@@ -63,6 +63,6 @@ public class AppOrderRestControllerImpl implements AppOrderRestController {
                 appOrders.stream()
                         .map(appOrderDtoMapper::map)
                         .toList()
-                );
+        );
     }
 }

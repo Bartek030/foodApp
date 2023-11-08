@@ -55,8 +55,8 @@ public class RestaurantRestControllerImpl implements RestaurantRestController {
                 restaurantDeliveryAddressService.getRestaurantsByCountryAndCityAndStreet(country, city, street, page);
         return ResponseEntity.ok(
                 restaurants.stream()
-                .map(restaurantDtoMapper::map)
-                .toList()
+                        .map(restaurantDtoMapper::map)
+                        .toList()
         );
     }
 }

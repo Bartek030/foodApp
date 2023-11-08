@@ -1,7 +1,6 @@
 package pl.bartek030.foodApp.util;
 
 import lombok.experimental.UtilityClass;
-import pl.bartek030.foodApp.business.serviceModel.OrderDetails;
 import pl.bartek030.foodApp.infrastructure.database.entity.OrderDetailsEntity;
 
 @UtilityClass

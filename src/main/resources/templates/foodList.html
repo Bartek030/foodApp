@@ -50,10 +50,18 @@
 
     <div class="sidebar-links">
         <ul>
-            <a th:href="@{/restaurants/main}"><li>Znajdź restauracje</li></a>
-            <a th:href="@{/restaurants/owner}"><li>Moje restauracje</li></a>
-            <a th:href="@{/app-order/user}"><li>Moje zamówienia</li></a>
-            <a th:href="@{/weather}"><li>Pogoda</li></a>
+            <a th:href="@{/restaurants/main}">
+                <li>Znajdź restauracje</li>
+            </a>
+            <a th:href="@{/restaurants/owner}">
+                <li>Moje restauracje</li>
+            </a>
+            <a th:href="@{/app-order/user}">
+                <li>Moje zamówienia</li>
+            </a>
+            <a th:href="@{/weather}">
+                <li>Pogoda</li>
+            </a>
         </ul>
     </div>
 </nav>
@@ -77,7 +85,9 @@
             <div class="card-body text-center">
                 <h5 class="card-title" th:text="${food.name + ' - ' + food.price + 'zł/szt'}"></h5>
                 <p class="card-text" th:text="${food.description}"></p>
-                <button type="button" class="btn btn-primary orderButton" th:value="${food.foodId}">Dodaj do zamówienia</button>
+                <button type="button" class="btn btn-primary orderButton" th:value="${food.foodId}">Dodaj do
+                    zamówienia
+                </button>
                 <input type="hidden" th:id="${'foodName' + food.foodId}" th:value="${food.name}"></input>
             </div>
         </div>

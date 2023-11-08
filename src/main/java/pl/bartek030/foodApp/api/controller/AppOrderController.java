@@ -1,12 +1,9 @@
 package pl.bartek030.foodApp.api.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import pl.bartek030.foodApp.api.dto.AppOrderDTO;
-import pl.bartek030.foodApp.api.dto.OrderDetailsCreationDTO;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping(AppOrderController.APP_ORDER_URL)
 public interface AppOrderController {

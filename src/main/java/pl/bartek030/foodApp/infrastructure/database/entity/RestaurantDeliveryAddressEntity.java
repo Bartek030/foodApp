@@ -3,8 +3,6 @@ package pl.bartek030.foodApp.infrastructure.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.OffsetDateTime;
-
 @With
 @Getter
 @Setter

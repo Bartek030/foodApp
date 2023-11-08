@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import pl.bartek030.foodApp.business.dao.RestaurantDAO;
 import pl.bartek030.foodApp.business.serviceModel.FoodAppUser;
 import pl.bartek030.foodApp.business.serviceModel.Restaurant;
-import pl.bartek030.foodApp.infrastructure.database.entity.FoodAppUserEntity;
 import pl.bartek030.foodApp.infrastructure.database.entity.RestaurantEntity;
 import pl.bartek030.foodApp.infrastructure.database.entity.mapper.FoodAppUserDaoMapper;
 import pl.bartek030.foodApp.infrastructure.database.entity.mapper.RestaurantDaoMapper;

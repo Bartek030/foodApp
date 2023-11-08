@@ -21,7 +21,10 @@ import pl.bartek030.foodApp.api.dto.mapper.FoodDtoMapper;
 import pl.bartek030.foodApp.business.serviceModel.Food;
 import pl.bartek030.foodApp.business.serviceModel.FoodCreation;
 import pl.bartek030.foodApp.business.services.FoodService;
-import pl.bartek030.foodApp.util.*;
+import pl.bartek030.foodApp.util.FoodCreationDTOExample;
+import pl.bartek030.foodApp.util.FoodCreationExample;
+import pl.bartek030.foodApp.util.FoodDTOExample;
+import pl.bartek030.foodApp.util.FoodExample;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -36,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = FoodRestControllerImpl.class)
 @AutoConfigureMockMvc(addFilters = false)
-@TestPropertySource(locations="classpath:application-test.yml")
+@TestPropertySource(locations = "classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 class FoodRestControllerImplIT {
 

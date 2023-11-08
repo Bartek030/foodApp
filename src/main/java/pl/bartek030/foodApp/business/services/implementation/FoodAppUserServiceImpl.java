@@ -2,8 +2,6 @@ package pl.bartek030.foodApp.business.services.implementation;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.bartek030.foodApp.business.dao.FoodAppUserDAO;
@@ -83,7 +81,7 @@ public class FoodAppUserServiceImpl implements FoodAppUserService {
     }
 
     private Set<Role> buildUserRoleList(final FoodAppUserCreation foodAppUserCreation) {
-        if(foodAppUserCreation.getIsOwner() == null) {
+        if (foodAppUserCreation.getIsOwner() == null) {
             foodAppUserCreation.setIsOwner(false);
         }
         Set<Role> roles = new HashSet<>();

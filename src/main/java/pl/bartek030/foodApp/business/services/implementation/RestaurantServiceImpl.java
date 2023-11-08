@@ -29,7 +29,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Transactional
     public Restaurant findById(final Long restaurantId) {
         return restaurantDAO.findById(restaurantId)
-                .orElseThrow(() -> new RuntimeException("Restaurant with id: [%s] not found". formatted(restaurantId)));
+                .orElseThrow(() -> new RuntimeException("Restaurant with id: [%s] not found".formatted(restaurantId)));
     }
 
     @Override
