@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.bartek030.foodApp.business.dao.OrderDetailsDAO;
 import pl.bartek030.foodApp.business.serviceModel.OrderDetails;
-import pl.bartek030.foodApp.infrastructure.database.entity.OrderDetailsEntity;
 import pl.bartek030.foodApp.infrastructure.database.entity.mapper.OrderDetailsDaoMapper;
 import pl.bartek030.foodApp.infrastructure.database.repository.jpa.OrderDetailsJpaRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 @AllArgsConstructor

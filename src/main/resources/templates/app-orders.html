@@ -50,10 +50,18 @@
 
     <div class="sidebar-links">
         <ul>
-            <a th:href="@{/restaurants/main}"><li>Znajdź restauracje</li></a>
-            <a th:href="@{/restaurants/owner}"><li>Moje restauracje</li></a>
-            <a th:href="@{/app-order/user}"><li>Moje zamówienia</li></a>
-            <a th:href="@{/weather}"><li>Pogoda</li></a>
+            <a th:href="@{/restaurants/main}">
+                <li>Znajdź restauracje</li>
+            </a>
+            <a th:href="@{/restaurants/owner}">
+                <li>Moje restauracje</li>
+            </a>
+            <a th:href="@{/app-order/user}">
+                <li>Moje zamówienia</li>
+            </a>
+            <a th:href="@{/weather}">
+                <li>Pogoda</li>
+            </a>
         </ul>
     </div>
 </nav>
@@ -83,8 +91,10 @@
                     <th scope="col" th:text="${appOrder.totalCost}"></th>
                     <th scope="col" th:text="${appOrder.restaurant.name}"></th>
                     <th scope="col">
-                        <button th:if="${appOrder.status.name() == 'ORDERED'}" type="button" class="btn btn-danger cancelButton"
-                                th:value="${appOrder.appOrderId}">Anuluj</button>
+                        <button th:if="${appOrder.status.name() == 'ORDERED'}" type="button"
+                                class="btn btn-danger cancelButton"
+                                th:value="${appOrder.appOrderId}">Anuluj
+                        </button>
                     </th>
                 </tr>
                 </tbody>

@@ -80,9 +80,4 @@ but you will need to prepare Postgre database on your computer. Additional confi
 might be required.
 
 ## Project Status
-Project status: _in progress_.  
-Next steps:
-- JWT implementation
-- User profile info implementation
-- Separate frontend application
-- Separate application for Weather forecast
+Project status: _completed_.

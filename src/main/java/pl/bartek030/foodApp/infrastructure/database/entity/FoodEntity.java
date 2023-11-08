@@ -33,7 +33,7 @@ public class FoodEntity {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id",nullable = false)
+    @JoinColumn(name = "menu_id", nullable = false)
     private MenuEntity menu;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "food")

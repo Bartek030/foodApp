@@ -21,6 +21,6 @@ public interface DeliveryAddressRestController {
 
     @GetMapping(RESTAURANTS_URL)
     ResponseEntity<List<DeliveryAddressDTO>> getAddressesByRestaurant(
-        @PathVariable Long restaurantId
+            @PathVariable Long restaurantId
     );
 }

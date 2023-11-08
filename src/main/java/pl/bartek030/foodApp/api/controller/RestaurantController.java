@@ -1,12 +1,8 @@
 package pl.bartek030.foodApp.api.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.bartek030.foodApp.api.dto.RestaurantCreationDTO;
-import pl.bartek030.foodApp.api.dto.RestaurantDTO;
-
-import java.util.List;
 
 @RequestMapping(RestaurantController.RESTAURANT_URL)
 public interface RestaurantController {

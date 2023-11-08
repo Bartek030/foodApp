@@ -4,10 +4,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 import pl.bartek030.foodApp.api.dto.AddressDTO;
-import pl.bartek030.foodApp.api.dto.RestaurantCreationDTO;
 import pl.bartek030.foodApp.api.dto.RestaurantDTO;
 import pl.bartek030.foodApp.business.serviceModel.Restaurant;
-import pl.bartek030.foodApp.business.serviceModel.RestaurantCreation;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,

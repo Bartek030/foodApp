@@ -50,10 +50,18 @@
 
     <div class="sidebar-links">
         <ul>
-            <a th:href="@{/restaurants/main}"><li>Znajdź restauracje</li></a>
-            <a th:href="@{/restaurants/owner}"><li>Moje restauracje</li></a>
-            <a th:href="@{/app-order/user}"><li>Moje zamówienia</li></a>
-            <a th:href="@{/weather}"><li>Pogoda</li></a>
+            <a th:href="@{/restaurants/main}">
+                <li>Znajdź restauracje</li>
+            </a>
+            <a th:href="@{/restaurants/owner}">
+                <li>Moje restauracje</li>
+            </a>
+            <a th:href="@{/app-order/user}">
+                <li>Moje zamówienia</li>
+            </a>
+            <a th:href="@{/weather}">
+                <li>Pogoda</li>
+            </a>
         </ul>
     </div>
 </nav>
@@ -70,17 +78,17 @@
                         <span> - </span>
                         <span th:text="${restaurant.addressDTO.city}"></span>
                     </div>
-                        <form th:action="@{'/menu/owner/' + ${restaurant.restaurantId}}" method="GET">
-                            <button type="submit" class="btn btn-primary">Wyświetl Liste Menu</button>
-                        </form>
+                    <form th:action="@{'/menu/owner/' + ${restaurant.restaurantId}}" method="GET">
+                        <button type="submit" class="btn btn-primary">Wyświetl Liste Menu</button>
+                    </form>
 
-                        <form th:action="@{'/delivery-address/restaurants/' + ${restaurant.restaurantId}}" method="GET">
-                            <button type="submit" class="btn btn-warning">Wyświetl Adresy Dowozów</button>
-                        </form>
+                    <form th:action="@{'/delivery-address/restaurants/' + ${restaurant.restaurantId}}" method="GET">
+                        <button type="submit" class="btn btn-warning">Wyświetl Adresy Dowozów</button>
+                    </form>
 
-                        <form th:action="@{'/app-order/restaurant/' + ${restaurant.restaurantId}}" method="GET">
-                            <button type="submit" class="btn btn-info">Wyświetl zamówienia</button>
-                        </form>
+                    <form th:action="@{'/app-order/restaurant/' + ${restaurant.restaurantId}}" method="GET">
+                        <button type="submit" class="btn btn-info">Wyświetl zamówienia</button>
+                    </form>
 
                 </div>
             </li>

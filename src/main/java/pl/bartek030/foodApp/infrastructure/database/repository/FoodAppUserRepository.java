@@ -28,8 +28,8 @@ public class FoodAppUserRepository implements FoodAppUserDAO {
 
     @Override
     public Optional<FoodAppUser> findByEmail(final String email) {
-         return foodAppUserJpaRepository.findByEmail(email)
-                 .map(foodAppUserDaoMapper::mapFoodAppUserFromEntity);
+        return foodAppUserJpaRepository.findByEmail(email)
+                .map(foodAppUserDaoMapper::mapFoodAppUserFromEntity);
     }
 
     @Override

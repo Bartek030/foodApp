@@ -13,7 +13,6 @@ import pl.bartek030.foodApp.infrastructure.database.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -67,7 +66,7 @@ public class AppOrderServiceImpl implements AppOrderService {
         final OffsetDateTime now = offsetDateTimeWrapper.getCurrentTime();
         final OffsetDateTime orderedAt = appOrder.getOrderedAt();
         final OffsetDateTime timeToCancel = orderedAt.plusMinutes(20);
-        if(now.isAfter(timeToCancel)) {
+        if (now.isAfter(timeToCancel)) {
             throw new RuntimeException("You can cancel your order before 20 minutes from order time");
         }
         return appOrderDAO.update(appOrderId, OrderStatus.CANCELLED);
@@ -78,7 +77,7 @@ public class AppOrderServiceImpl implements AppOrderService {
     public AppOrder markAsDelivered(final Long appOrderId) {
         final AppOrder appOrder = appOrderDAO.findById(appOrderId)
                 .orElseThrow(() -> new RuntimeException("Order with id: [%s] not found".formatted(appOrderId)));
-        if(!OrderStatus.ORDERED.equals(appOrder.getStatus())) {
+        if (!OrderStatus.ORDERED.equals(appOrder.getStatus())) {
             throw new RuntimeException("Unable to change order status");
         }
         return appOrderDAO.update(appOrderId, OrderStatus.DELIVERED);

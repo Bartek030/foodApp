@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = MenuRestControllerImpl.class)
 @AutoConfigureMockMvc(addFilters = false)
-@TestPropertySource(locations="classpath:application-test.yml")
+@TestPropertySource(locations = "classpath:application-test.yml")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 class MenuRestControllerImplIT {
 

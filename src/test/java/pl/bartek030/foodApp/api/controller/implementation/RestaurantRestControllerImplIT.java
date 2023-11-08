@@ -112,10 +112,10 @@ class RestaurantRestControllerImplIT {
 
         when(restaurantDeliveryAddressService.getRestaurantsByCountryAndCityAndStreet(
                 anyString(), anyString(), anyString(), anyInt()
-                )).thenReturn(List.of(
-                        RestaurantExample.someRestaurant1(),
-                        RestaurantExample.someRestaurant2()
-                ));
+        )).thenReturn(List.of(
+                RestaurantExample.someRestaurant1(),
+                RestaurantExample.someRestaurant2()
+        ));
         when(restaurantDtoMapper.map(any(Restaurant.class)))
                 .thenReturn(RestaurantDTOExample.someRestaurantDTO1())
                 .thenReturn(RestaurantDTOExample.someRestaurantDTO2());

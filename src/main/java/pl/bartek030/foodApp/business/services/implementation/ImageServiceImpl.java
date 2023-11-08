@@ -11,8 +11,6 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.bartek030.foodApp.business.dao.ImageDAO;
 import pl.bartek030.foodApp.business.serviceModel.Image;
 import pl.bartek030.foodApp.business.services.ImageService;
-import pl.bartek030.foodApp.infrastructure.database.entity.ImageEntity;
-import pl.bartek030.foodApp.infrastructure.database.repository.jpa.ImageJpaRepository;
 
 import java.io.IOException;
 

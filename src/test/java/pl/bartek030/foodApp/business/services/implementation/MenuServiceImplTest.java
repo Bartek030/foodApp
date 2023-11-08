@@ -59,7 +59,7 @@ class MenuServiceImplTest {
         // when then
         final RuntimeException actualException = assertThrows(
                 RuntimeException.class,
-                () ->  menuService.findById(menuId)
+                () -> menuService.findById(menuId)
         );
         assertEquals(expectedExceptionMessage, actualException.getMessage());
     }
